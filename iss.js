@@ -16,7 +16,7 @@ app.use(function(req, res, next) {
 app.post('/api', jsonParser, (req, res) => {
   (async (input, auth) => {
     //   Открываем браузер
-    const browser = await puppeteer.launch({ headless: false});
+    const browser = await puppeteer.launch({ headless: true});
     //   Новая страница
     const page = await browser.newPage();
     await page.setViewport({
@@ -178,7 +178,7 @@ app.post('/api', jsonParser, (req, res) => {
         // Жмем кнопку Отмена
         await page.click(`a[id="${btnId}"]`);
         // Фиксируем сообщение об отмене
-        message.push({id: input[w].id, status: 'Нагрузка уже есть в журнале', color: "blue", log: prevLog});
+        message.push({id: input[w].id, status: 'Нагрузка уже в журнале', color: "blue", log: prevLog});
       } else {
         // Ищем кнопку Сохранить
         let btnId = await page.evaluate((text) => {

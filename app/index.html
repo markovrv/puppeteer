@@ -6,20 +6,60 @@
   <meta name="viewport" content="width=device-width">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="src/js/script.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-  <title>Выгрузка нагрузки в журнал</title>
+  <link href="src/css/style.css" rel="stylesheet" type="text/css">
+  <title>Расписание ВятГУ</title>
 </head>
 
 <body>
-  <div id="app" class="container-fluid">
+  <div id="app" class="container">
+    <nav class="navbar navbar-light bg-light" style="margin: 0px -12px 16px -12px">
+      <div class="container-fluid">
+        <a class="navbar-brand">Расписание ВятГУ</a>
+      </div>
+    </nav>
+    <div class="settingsButton" :class="(settings)?'popup':'close'">
+      <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" @click="settings = !settings">
+        <g data-name="Layer 2" id="Layer_2">
+          <path fill="#ffffff"
+            d="M18,29H14a1,1,0,0,1-1-1V26.56a1.38,1.38,0,0,0-2.35-1l-1,1a1,1,0,0,1-1.42,0L5.39,23.78a1,1,0,0,1,0-1.42l1-1a1.38,1.38,0,0,0-1-2.35H4a1,1,0,0,1-1-1V14a1,1,0,0,1,1-1H5.44a1.38,1.38,0,0,0,1-2.35l-1-1a1,1,0,0,1,0-1.42L8.22,5.39a1,1,0,0,1,1.42,0l1,1a1.38,1.38,0,0,0,2.35-1V4a1,1,0,0,1,1-1h4a1,1,0,0,1,1,1V5.44a1.38,1.38,0,0,0,2.35,1l1-1a1,1,0,0,1,1.42,0l2.83,2.83a1,1,0,0,1,0,1.42l-1,1a1.38,1.38,0,0,0,1,2.35H28a1,1,0,0,1,1,1v4a1,1,0,0,1-1,1H26.56a1.38,1.38,0,0,0-1,2.35l1,1a1,1,0,0,1,0,1.42l-2.83,2.83a1,1,0,0,1-1.42,0l-1-1a1.38,1.38,0,0,0-2.35,1V28A1,1,0,0,1,18,29Zm-3-2h2v-.44a3.37,3.37,0,0,1,5.76-2.38l.31.31,1.42-1.42-.31-.31A3.37,3.37,0,0,1,26.56,17H27V15h-.44a3.37,3.37,0,0,1-2.38-5.76l.31-.31L23.07,7.51l-.31.31A3.37,3.37,0,0,1,17,5.44V5H15v.44A3.37,3.37,0,0,1,9.24,7.82l-.31-.31L7.51,8.93l.31.31A3.37,3.37,0,0,1,5.44,15H5v2h.44a3.37,3.37,0,0,1,2.38,5.76l-.31.31,1.42,1.42.31-.31A3.37,3.37,0,0,1,15,26.56Z">
+          </path>
+          <path fill="#ffffff" d="M16,21a5,5,0,1,1,5-5A5,5,0,0,1,16,21Zm0-8a3,3,0,1,0,3,3A3,3,0,0,0,16,13Z"></path>
+        </g>
+      </svg>
+      <center v-if="settings">
+        <h2 style="color: white; margin-top: -20px; margin-bottom: 0;">Настройки</h2>
+        <p style="color: white; line-height: 1.2; padding: 0 20px;">Пожалуйста, введите логин и пароль от Вашего личного
+          кабинета ВятГУ.</p>
+        <div class="form-group" style="padding: 0 16px 0 16px;">
+          <input class="form-control" style="margin-bottom: 16px;" type="text" name="username" id="username" placeholder="Логин"
+            v-model="login">
+          <input class="form-control" style="margin-bottom: 16px;" type="password" name="password" id="password" placeholder="Пароль"
+            v-model="password">
+          <button class="btn btn-light" style="margin-bottom: 16px;" @click="saveSettings">Сохранить</button>
+        </div>
+        <p style="color: white; line-height: 1.2; padding: 0; font-size: 75%;">Данные хранятся только на Вашем
+          устройстве.</p>
+      </center>
+
+    </div>
+    <center v-if="loading">
+      <br><br>
+      <img src="src/img/loading-snake-io.gif" style="width:32px">
+      <h3>Загрузка расписания...</h3>
+      <a href="https://new.vyatsu.ru/account/obr/rasp/">new.vyatsu.ru</a>
+      <span style="font-size: 80%; color: rgb(90, 90, 90);"> | </span>
+      <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a>
+    </center>
     <div v-for="(day, idd) in days" :key="idd">
-      <b style="font-size: 120%;">{{day.day}}</b> <a href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
+      <b style="font-size: 120%;">{{day.day}}</b> <a class="btn btn-light btn-sm" :name="idd" href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
       <div v-for="(lesson, idl) in day.lessons" :key="idl" style="padding-left: 6px; padding-bottom: 12px;">
         <div><b>{{lesson.time}}</b> {{lesson.predm}}</div>
         <div style="padding-left: 6px;">
           <span style="font-size: 80%;"><span v-html="lesson.kab"></span> {{lesson.type}} {{lesson.groups.join(", ")}}</span>
         </div>
-        <div><a v-if="lesson.status == ''" href="javascript://" @click="sendOneWork(idd, idl)">Занятие в журнал</a> <i :style="'color: ' + lesson.color">{{lesson.status}}</i></div>
+        <div><a class="btn btn-light btn-sm" href="javascript://" @click="sendOneWork(idd, idl)">Занятие в журнал</a> <i :style="'color: ' + lesson.color">{{lesson.status}}</i></div>
       </div>
       <hr>
     </div>
@@ -30,17 +70,42 @@
       el: '#app',
       data: {
         days: [],
-        login: "usr11935",
-        password: "Vyatsu20222",
+        login: "",
+        password: "",
+        settings: false,
+        loading: false
       },
       methods: {
+        saveSettings() {
+          localStorage.login = this.login
+          localStorage.password = this.password
+          this.settings = false
+          this.loadData()
+        },
         async loadData() {
+          this.days = []
+          if (!localStorage.login || !localStorage.password) {
+            this.settings = true
+            return 0
+          }
+          this.login = localStorage.login
+          this.password = localStorage.password
+          this.loading = true
+
           axios.post('https://e.markovrv.ru/api/v2/', {
             login: this.login,
             password: this.password
           })
             .then(response => {
+              this.loading = false
               this.days = response.data
+
+              this.days.forEach((day, id) => {
+                if (day.day.indexOf(today()) >= 0)
+                  setTimeout(() => { 
+                    window.location.href = "#"+id; 
+                  }, 500);
+              })
             })
         },
         sendOneWork(idd, idl) {
