@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <title>Выгрузка нагрузки в журнал</title>
+</head>
+
+<body>
+  <div id="app" class="container-fluid">
+    <div v-for="(day, idd) in days" :key="idd">
+      <b style="font-size: 120%;">{{day.day}}</b> <a href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
+      <div v-for="(lesson, idl) in day.lessons" :key="idl" style="padding-left: 6px; padding-bottom: 12px;">
+        <div><b>{{lesson.time}}</b> {{lesson.predm}}</div>
+        <div style="padding-left: 6px;">
+          <span style="font-size: 80%;"><span v-html="lesson.kab"></span> {{lesson.type}} {{lesson.groups.join(", ")}}</span>
+        </div>
+        <div><a v-if="lesson.status == ''" href="javascript://" @click="sendOneWork(idd, idl)">Занятие в журнал</a> <i :style="'color: ' + lesson.color">{{lesson.status}}</i></div>
+      </div>
+      <hr>
+    </div>
+  </div>
+
+  <script>
+    var app = new Vue({
+      el: '#app',
+      data: {
+        days: [],
+        login: "usr11935",
+        password: "Vyatsu20222",
+      },
+      methods: {
+        async loadData() {
+          axios.post('https://e.markovrv.ru/api/v2/', {
+            login: this.login,
+            password: this.password
+          })
+            .then(response => {
+              this.days = response.data
+            })
+        },
+        sendOneWork(idd, idl) {
+          this.sendCommand([this.createData(idd, idl)])
+        },
+        sendDayWork(idd) {
+          var data = []
+          var lessonsCount = this.days[idd].lessons.length
+          for(let idl = 0; idl < lessonsCount; idl++) {
+            data.push(this.createData(idd, idl))
+          }
+          this.sendCommand(data)
+        },
+        createData(idd, idl) {
+          var day = this.days[idd].day
+          var lesson = this.days[idd].lessons[idl]
+          const times = ["8:20-9:50", "10:00-11:30", "11:45-13:15", "14:00-15:30", "15:45-17:15", "17:20-18:50", "18:55-20:25"]
+          lesson.status = "Отправка...";
+          return {
+            name: lesson.predm,
+            date: (day.split(' ')[1]).replace('.22', '.2022'),
+            time: times.indexOf(lesson.time)+1,
+            groups: lesson.groups.sort().join(", ").replace(',подгруппа1', ', 1 подгруппа').replace(',подгруппа2', ', 2 подгруппа'),
+            cat: (lesson.type == "Лекция")?0:((lesson.type == "Практическое занятие")?1:2),
+            kab: lesson.kab.replace('<a href="', '').replace('" target="_blank">Занятие удаленно в Teams</a>', ''),
+            count: 2,
+            id: [idd, idl]
+          }
+        },
+        async sendCommand(data) {
+          var content = {
+            data,
+            auth: {
+              login: this.login,
+              password: this.password
+            }
+          }
+          console.log(content)
+          axios.post('api', content) // parce.php
+            .then(response => {
+              console.log(response.data)
+              log  =  response.data[0].log
+              response.data.forEach(item => {
+                this.days[item.id[0]].lessons[item.id[1]].status = item.status
+                this.days[item.id[0]].lessons[item.id[1]].color = item.color
+              });
+            })
+        },
+      },
+      mounted() {
+        this.loadData()
+      }
+    })
+
+  </script>
+</body>
+
+</html>
