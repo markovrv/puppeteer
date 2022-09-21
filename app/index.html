@@ -13,9 +13,9 @@
 </head>
 
 <body>
-  <div id="app" class="container">
-    <nav class="navbar navbar-light bg-light" style="margin: 0px -12px 16px -12px">
-      <div class="container-fluid">
+  <div id="app" class="container" style="padding-top: 65px;">
+    <nav class="navbar navbar-light bg-light">
+      <div class="container">
         <a class="navbar-brand">Расписание ВятГУ</a>
       </div>
     </nav>
@@ -42,7 +42,6 @@
         <p style="color: white; line-height: 1.2; padding: 0; font-size: 75%;">Данные хранятся только на Вашем
           устройстве.</p>
       </center>
-
     </div>
     <center v-if="loading">
       <br><br>
@@ -52,14 +51,93 @@
       <span style="font-size: 80%; color: rgb(90, 90, 90);"> | </span>
       <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a>
     </center>
+    <div class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" v-if="winKab.rasp.length > 0 && winKab.kabs.length > 0 && winKab.dates.length > 0">
+              Занятость аудиторий {{winKab.kabs[winKab.current.kab].split('-')[0]}} корпуса
+            </h5>
+          </div>
+          <div class="modal-body row">
+            <div class="btn-group col-6">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                {{winKab.kabs[winKab.current.kab]}}
+              </button>
+              <ul class="dropdown-menu" style="max-height: 300px; overflow-y: scroll;">
+                <li v-for="(kab, idk) in winKab.kabs" :key="idk">
+                  <a @click="winKab.current.kab = idk" class="dropdown-item" :class="(winKab.current.kab == idk)?'active':''" href="javascript://">{{kab}}</a>
+                </li>
+              </ul>
+            </div>
+            <div class="btn-group col-6">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                {{winKab.dates[winKab.current.cDay]}}
+              </button>
+              <ul class="dropdown-menu" style="max-height: 300px; overflow-y: scroll;">
+                <li v-for="(date, idd) in winKab.dates" :key="idd">
+                  <a @click="winKab.current.cDay = idd" class="dropdown-item" :class="(winKab.current.cDay == idd)?'active':''" href="javascript://">{{date}}</a>
+                </li>
+              </ul>
+            </div>
+            <div v-if="winKab.rasp.length > 0 && winKab.kabs.length > 0 && winKab.dates.length > 0" style="margin-top:12px" class="col-12">
+              <table class="table">
+                <tr v-for="(lsn, idl) in winKab.rasp[winKab.current.kab].data[winKab.current.cDay].lessons" :key="idl">
+                  <th scope="col"><small>{{idl+1}}</small></th>
+                  <td><small>{{(lsn)?lsn:'Свободно'}}</small></td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" @click="winKabHide" class="btn btn-primary">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Журнал нагрузки</h5>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <tr>
+                <th scope="col">Дата</th>
+                <th scope="col">Кол-во</th>
+                <th scope="col">Кабинет</th>
+              </tr>
+              <tr v-for="(item, id) in winLog.log" :key="id" class="small">
+                <th scope="row">{{item[0]}}</th>
+                <td>{{item[1]}} ч.</td>
+                <td>{{item[2]}}</td>
+              </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" @click="winLogHide" class="btn btn-primary">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-for="(day, idd) in days" :key="idd">
-      <b style="font-size: 120%;">{{day.day}}</b> <a class="btn btn-light btn-sm" :name="idd" href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
-      <div v-for="(lesson, idl) in day.lessons" :key="idl" style="padding-left: 6px; padding-bottom: 12px;">
+      <a :name="idd" style="width: 0px; height: 0px; overflow: hidden; display: block; position: relative; top: -70px;">.</a>
+      <b style="font-size: 120%;">{{day.day}}</b> 
+      <a class="btn btn-light btn-sm" style="display: block; float: right;" href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
+      <div v-for="(lesson, idl) in day.lessons" :key="idl" style="padding-left: 6px; padding-bottom: 12px; clear: both;">
         <div><b>{{lesson.time}}</b> {{lesson.predm}}</div>
         <div style="padding-left: 6px;">
-          <span style="font-size: 80%;"><span v-html="lesson.kab"></span> {{lesson.type}} {{lesson.groups.join(", ")}}</span>
+          <span style="font-size: 80%;"><span style="font-weight: bold;" v-html="lesson.kab"></span> {{lesson.type}} {{lesson.groups.join(", ")}}</span>
         </div>
-        <div><a class="btn btn-light btn-sm" href="javascript://" @click="sendOneWork(idd, idl)">Занятие в журнал</a> <i :style="'color: ' + lesson.color">{{lesson.status}}</i></div>
+        <div>
+          <a title="Загрузить занятость аудиторий" class="btn btn-light btn-sm" href="javascript://" @click="getKab(day.day, lesson.kab, lesson)"><img style="width: 24px;" src="src/img/home.svg"></a> 
+          <a title="Загрузить расписание группы студентов" class="btn btn-light btn-sm" href="javascript://" @click="getStRasp"><img style="width: 24px;" src="src/img/student.svg"></a> 
+          <a title="Отметить нагрузку в Журнале преподавателя" class="btn btn-light btn-sm" href="javascript://" @click="sendOneWork(idd, idl)"><img style="width: 24px;" src="src/img/journal.svg"></a> 
+          <i v-if="lesson.status" class="small" @click="winLogShow(lesson.log)" :style="'color: ' + lesson.color + '; padding-left: 6px; '+((lesson.log)?'text-decoration: underline; cursor: pointer;':'')">{{lesson.status}}</i>
+        </div>
       </div>
       <hr>
     </div>
@@ -73,7 +151,19 @@
         login: "",
         password: "",
         settings: false,
-        loading: false
+        loading: false,
+        winLog: {
+          log: []
+        },
+        winKab: {
+          kabs: [],
+          dates: [],
+          rasp: [],
+          current: {
+            kab: 0,
+            cDay: 0,
+          }
+        }
       },
       methods: {
         saveSettings() {
@@ -106,6 +196,9 @@
                     window.location.href = "#"+id; 
                   }, 500);
               })
+
+              window.winLogObj = new bootstrap.Modal(document.getElementsByClassName("modal")[0], { keyboard: false });
+              window.winKabObj = new bootstrap.Modal(document.getElementsByClassName("modal")[1], { keyboard: false });
             })
         },
         sendOneWork(idd, idl) {
@@ -119,11 +212,26 @@
           }
           this.sendCommand(data)
         },
+        winLogShow(log){
+          if(log){
+            this.winLog.log = log;
+            winLogObj.show();
+          }
+        },
+        winLogHide(){
+            this.winLog.log = [];
+            winLogObj.hide();
+        },
+        winKabHide(){
+            winKabObj.hide();
+        },
         createData(idd, idl) {
           var day = this.days[idd].day
           var lesson = this.days[idd].lessons[idl]
           const times = ["8:20-9:50", "10:00-11:30", "11:45-13:15", "14:00-15:30", "15:45-17:15", "17:20-18:50", "18:55-20:25"]
-          lesson.status = "Отправка...";
+          lesson.status = "Передача данных...";
+          lesson.color = "";
+          lesson.log = null;
           return {
             name: lesson.predm,
             date: (day.split(' ')[1]).replace('.22', '.2022'),
@@ -135,6 +243,9 @@
             id: [idd, idl]
           }
         },
+        getStRasp() {
+          alert('Просмотр расписания студентов пока недоступен')
+        },
         async sendCommand(data) {
           var content = {
             data,
@@ -144,14 +255,36 @@
             }
           }
           console.log(content)
-          axios.post('api', content) // parce.php
-            .then(response => {
+          axios({
+            method: 'post',
+            url: 'api',
+            timeout: 60000,
+            data: content
+          }).then(response => {
               console.log(response.data)
-              log  =  response.data[0].log
               response.data.forEach(item => {
                 this.days[item.id[0]].lessons[item.id[1]].status = item.status
                 this.days[item.id[0]].lessons[item.id[1]].color = item.color
+                this.days[item.id[0]].lessons[item.id[1]].log = (item.log)?item.log:null
               });
+            })
+        },
+        async getKab(day, kab, lesson) {
+          if (kab.length > 10) return null
+          var cDay = (day.split(' ')[1]).replace('.22', '2022').replace('.', '')
+          lesson.status = "Получение данных...";
+          lesson.log = null;
+          lesson.color = '';
+          axios.get(`https://e.markovrv.ru/api/v2/kabs.php?day=${cDay}&corp=${kab.split('-')[0]}`)
+            .then(response => {
+              console.log(response.data)
+              this.winKab.kabs  = response.data.kabs
+              this.winKab.dates = response.data.dates
+              this.winKab.rasp  = response.data.rasp
+              this.winKab.current.kab  = response.data.kabs.findIndex(el=>(el == kab))
+              this.winKab.current.cDay = response.data.dates.findIndex(el=>(el.split(" ")[1] == day.split(" ")[1]))
+              lesson.status = "";
+              winKabObj.show();
             })
         },
       },
@@ -161,6 +294,7 @@
     })
 
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
 
 </html>

@@ -15,24 +15,91 @@ app.use(function(req, res, next) {
 
 app.post('/api', jsonParser, (req, res) => {
   (async (input, auth) => {
+    // функция нажатия кнопки на странице
+    function pressButton(name) {
+      return new Promise((resolve, reject) => {
+        page.evaluate((text) => {
+          var elems = document.querySelectorAll("span");
+          var res = Array.from(elems).find(v => v.textContent == text);
+          return res.id.split('-')[0];
+        }, name).then(id => {
+          page.click(`a[id="${id}"]`).then(()=>resolve());
+        })
+      })
+    }
+    // функция проверки корректности карточки
+    function checkCard(work) {
+      return new Promise((resolve, reject)=>{
+        page.evaluate(data => {
+          var items = document.querySelectorAll('div[class="x-panel-body x-panel-white x-panel-body-default x-abs-layout-ct x-panel-body-default x-docked-noborder-top x-docked-noborder-right x-docked-noborder-bottom x-docked-noborder-left"] li')
+  
+          var cat = -1
+          if (items[0].textContent == "Занятия: Чтение лекций") { cat = 0; } 
+          else if (items[0].textContent == "Занятия: Проведение практических занятий, семинаров"){ cat = 1; } 
+          else if (items[0].textContent == "Занятия: Проведение лабораторных занятий (лабораторных практикумов)"){ cat = 2; }
+          var name = items[2].textContent.replace("Дисциплина: ", "")
+          var groups = items[3].textContent.replace("Группа: ", "").replace('В потоке ', '')
+          return data.name == name && data.groups == groups && data.cat == cat
+  
+        }, work).then(checked => {resolve(checked)})
+      });
+    }
+    // функция заполняет поле Время
+    function inputTime(time) {
+      return new Promise((resolve, reject) => {
+        page.click(`input[tabindex="139"]`).then(()=>{
+          page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[1].id).then(id=>{
+            page.click(`div[id="${id}"] li:nth-child(${time})`).then(()=>resolve());
+          })
+        });
+      })
+    }
+    // функция проверки логов
+    function checkLog(log, data) {
+      var prevLog = (log.rows)?log.rows:[];
+      var cancel = false;
+      prevLog.forEach(item => {
+        var date = item[0].split(' ')[0];
+        var time = times.indexOf(item[0].split(' ')[1]) + 1;
+        var count = Number(item[1]);
+        if (date == data.date && time == data.time) cancel = true;
+        if (date == data.date && time + 1 == data.time && count - 2 == data.count) cancel = true;
+        else if (date == data.date && time + 2 == data.time && count - 4 == data.count) cancel = true;
+        else if (date == data.date && time + 3 == data.time && count - 6 == data.count) cancel = true;
+      });
+      return cancel;
+    }
+    // функция заполняет поле c TabIndex
+    function inputTab(tab, text) {
+      return new Promise((resolve, reject) => {
+        page.evaluate(val => document.querySelector(`input[tabindex="${val.tab}"]`).value = val.text, {tab, text}).then(()=>{resolve()})
+      })
+    }
+
     //   Открываем браузер
-    const browser = await puppeteer.launch({ headless: true});
+    const browser = await puppeteer.launch({ headless: false});
+    // const browser = await puppeteer.launch({args: ['--no-sandbox']});
+
     //   Новая страница
     const page = await browser.newPage();
     await page.setViewport({
-      width: 1280,
-      height: 1024,
+      width: 1040,
+      height: 720,
       deviceScaleFactor: 1,
     });
 
     //   Загружаем сайт
     await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
+
+    // Сообщение для возврата клиенту
+    var message = [];
+    // Массив логов журнала
     var lastLog = [];
+    // прослушиваем запросы, отлавливаем лог
     page.on('response', async (response) => {   
       var url = response.url();
       if (url.indexOf("IsEvent=1")>0 && url.indexOf("options=1")>0) { 
           var text = await response.text();
-          // var json = JSON.parse(text); 
           eval('lastLog = ' + text);
       }
     }); 
@@ -48,9 +115,8 @@ app.post('/api', jsonParser, (req, res) => {
     await page.click('li[class="x-boundlist-item"]:last-child');
     //   Ждем загрузки журнала
     await page.waitForSelector('table[id="gridview-1015-table"]');
-    await new Promise(r => setTimeout(r, 1000));
-    //   Сообщение для возврата клиенту
-    var message = [];
+    await new Promise(r => setTimeout(r, 200));
+
     // Перебираем список работ в задании
     for (let w = 0; w < input.length; w++) {
       //   Парсим таблицу нагрузки
@@ -96,34 +162,33 @@ app.post('/api', jsonParser, (req, res) => {
         message.push({id: input[w].id, status: 'Нагрузка не найдена', color: "red"});
         continue;
       }
-
       if (itemIndex == -2) {
         message.push({id: input[w].id, status: 'Нагрузка заполнена', color: "red"});
         continue;
       }
-      // Клик по найденной работе
-      await page.click(`tr[id="gridview-1015-record-${itemIndex}"]`);
-      await new Promise(r => setTimeout(r, 1000));
+      // Клик по найденной работе (на всякий случай - два раза)
+      await page.click(`tr[id="gridview-1015-record-${itemIndex}"]`, {delay: 200});
+      await page.click(`tr[id="gridview-1015-record-${itemIndex}"]`, {delay: 200});
+      await new Promise(r => setTimeout(r, 200));
 
       //   Открываем форму добавления работы
-      // Ищем кнопку Добавить
-      let btnAddId = await page.evaluate((text) => {
-        var elems = document.querySelectorAll("span");
-        var res = Array.from(elems).find(v => v.textContent == text);
-        return res.id.split('-')[0];
-      }, "Добавить");
-      // Жмем кнопку
-      await page.click(`a[id="${btnAddId}"]`);
+      await pressButton("Добавить");
 
       //   Ждем загрузки формы
       await page.waitForSelector('input[tabindex="142"]');
-      //   Заполняем форму: дата, количество
-      await page.evaluate(val => document.querySelector('input[tabindex="142"]').value = val, input[w].date);
-      await page.evaluate(val => document.querySelector('input[tabindex="141"]').value = val, input[w].count);
-      // Заполняем поле Время
-      await page.click(`input[tabindex="139"]`);
-      let timeListId = await page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[1].id);
-      await page.click(`div[id="${timeListId}"] li:nth-child(${input[w].time})`);
+
+      // проверяем, что данные предмета в форме отобразились правильно
+      if(!await checkCard(input[w])) {
+        message.push({id: input[w].id, status: 'Внутренняя ошибка сервиса', color: "red"});
+        await pressButton("Отмена");
+        continue;
+      }
+
+      //   Заполняем форму
+      await inputTab('142', input[w].date)
+      await inputTab('141', input[w].count)
+      await inputTime(input[w].time);
+
       // Ищем поле Кабинет
       await page.click(`input[tabindex="143"]`)
       let KabListId = await page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[2].id);
@@ -152,48 +217,18 @@ app.post('/api', jsonParser, (req, res) => {
         // Выбираем нужный кабинет
         await page.click(`div[id="${KabListId}"] li:nth-child(${kabIndex + 1})`);
       }
-      // Проверка наличия работы в логах нагрузки (логи загружаются автоматическипри выборе работы в массив lastLog)
-      var prevLog = (lastLog.rows)?lastLog.rows:[];
-      var cancel = false;
-      prevLog.forEach(item => {
-        var date = item[0].split(' ')[0];
-        var time = times.indexOf(item[0].split(' ')[1]) + 1;
-        var count = Number(item[1]);
-        if (date == input[w].date && time == input[w].time) cancel = true;
-        if (date == input[w].date && time + 1 == input[w].time && count - 2 == input[w].count) cancel = true;
-        else if (date == input[w].date && time + 2 == input[w].time && count - 4 == input[w].count) cancel = true;
-        else if (date == input[w].date && time + 3 == input[w].time && count - 6 == input[w].count) cancel = true;
-      });
 
-      // Скриншотим для отчета
-      // await page.screenshot({path: `iss_${w}.png`});
-
-      if(cancel){
-        // Ищем кнопку Отмена
-        let btnId = await page.evaluate((text) => {
-          var elems = document.querySelectorAll("span");
-          var res = Array.from(elems).find(v => v.textContent == text);
-          return res.id.split('-')[0];
-        }, "Отменить");
-        // Жмем кнопку Отмена
-        await page.click(`a[id="${btnId}"]`);
-        // Фиксируем сообщение об отмене
-        message.push({id: input[w].id, status: 'Нагрузка уже в журнале', color: "blue", log: prevLog});
+      // Проверяем лог предмета
+      if(checkLog(lastLog, input[w])){
+        await pressButton("Отменить");
+        message.push({id: input[w].id, status: 'Нагрузка уже в журнале', color: "blue", log: lastLog.rows});
       } else {
-        // Ищем кнопку Сохранить
-        let btnId = await page.evaluate((text) => {
-          var elems = document.querySelectorAll("span");
-          var res = Array.from(elems).find(v => v.textContent == text);
-          return res.id.split('-')[0];
-        }, "Сохранить");
-        // Жмем кнопку Сохранить
-        await page.click(`a[id="${btnId}"]`);
+        await pressButton("Сохранить");
+        message.push({id: input[w].id, status: 'Нагрузка добавлена', color: "green"});
         await new Promise(r => setTimeout(r, 2000));
-        // Фиксируем сообщение об успешном сохранении
-        message.push({id: input[w].id, status: 'Нагрузка успешно добавлена', color: "green"});
       }
     }
-  
+
   // Закрываем браузер и возвращаем ответ
     res.send(message);
     await browser.close();
