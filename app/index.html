@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width">
   <script src="https://cdn.jsdelivr.net/npm/vue@2.7.8/dist/vue.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  <script src="src/js/script.js"></script>
+  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <link href="src/css/style.css" rel="stylesheet" type="text/css">
   <title>Расписание ВятГУ</title>
@@ -14,11 +14,13 @@
 
 <body>
   <div id="app" class="container" style="padding-top: 65px;">
+
     <nav class="navbar navbar-light bg-light">
       <div class="container">
         <a class="navbar-brand">Расписание ВятГУ</a>
       </div>
     </nav>
+
     <div class="settingsButton" :class="(settings)?'popup':'close'">
       <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" @click="settings = !settings">
         <g data-name="Layer 2" id="Layer_2">
@@ -43,14 +45,39 @@
           устройстве.</p>
       </center>
     </div>
+
     <center v-if="loading">
       <br><br>
       <img src="src/img/loading-snake-io.gif" style="width:32px">
       <h3>Загрузка расписания...</h3>
       <a href="https://new.vyatsu.ru/account/obr/rasp/">new.vyatsu.ru</a>
       <span style="font-size: 80%; color: rgb(90, 90, 90);"> | </span>
-      <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a>
+      <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a><br>
+      <img class="adsdesktop" src="http://qrcoder.ru/code/?https%3A%2F%2Fdisk.yandex.ru%2Fd%2FsN2Iaazo3XsBag&4&0" width="148" height="148" border="0" title="Приложение для Андроид">
+      <a href="https://disk.yandex.ru/d/sN2Iaazo3XsBag">Приложение для Андроид</a>
     </center>
+
+    <div class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              Расписание студентов
+            </h5>
+          </div>
+          <div class="modal-body">
+            <p v-html="winStud.rasp"></p>
+            <div>
+              <button v-for="(date, idd) in winStud.dates" :key="idd" type="button" class="btn btn-link" @click="getStRasp(winStud.group, date)">{{ date }}</button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" @click="winStudHide" class="btn btn-primary">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="modal fade">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -61,12 +88,12 @@
           </div>
           <div class="modal-body row">
             <div class="btn-group col-6">
-              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" @click="scrollKab(winKab.current.kab)">
                 {{winKab.kabs[winKab.current.kab]}}
               </button>
-              <ul class="dropdown-menu" style="max-height: 300px; overflow-y: scroll;">
+              <ul id="kablist" class="dropdown-menu" style="max-height: 300px; overflow-y: scroll;">
                 <li v-for="(kab, idk) in winKab.kabs" :key="idk">
-                  <a @click="winKab.current.kab = idk" class="dropdown-item" :class="(winKab.current.kab == idk)?'active':''" href="javascript://">{{kab}}</a>
+                  <a :id="`kab_${idk}`" @click="winKab.current.kab = idk" class="dropdown-item" :class="(winKab.current.kab == idk)?'active':''" href="javascript://">{{kab}}</a>
                 </li>
               </ul>
             </div>
@@ -123,10 +150,29 @@
       </div>
     </div>
 
+    <div class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Лог загрузки данных</h5>
+          </div>
+          <div id="my-event" class="modal-body" style="height: 300px; overflow-y: scroll;background: black;color: white;font-family: monospace;font-weight: bold;">
+              <div v-for="(item, id) in messages" :key="id" class="small">
+                > <span :style="'color: ' + item.color">{{item.message}}</span>
+              </div>
+              <span v-if="messages.length == 0 || messages[messages.length-1].message != 'Конец обработки'">> _ </span><br><br>
+          </div>
+          <div class="modal-footer">
+            <button type="button" @click="winLoaderHide" class="btn btn-primary">Закрыть</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div v-for="(day, idd) in days" :key="idd">
       <a :name="idd" style="width: 0px; height: 0px; overflow: hidden; display: block; position: relative; top: -70px;">.</a>
       <b style="font-size: 120%;">{{day.day}}</b> 
-      <a class="btn btn-light btn-sm" style="display: block; float: right;" href="javascript://" @click="sendDayWork(idd)">День в журнал</a>
+      <a class="btn btn-light btn-sm" :id="'daytoissid_'+idd" style="display: block; float: right;" href="javascript://" @click="sendDayWork(idd, 'daytoissid_'+idd)">День в журнал</a>
       <div v-for="(lesson, idl) in day.lessons" :key="idl" style="padding-left: 6px; padding-bottom: 12px; clear: both;">
         <div><b>{{lesson.time}}</b> {{lesson.predm}}</div>
         <div style="padding-left: 6px;">
@@ -134,8 +180,8 @@
         </div>
         <div>
           <a title="Загрузить занятость аудиторий" class="btn btn-light btn-sm" href="javascript://" @click="getKab(day.day, lesson.kab, lesson)"><img style="width: 24px;" src="src/img/home.svg"></a> 
-          <a title="Загрузить расписание группы студентов" class="btn btn-light btn-sm" href="javascript://" @click="getStRasp"><img style="width: 24px;" src="src/img/student.svg"></a> 
-          <a title="Отметить нагрузку в Журнале преподавателя" class="btn btn-light btn-sm" href="javascript://" @click="sendOneWork(idd, idl)"><img style="width: 24px;" src="src/img/journal.svg"></a> 
+          <a title="Загрузить расписание группы студентов" class="btn btn-light btn-sm" href="javascript://" @click="getStRasp(lesson.groups[0], dateFormat(day.day))"><img style="width: 24px;" src="src/img/student.svg"></a> 
+          <a title="Отметить нагрузку в Журнале преподавателя" :id="`lessontoissid_${idd}_${idl}`" class="btn btn-light btn-sm" href="javascript://" @click="sendOneWork(idd, idl, `lessontoissid_${idd}_${idl}`)"><img style="width: 24px;" src="src/img/journal.svg"></a> 
           <i v-if="lesson.status" class="small" @click="winLogShow(lesson.log)" :style="'color: ' + lesson.color + '; padding-left: 6px; '+((lesson.log)?'text-decoration: underline; cursor: pointer;':'')">{{lesson.status}}</i>
         </div>
       </div>
@@ -144,7 +190,24 @@
   </div>
 
   <script>
-    var app = new Vue({
+
+    function today() {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0');
+      var yy = today.getYear() - 100;
+
+      return dd + '.' + mm + '.' + yy;
+    }
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = false;
+
+    var pusher = new Pusher('499bb8d44438cabb3eab', {
+      cluster: 'eu'
+    });
+
+    const app = new Vue({
       el: '#app',
       data: {
         days: [],
@@ -152,6 +215,10 @@
         password: "",
         settings: false,
         loading: false,
+        winStud: {
+          rasp: "",
+          dates: []
+        },
         winLog: {
           log: []
         },
@@ -163,7 +230,8 @@
             kab: 0,
             cDay: 0,
           }
-        }
+        },
+        messages: []
       },
       methods: {
         saveSettings() {
@@ -182,6 +250,13 @@
           this.password = localStorage.password
           this.loading = true
 
+          var channel = pusher.subscribe(this.login);
+          channel.bind('my-event', function(data) {
+            app.messages.push(JSON.parse(JSON.stringify(data)));
+            var objDiv = document.getElementById("my-event");
+            objDiv.scrollTop = objDiv.scrollHeight + 100;
+          });
+
           axios.post('https://e.markovrv.ru/api/v2/', {
             login: this.login,
             password: this.password
@@ -194,23 +269,30 @@
                 if (day.day.indexOf(today()) >= 0)
                   setTimeout(() => { 
                     window.location.href = "#"+id; 
-                  }, 500);
+                  }, 300);
               })
 
-              window.winLogObj = new bootstrap.Modal(document.getElementsByClassName("modal")[0], { keyboard: false });
-              window.winKabObj = new bootstrap.Modal(document.getElementsByClassName("modal")[1], { keyboard: false });
+              window.winStudObj = new bootstrap.Modal(document.getElementsByClassName("modal")[3], { keyboard: false });
+              window.winKabObj =  new bootstrap.Modal(document.getElementsByClassName("modal")[2], { keyboard: false });
+              window.winLogObj =  new bootstrap.Modal(document.getElementsByClassName("modal")[1], { keyboard: false });
+              window.winLoader =  new bootstrap.Modal(document.getElementsByClassName("modal")[0], { keyboard: false });
             })
         },
-        sendOneWork(idd, idl) {
-          this.sendCommand([this.createData(idd, idl)])
+        sendOneWork(idd, idl, sender) {
+          this.sendCommand([this.createData(idd, idl)], sender)
         },
-        sendDayWork(idd) {
+        scrollKab(kid) {
+          setTimeout(()=>{
+            document.getElementById('kablist').scrollTop = document.getElementById(`kab_${kid}`).offsetTop;
+          }, 500);
+        },
+        sendDayWork(idd, sender) {
           var data = []
           var lessonsCount = this.days[idd].lessons.length
           for(let idl = 0; idl < lessonsCount; idl++) {
             data.push(this.createData(idd, idl))
           }
-          this.sendCommand(data)
+          this.sendCommand(data, sender)
         },
         winLogShow(log){
           if(log){
@@ -218,12 +300,24 @@
             winLogObj.show();
           }
         },
+        winLoaderShow(){
+            if(window.winLoaderTimer) clearTimeout(winLoaderTimer);
+            this.messages = []
+            winLoader.show();
+        },
         winLogHide(){
             this.winLog.log = [];
             winLogObj.hide();
         },
+        winLoaderHide(){
+            this.messages = [];
+            winLoader.hide();
+        },
         winKabHide(){
             winKabObj.hide();
+        },
+        winStudHide(){
+            winStudObj.hide();
         },
         createData(idd, idl) {
           var day = this.days[idd].day
@@ -243,10 +337,31 @@
             id: [idd, idl]
           }
         },
-        getStRasp() {
-          alert('Просмотр расписания студентов пока недоступен')
+        dateFormat(date) {
+          var datArr = date.split(" ")
+          return `${datArr[1].slice(0,-3)} ${datArr[0]}`
         },
-        async sendCommand(data) {
+        async getStRasp(group, date) {
+          console.log("Запрос расписания ", group);
+          this.winStud.rasp = '<center><img src="src/img/loading-snake-io.gif" style="width:32px"><h4>Загрузка расписания...</h4></center>';
+          this.winStud.dates = [];
+          winStudObj.show();
+          axios({
+            method: 'post',
+            url: 'api/stud',
+            timeout: 20000,
+            data: {
+              group,
+              date
+            }
+          }).then(response => {
+              console.log(response.data)
+              this.winStud.rasp = response.data.rasp
+              this.winStud.dates = response.data.dates
+              this.winStud.group = response.data.group
+          }).catch(console.log)
+        },
+        async sendCommand(data, sender) {
           var content = {
             data,
             auth: {
@@ -254,18 +369,28 @@
               password: this.password
             }
           }
-          console.log(content)
+          
+          // console.log(content)
+
+          this.winLoaderShow()
+          document.getElementById(sender).classList.add("disabled");
+
           axios({
             method: 'post',
-            url: 'api',
+            url: 'api/iss',
             timeout: 60000,
             data: content
           }).then(response => {
-              console.log(response.data)
+              // console.log(response.data)
               response.data.forEach(item => {
                 this.days[item.id[0]].lessons[item.id[1]].status = item.status
                 this.days[item.id[0]].lessons[item.id[1]].color = item.color
                 this.days[item.id[0]].lessons[item.id[1]].log = (item.log)?item.log:null
+                
+                document.getElementById(sender).classList.remove("disabled");
+                window.winLoaderTimer = setTimeout(()=>{
+                  this.winLoaderHide();
+                }, 10000)
               });
             })
         },
@@ -277,7 +402,7 @@
           lesson.color = '';
           axios.get(`https://e.markovrv.ru/api/v2/kabs.php?day=${cDay}&corp=${kab.split('-')[0]}`)
             .then(response => {
-              console.log(response.data)
+              // console.log(response.data)
               this.winKab.kabs  = response.data.kabs
               this.winKab.dates = response.data.dates
               this.winKab.rasp  = response.data.rasp
