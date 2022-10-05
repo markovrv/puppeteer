@@ -1,8 +1,18 @@
 const puppeteer = require('puppeteer');
 const express = require('express');
 const Pusher = require("pusher");
+const axios = require('axios');
 const { performance } = require('perf_hooks');
 
+const r_pass_base64 = "lKUuv4KJzhjuy12R1upaNVoi9QbRIUQ7pL8QhEIiwIfPI9U+l/N+qkt8eJr1KUk6ai0awWqUCJMMealbdwlMfH2+MBCmWVbnTmPZ/mCkJvK6gtZSzM4ZBKvJ5hVS1LCJ0MfQ7f/3Y24+BrFfLnjfh9LdWKUvoZC8mpl7XXFAVTo=";
+const node_cryptojs = require('node-cryptojs-aes');
+const CryptoJS = node_cryptojs.CryptoJS;
+const JsonFormatter = node_cryptojs.JsonFormatter;
+
+function decrypt(encrypted_json_str) {
+  var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
+  return CryptoJS.enc.Utf8.stringify(decrypted);
+}
 
 const app = express();
 const jsonParser = express.json();
@@ -17,7 +27,7 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-app.use(express.static('app'));
+app.use(express.static('vue/dist'));
 
 app.use(function(req, res, next) {
   res.setHeader('Content-Type','application/json; charset=utf-8');
@@ -45,13 +55,18 @@ app.post('/api/iss', jsonParser, (req, res) => {
       return new Promise((resolve, reject)=>{
         page.evaluate(data => {
           var items = document.querySelectorAll('div[class="x-panel-body x-panel-white x-panel-body-default x-abs-layout-ct x-panel-body-default x-docked-noborder-top x-docked-noborder-right x-docked-noborder-bottom x-docked-noborder-left"] li')
-  
           var cat = -1
-          if (items[0].textContent == "Занятия: Чтение лекций") { cat = 0; } 
-          else if (items[0].textContent == "Занятия: Проведение практических занятий, семинаров"){ cat = 1; } 
-          else if (items[0].textContent == "Занятия: Проведение лабораторных занятий (лабораторных практикумов)"){ cat = 2; }
+          
+          if      (items[0].textContent.trim() == "Занятия: Чтение лекций") { cat = 0; } 
+          else if (items[0].textContent.trim() == "Занятия: Проведение практических занятий, семинаров"){ cat = 1; } 
+          else if (items[0].textContent.trim() == "Занятия: Проведение лабораторных занятий (лабораторных практикумов)"){ cat = 2; }
+          else if (items[0].textContent.trim() == "Занятия: Проведение консультаций по дисциплине"){ cat = 9; }
+          else if (items[0].textContent.trim() == "Занятия: Прием экзаменов по дисциплине"){ cat = 10; }
+          else if (items[0].textContent.trim() == "Занятия: Прием зачетов по дисциплине"){ cat = 11; }
+
           var name = items[2].textContent.replace("Дисциплина: ", "")
           var groups = items[3].textContent.replace("Группа: ", "").replace('В потоке ', '')
+
           return data.name == name && data.groups == groups && data.cat == cat
   
         }, work).then(checked => {resolve(checked)})
@@ -326,7 +341,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
     //   Авторизуемся
     await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, auth.login);
-    await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, auth.password);
+    await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, decrypt(auth.passwordAES));
     await page.click('a[id="O64_id"]');
 
     if (debug) console.log("Загрузка меню")
@@ -503,6 +518,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       // если в форме отобразились неверные данные
       if(!await checkCard(input[w])){
         if (debug) console.log('   Данные некорректны, отменяем');
+        if (debug) console.log('   Данные', input[w]);
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
             message: "Данные некорректны, отменяем",
@@ -539,7 +555,8 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
       //   Заполняем форму
       await inputTab('142', input[w].date)
-      await inputTab('141', input[w].count)
+      if(input[w].cat <= 2) await inputTab('141', input[w].count)
+      else await pressButton("Закрыть")
       await inputTime(input[w].time)
       await inputKab(input[w].kab)
 
@@ -586,6 +603,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       // если ошибки в ответе нет
       } else {
         message.push({id: input[w].id, status: 'Нагрузка добавлена', color: "green"})
+        await new Promise(r => setTimeout(r, 500));
         if (debug) {
           console.log('Нагрузка добавлена');
           added++;
@@ -614,7 +632,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
   // Закрываем браузер и возвращаем ответ
     res.send(message)
-    browser.close()
+    if (!debug) browser.close()
 
     if (debug) {
       console.log('Браузер закрыт');
@@ -626,7 +644,6 @@ app.post('/api/iss', jsonParser, (req, res) => {
       console.log(`Из них добавлено ${added} записей`)
     }
 
-  
   })(req.body.data, req.body.auth)
 })
 
@@ -723,6 +740,27 @@ app.post('/api/stud', jsonParser, (req, res) => {
     browser.close()
    
   })({group: req.body.group, date: req.body.date});
+})
+
+app.post('/api/encrypt', jsonParser, (req, res) => {
+  var message = req.body.text;
+  var encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
+  var encrypted_json_str = encrypted.toString();
+  res.send(encrypted_json_str);
+})
+
+app.post('/api/rasp', jsonParser, (req, res) => {
+  var login = req.body.login;
+  var passwordAES = req.body.passwordAES;
+  var password = decrypt(passwordAES)
+
+  axios.post('https://e.markovrv.ru/api/v2/', {
+    login: login,
+    password: password,
+  })
+    .then(response => {
+      res.send(response.data)
+    })
 })
 
 app.listen(3333)
