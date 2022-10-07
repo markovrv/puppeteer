@@ -9,7 +9,8 @@
     "jsdom": "^20.0.0",
     "node-cryptojs-aes": "^0.4.0",
     "puppeteer": "^17.1.3",
-    "pusher": "^5.1.1-beta"
+    "pusher": "^5.1.1-beta",
+    "websocket": "^1.0.34"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

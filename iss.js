@@ -4,6 +4,12 @@ const Pusher = require("pusher");
 const axios = require('axios');
 const { performance } = require('perf_hooks');
 
+// !!!!!!! Перед выгрузкой на сервер заменить строку на public
+const app_env = 'local';
+// const app_env = 'public';
+const debug = process.argv[2] == 'debug';
+const pusherLog = true;
+
 const r_pass_base64 = "lKUuv4KJzhjuy12R1upaNVoi9QbRIUQ7pL8QhEIiwIfPI9U+l/N+qkt8eJr1KUk6ai0awWqUCJMMealbdwlMfH2+MBCmWVbnTmPZ/mCkJvK6gtZSzM4ZBKvJ5hVS1LCJ0MfQ7f/3Y24+BrFfLnjfh9LdWKUvoZC8mpl7XXFAVTo=";
 const node_cryptojs = require('node-cryptojs-aes');
 const CryptoJS = node_cryptojs.CryptoJS;
@@ -17,8 +23,6 @@ function decrypt(encrypted_json_str) {
 const app = express();
 const jsonParser = express.json();
 const times = ["8:20:00", "10:00:00", "11:45:00", "14:00:00", "15:45:00", "17:20:00", "18:55:00"];
-const debug = process.argv[2] == 'debug';
-const pusherLog = true;
 const pusher = new Pusher({
   appId: "1481587",
   key: "499bb8d44438cabb3eab",
@@ -27,7 +31,8 @@ const pusher = new Pusher({
   useTLS: true
 });
 
-app.use(express.static('vue/dist'));
+if(app_env == 'local') app.use(express.static('vue/dist'));
+else app.use(express.static('app'));
 
 app.use(function(req, res, next) {
   res.setHeader('Content-Type','application/json; charset=utf-8');
@@ -176,7 +181,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
             if(!(item[5].firstElementChild == undefined || item[5].firstElementChild.firstElementChild == undefined))
               percent = Number(item[5].firstElementChild.firstElementChild.getAttribute("style").split('%')[0].split(':')[1]);
             // Если соответствие найдено, возвращаем индекс нужной строки
-            if(data.name == name && data.groups == groups && data.cat == cat) {
+            if(data.name == name.trim() && data.groups == groups && data.cat == cat) {
               if(percent < 100) return i;
               // Если нашлось совпадение, но нагрузка по строке уже заполнена
               overloaded = true;
@@ -185,7 +190,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
           // В случае, если соответствий нет, выводим -1, нагрузка заполнена -2
           if(overloaded) return -2;
           return -1;
-        }, {name: work.name, groups: work.groups, cat: work.cat}).then(id=>resolve(id))
+        }, {name: work.name.trim(), groups: work.groups, cat: work.cat}).then(id=>resolve(id))
       })
     }
 
@@ -206,20 +211,20 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
     var browser
     //   Открываем браузер
-    if(process.argv[2] == 'server') {
+    if(app_env == 'public')  {
       browser = await puppeteer.launch({args: ['--no-sandbox']});
     } else {
       browser = await puppeteer.launch({ headless: !debug});
     }
 
     if (debug) console.log("Загрузка страницы")
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Загрузка приложения", 
-        color: "white",
-        time: new Date()
-      });
-    }
+    // if (pusherLog) {
+    //   pusher.trigger(auth.login, "my-event", {
+    //     message: "Загрузка приложения", 
+    //     color: "white",
+    //     time: new Date()
+    //   });
+    // }
 
     //   Новая страница
     const page = await browser.newPage();
@@ -264,13 +269,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
               });
             } else console.log("   незнакомый формат лога")
           }
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Получен лог...",
-              color: "white",
-              time: new Date()
-            });
-          }
+          // if (pusherLog) {
+          //   pusher.trigger(auth.login, "my-event", {
+          //     message: "Получен лог...",
+          //     color: "white",
+          //     time: new Date()
+          //   });
+          // }
           respListen=false;
         }
       }
@@ -278,26 +283,26 @@ app.post('/api/iss', jsonParser, (req, res) => {
         var postData=request.postData()
         if ( postData && postData.indexOf("IsEvent=1") > 0 && postData.indexOf("Evt=activate") > 0 ) {
           if (debug) console.log("Запрос разрешения на запись...")
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Запрос разрешения на запись...", 
-              color: "cornflowerblue",
-              time: new Date()
-            });
-          }
+          // if (pusherLog) {
+          //   pusher.trigger(auth.login, "my-event", {
+          //     message: "Запрос разрешения на запись...", 
+          //     color: "cornflowerblue",
+          //     time: new Date()
+          //   });
+          // }
           while (! request.response()) {
             await new Promise(r => setTimeout(r, 50));
           }
           var text = await request.response().text()
           if (debug) console.log("Получен статус:")
           if (debug) console.log(text)
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Разрешение получено.", 
-              color: "lawngreen",
-              time: new Date()
-            });
-          }
+          // if (pusherLog) {
+          //   pusher.trigger(auth.login, "my-event", {
+          //     message: "Разрешение получено.", 
+          //     color: "lawngreen",
+          //     time: new Date()
+          //   });
+          // }
           writeOnListen=false;
         }
       }
@@ -305,19 +310,19 @@ app.post('/api/iss', jsonParser, (req, res) => {
         var postData=request.postData()
         if ( postData && postData.indexOf("IsEvent=1") > 0 && postData.indexOf("Evt=click") > 0 ) {
           if (debug) console.log("Попытка сохранить данные...")
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Отправка данных ...",
-              color:  "white",
-              time: new Date()
-            });
-          }
+          // if (pusherLog) {
+          //   pusher.trigger(auth.login, "my-event", {
+          //     message: "Отправка данных ...",
+          //     color:  "white",
+          //     time: new Date()
+          //   });
+          // }
           while (! request.response()) {
             await new Promise(r => setTimeout(r, 50));
           }
           var text = await request.response().text()
           if (debug) console.log("Получен ответ: ", (text.indexOf("Error") > 0)?'Ошибка':'ОК')
-          if (pusherLog) {
+          if (pusherLog && text.indexOf("Error") > 0) {
             pusher.trigger(auth.login, "my-event", {
               message: "Получен ответ: " + ((text.indexOf("Error") > 0)?'Ошибка':'ОК'), 
               color:  ((text.indexOf("Error") > 0)?'red':'lawngreen'),
@@ -331,13 +336,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
     }) 
 
     if (debug) console.log("Авторизация")
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Авторизация", 
-        color: "white",
-        time: new Date()
-      });
-    }
+    // if (pusherLog) {
+    //   pusher.trigger(auth.login, "my-event", {
+    //     message: "Авторизация", 
+    //     color: "white",
+    //     time: new Date()
+    //   });
+    // }
 
     //   Авторизуемся
     await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, auth.login);
@@ -345,32 +350,32 @@ app.post('/api/iss', jsonParser, (req, res) => {
     await page.click('a[id="O64_id"]');
 
     if (debug) console.log("Загрузка меню")
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Загрузка меню", 
-        color:  "white",
-        time: new Date()
-      });
-    }
+    // if (pusherLog) {
+    //   pusher.trigger(auth.login, "my-event", {
+    //     message: "Загрузка меню", 
+    //     color:  "white",
+    //     time: new Date()
+    //   });
+    // }
 
     // Ждем загрузки меню
     await page.waitForSelector('label[id="OA3_id"]');
 
     if (debug) console.log("Загрузка журнала")
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Загрузка журнала",
-        color: "white",
-        time: new Date()
-      });
-    }
+    // if (pusherLog) {
+    //   pusher.trigger(auth.login, "my-event", {
+    //     message: "Загрузка журнала",
+    //     color: "white",
+    //     time: new Date()
+    //   });
+    // }
 
     //   Выбираем раздел Журнал
     await page.click('td[id="O19_id-inputCell"]');
     await page.click('li[class="x-boundlist-item"]:last-child');
+
     //   Ждем загрузки журнала
     await page.waitForSelector('table[id="gridview-1015-table"]');
-    await new Promise(r => setTimeout(r, 400));
 
     if (debug) console.log("Журнал загружен")
     if (pusherLog) {
@@ -380,6 +385,8 @@ app.post('/api/iss', jsonParser, (req, res) => {
         time: new Date()
       });
     }
+
+    await new Promise(r => setTimeout(r, 400));
 
     // номер текущей работы в задании
     var w = 0 
@@ -403,13 +410,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
       const itemIndex = await parseWorks(input[w])
 
       if (debug) console.log("Найден ID: ", itemIndex)
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Найден ID: " + itemIndex, 
-          color: "white",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Найден ID: " + itemIndex, 
+      //     color: "white",
+      //     time: new Date()
+      //   });
+      // }
 
       //   Обработка исключений
       if ( itemIndex == -1 ) {
@@ -452,19 +459,26 @@ app.post('/api/iss', jsonParser, (req, res) => {
         console.log("Выбрали работу № ", itemIndex);
         console.log('Проверяем лог работы...');
       }
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Проверка лога нагрузки...", 
-          color: "cornflowerblue",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Проверка лога нагрузки...", 
+      //     color: "cornflowerblue",
+      //     time: new Date()
+      //   });
+      // }
 
-      await new Promise(r => setTimeout(r, 200));
+      //await new Promise(r => setTimeout(r, 200));
+
+      // Ждем загрузки лога предмета
+      var timer = 0;
+      while(respListen && timer < 10) {
+        await new Promise(r => setTimeout(r, 100));
+        timer++;
+      }
+      if(timer >= 10) continue;
+
 
       // Проверяем лог предмета
-      while(respListen) await new Promise(r => setTimeout(r, 100));
-
       if(checkLog(lastLog, input[w])){
         message.push({id: input[w].id, status: 'Нагрузка уже в журнале', color: "blue", log: lastLog.rows});
         if (debug) console.log('   Работа есть в логе, действие не требуется');
@@ -495,25 +509,25 @@ app.post('/api/iss', jsonParser, (req, res) => {
       await pressButton("Добавить");
 
       if (debug) console.log('Нажимаем Добавить');
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Добавляем", 
-          color: "white",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Добавляем", 
+      //     color: "white",
+      //     time: new Date()
+      //   });
+      // }
 
       //   Ждем загрузки формы
       await page.waitForSelector('input[tabindex="142"]');
 
       if (debug) console.log('Форма открыта, проверяем корректность...');
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Проверка корректности данных формы",
-          color: "cornflowerblue",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Проверка корректности данных формы",
+      //     color: "cornflowerblue",
+      //     time: new Date()
+      //   });
+      // }
 
       // если в форме отобразились неверные данные
       if(!await checkCard(input[w])){
@@ -545,13 +559,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
       } else errTimer = 0
 
       if (debug) console.log('   Данные корректны, заполняем форму');
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Данные корректны, заполняем текстовые поля", 
-          color: "lawngreen",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Данные корректны, заполняем текстовые поля", 
+      //     color: "lawngreen",
+      //     time: new Date()
+      //   });
+      // }
 
       //   Заполняем форму
       await inputTab('142', input[w].date)
@@ -566,13 +580,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
       if (debug) {
         console.log('Запись формы разрешена, сохраняем');
       }
-      if (pusherLog) {
-        pusher.trigger(auth.login, "my-event", {
-          message: "Сохранение разрешено...", 
-          color: "lawngreen",
-          time: new Date()
-        });
-      }
+      // if (pusherLog) {
+      //   pusher.trigger(auth.login, "my-event", {
+      //     message: "Сохранение разрешено...", 
+      //     color: "lawngreen",
+      //     time: new Date()
+      //   });
+      // }
 
       // Флаг Отслеживать ответ на событие - клик
       btnClickListen = true;
@@ -603,7 +617,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       // если ошибки в ответе нет
       } else {
         message.push({id: input[w].id, status: 'Нагрузка добавлена', color: "green"})
-        await new Promise(r => setTimeout(r, 500));
+        await new Promise(r => setTimeout(r, 700));
         if (debug) {
           console.log('Нагрузка добавлена');
           added++;
@@ -686,7 +700,7 @@ app.post('/api/stud', jsonParser, (req, res) => {
 
     var browser
     //   Открываем браузер
-    if(process.argv[2] == 'server') {
+    if(app_env == 'public')  {
       browser = await puppeteer.launch({args: ['--no-sandbox']});
     } else {
       browser = await puppeteer.launch({ headless: !debug});

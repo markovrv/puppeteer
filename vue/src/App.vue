@@ -1,166 +1,28 @@
 <template>
-  <div id="app" class="container" style="padding-top: 65px; overflow-x: clip;">
-
-    <b-navbar :toggleable="false" type="white" variant="light">
-      <div class="container">
-        <b-navbar-brand href="/">Расписание ВятГУ</b-navbar-brand>
-        <b-collapse id="nav-collapse" is-nav style="justify-content: right;">
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown right v-if="!login" id="loginmenu">
-              <template #button-content>Войти</template>
-              <b-dropdown-form style="min-width: 200px">
-                <b-dropdown-header id="dropdown-header-label">
-                  <center>Введите Ваши логин и пароль<br>от личного кабинета ВятГУ</center>
-                </b-dropdown-header>
-                <b-form-group label="Логин" label-for="dropdown-form-login" @submit.stop.prevent>
-                  <b-form-input
-                    id="dropdown-form-login"
-                    size="sm"
-                    placeholder="usrxxxxx"
-                  ></b-form-input>
-                </b-form-group>
-                <b-form-group label="Пароль" label-for="dropdown-form-password">
-                  <b-form-input
-                    id="dropdown-form-password"
-                    type="password"
-                    size="sm"
-                  ></b-form-input>
-                </b-form-group>
-                <b-form-checkbox class="mb-3" v-model="remember"> - запомнить меня</b-form-checkbox>
-                <b-button variant="primary" size="sm" @click="saveSettings" block style="width: 100%">Войти</b-button>
-              </b-dropdown-form>
-            </b-nav-item-dropdown>
-            <b-nav-item-dropdown right v-else>
-              <template #button-content>{{login}}</template>
-              <b-dropdown-item href="https://disk.yandex.ru/d/sN2Iaazo3XsBag">Андроид-приложение</b-dropdown-item>
-              <b-dropdown-item href="#" @click="logout">Выйти</b-dropdown-item>
-            </b-nav-item-dropdown>
-          </b-navbar-nav>
-        </b-collapse>
-      </div>
-    </b-navbar>
-
-    <center v-if="loading">
-      <br><br>
-      <b-spinner label=""></b-spinner>
-      <h3>Загрузка расписания...</h3>
-      <a href="https://new.vyatsu.ru/account/obr/rasp/">new.vyatsu.ru</a>
-      <span style="font-size: 80%; color: rgb(90, 90, 90);"> | </span>
-      <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a><br>
-      <img class="adsdesktop" src="./assets/qr-code.gif" width="148" height="148" border="0" title="Приложение для Андроид">
-      <a href="https://disk.yandex.ru/d/sN2Iaazo3XsBag">Приложение для Андроид</a>
-    </center>
-
-    <b-modal id="straspwin" title="Расписание студентов" @ok="winStudHide" :ok-only="true">
-      <b-overlay :show="winStud.loading" rounded="sm">
-        <p v-html="winStud.rasp"></p>
-        <div>
-          <button v-for="(date, idd) in winStud.dates" :key="idd" type="button" class="btn btn-link" @click="getStRasp(winStud.group, date)">{{ date }}</button>
-        </div>
-      </b-overlay>
-    </b-modal>
-
-    <b-modal id="kabraspwin" :title="'Занятость аудиторий ' + ((winKab.kabs[winKab.current.kab]?.split('-')[0])?(winKab.kabs[winKab.current.kab]?.split('-')[0] + ' корпуса'):'')" @click="winKabHide" :ok-only="true">
-      <b-overlay :show="winKab.loading" rounded="sm">
-        <div class="row" v-if="!winKab.loading">
-          <b-dropdown
-          class="btn-group col-6" 
-          id="kablist" 
-          :text="winKab.kabs[winKab.current.kab]" 
-          variant="primary" 
-          @click="scrollKab(winKab.current.kab)"
-          menu-class="w-100">
-            <b-dropdown-item 
-              :id="`kab_${idk}`" 
-              @click="winKab.current.kab = idk" 
-              v-for="(kab, idk) in winKab.kabs" 
-              :key="idk" 
-              :active="winKab.current.kab == idk"
-            >{{kab}}</b-dropdown-item>
-          </b-dropdown>
-          <b-dropdown
-          class="btn-group col-6" 
-          id="datlist"
-          :text="winKab.dates[winKab.current.cDay]" 
-          variant="primary"
-          menu-class="w-100"
-          right >
-            <b-dropdown-item
-            :id="`dat_${idd}`" 
-            @click="winKab.current.cDay = idd" 
-            v-for="(date, idd) in winKab.dates" 
-            :key="idd" 
-            :active="winKab.current.cDay == idd"
-            >{{date}}</b-dropdown-item>
-          </b-dropdown>
-          <div v-if="winKab.rasp.length * winKab.kabs.length * winKab.dates.length" style="margin-top:12px" class="col-12">
-            <table class="b-table table table-bordered table-striped bv-docs-table">
-              <tr v-for="(lsn, idl) in winKab.rasp[winKab.current.kab].data[winKab.current.cDay].lessons" :key="idl">
-                <th scope="col" style="padding: 10px"><small>{{idl+1}}</small></th>
-                <td><small>{{(lsn)?lsn:'Свободно'}}</small></td>
-              </tr>
-            </table>
-          </div>
-        </div>
-        <div v-else><br><br><br><br><br><br><br><br><br></div>
-      </b-overlay>
-    </b-modal>
-
-    <b-modal id="logwin" title="Журнал нагрузки" @click="winLogHide" :ok-only="true">
-      <table class="table">
-        <tr>
-          <th scope="col">Дата</th>
-          <th scope="col">Кол-во</th>
-          <th scope="col">Кабинет</th>
-        </tr>
-        <tr v-for="(item, id) in winLog.log" :key="id" class="small">
-          <th scope="row">{{item[0]}}</th>
-          <td>{{item[1]}} ч.</td>
-          <td>{{item[2]}}</td>
-        </tr>
-      </table>
-    </b-modal>
-
-    <b-modal id="loaderwin" title="Лог загрузки" @click="winLoaderHide" :ok-only="true">
-      <div id="my-event" class="modal-body" style="height: 300px; overflow-y: scroll;background: black;color: white;font-family: monospace;font-weight: bold; margin: -16px;">
-          <div v-for="(item, id) in messages" :key="id" class="small">
-            > <span :style="'color: ' + item.color">{{item.message}}</span>
-          </div>
-          <span  class="small" v-if="messages.findIndex(m=>(m.message == 'Конец обработки')) == -1">> _ </span><br><br>
-      </div>
-    </b-modal>
+  <div id="app" class="container container-main">
+    <my-nav-bar :login="login" v-model="remember" @logout="logout" @save-settings="saveSettings"></my-nav-bar>
+    <rasp-loading-show :loading="loading"></rasp-loading-show>
+    <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
+    <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}" @set-kab="kab=>{winKab.current.kab = kab}"></kab-win>
+    <log-win :win-log="winLog"></log-win>
+    <loader-win :messages="messages"></loader-win>
 
     <div v-for="(day, idd) in days" :key="idd">
 
-      <!-- День -->
-      <a :name="idd" style="width: 0px; height: 0px; overflow: hidden; display: block; position: relative; top: -70px;">.</a>
-      <b style="font-size: 120%;">{{day.day}}</b> 
-      <a class="btn btn-link btn-sm" :id="'daytoissid_'+idd" style="display: block; float: right;" href="javascript://" @click="sendDayWork(idd, 'daytoissid_'+idd)">День в журнал</a>
+      <day-name :id="idd" :name="day.day" @btn-click="sendDayWork(idd)"></day-name>
+      <div v-for="(lesson, idl) in day.lessons" :key="idl" class="lesson" v-show="lesson.predm!=''">
 
-      <div v-for="(lesson, idl) in day.lessons" :key="idl" class="lesson">
+        <lesson-menu 
+          :id="{idd, idl}" 
+          :lesson="lesson" 
+          @close="closeMenus(lesson)" 
+          @kab-click="getKab(day.day, lesson.kab); lesson.showmenu = false;"
+          @strasp-click="getStRasp(lesson.groups[0], dateFormat(day.day)); lesson.showmenu = false;"
+          @work-click="sendOneWork(idd, idl); lesson.showmenu = false;" 
+        ></lesson-menu>
 
-        <!-- Кнопки -->
-        <div class="lessonmenu" :class="(lesson.showmenu)?'showbuttons':'closebuttons'">
-          <b-button-group size="sm" class="shadow-sm" style="border: 1px solid #d3d4d5;">
-            <b-button variant="light" title="меню" style="width: 30px; height: 34.5px; border-right: 2px solid #d3d4d5;" @click="closeMenus(lesson)">{{(lesson.showmenu)?'&raquo;':'&laquo;'}}</b-button> 
-            <b-button variant="light" title="Загрузить занятость аудиторий" @click="getKab(day.day, lesson.kab);lesson.showmenu = false;"><img style="width: 24px;" src="./assets/home.svg"></b-button> 
-            <b-button variant="light" title="Загрузить расписание группы студентов" @click="getStRasp(lesson.groups[0], dateFormat(day.day));lesson.showmenu = false;"><img style="width: 24px;" src="./assets/student.svg"></b-button> 
-            <b-button variant="light" title="Отметить нагрузку в Журнале преподавателя" :id="`lessontoissid_${idd}_${idl}`" @click="sendOneWork(idd, idl, `lessontoissid_${idd}_${idl}`);lesson.showmenu = false;"><img style="width: 24px;" src="./assets/journal.svg"></b-button> 
-          </b-button-group>
-        </div>
-
-        <!-- Название -->
-        <div style="padding-right: 32px"><b>{{lesson.time}}</b> {{lesson.predm}}</div>
-
-        <!-- Содержание -->
-        <div style="padding-left: 6px;">
-          <span style="font-size: 80%;">
-            <span style="font-weight: bold;" v-html="lesson.kab"></span>
-            {{lesson.type}} 
-            {{lesson.groups.join(", ")}}
-            <span @click="winLogShow(lesson.log)" :style="'color: '+ lesson.color +'; '+((lesson.log)?'text-decoration: underline; cursor: pointer;':'')" v-html="lesson.status"></span>
-          </span>
-        </div>
+        <lesson-name :lesson="lesson"></lesson-name>
+        <lesson-content :lesson="lesson" @set-win-log="log=>{winLog.log = log}"></lesson-content>
 
       </div>
       <hr>
@@ -183,8 +45,31 @@ function today() {
 // const PATH = "http://localhost:3333";
 const PATH = "";
 
+import lessonName from './components/content/lessonName.vue'
+import lessonContent from './components/content/lessonContent.vue'
+import lessonMenu from './components/content/lessonMenu.vue'
+import dayName from './components/content/dayName.vue'
+import myNavBar from './components/interface/myNavBar.vue'
+import raspLoadingShow from './components/interface/raspLoadingShow.vue'
+import stRaspWin from './components/windows/stRaspWin.vue'
+import kabWin from './components/windows/kabWin.vue'
+import logWin from './components/windows/logWin.vue'
+import loaderWin from './components/windows/loaderWin.vue'
+
 export default {
   name: 'App',
+  components: {
+    lessonName,
+    lessonContent,
+    lessonMenu,
+    dayName,
+    myNavBar,
+    raspLoadingShow,
+    stRaspWin,
+    kabWin,
+    logWin,
+    loaderWin,
+  },
   data: () => {
     return {
       days: [],
@@ -214,7 +99,7 @@ export default {
     }
   },
   methods: {
-    closeMenus(lesson) {
+    closeMenus(lesson = {showmenu: false}) {
       var state = lesson.showmenu
       if(this.lastmenu) this.lastmenu.showmenu = false
       lesson.showmenu = !state
@@ -287,9 +172,9 @@ export default {
 
       var channel = this.$pusher.subscribe(this.login);
       channel.bind('my-event', data=>{
-        this.messages.push(JSON.parse(JSON.stringify(data)));
+        this.messages.push(data);
         var objDiv = document.getElementById("my-event");
-        objDiv.scrollTop = objDiv.scrollHeight + 100;
+        objDiv.scrollTop = objDiv?.scrollHeight + 100;
       });
 
       this.axios.post(PATH + '/api/rasp', {
@@ -314,45 +199,22 @@ export default {
 
         })
     },
-    sendOneWork(idd, idl, sender) {
-      this.sendCommand([this.createData(idd, idl)], sender)
+    sendOneWork(idd, idl) {
+      this.sendCommand([this.createData(idd, idl)], `lessontoissid_${idd}_${idl}`)
     },
-    sendDayWork(idd, sender) {
+    sendDayWork(idd) {
       var data = []
+      var sender = 'daytoissid_'+idd
       var lessonsCount = this.days[idd].lessons.length
       for(let idl = 0; idl < lessonsCount; idl++) {
-        data.push(this.createData(idd, idl))
+        if(this.days[idd].lessons[idl].predm!='') data.push(this.createData(idd, idl))
       }
       this.sendCommand(data, sender)
     },
-    winLogShow(log){
-      if(log){
-        this.winLog.log = log;
-        this.$bvModal.show('logwin')
-
-      }
-    },
     winLoaderShow(){
-        if(window.winLoaderTimer) clearTimeout(window.winLoaderTimer);
         this.messages = []
         this.$bvModal.show('loaderwin')
 
-    },
-    winLogHide(){
-        this.winLog.log = [];
-        this.$bvModal.hide('logwin')
-
-    },
-    winLoaderHide(){
-        this.messages = [];
-        this.$bvModal.hide('loaderwin')
-
-    },
-    winKabHide(){
-        this.$bvModal.hide('kabraspwin')
-    },
-    winStudHide(){
-        this.$bvModal.hide('straspwin')
     },
     createData(idd, idl) {
       var lesTypes = ["Лекция", "Практическое занятие", "Лабораторная работа","","","","","","","Консультация","Экзамен","Зачет"]
@@ -378,7 +240,7 @@ export default {
       return `${datArr[1].slice(0,-3)} ${datArr[0]}`
     },
     async getStRasp(group, date) {
-      console.log("Запрос расписания ", group);
+      // console.log("Запрос расписания ", group);
       this.winStud.loading = true
       this.$bvModal.show('straspwin')
       this.axios({
@@ -390,7 +252,7 @@ export default {
           date
         }
       }).then(response => {
-          console.log(response.data)
+          // console.log(response.data)
           this.winStud.rasp = response.data.rasp
           this.winStud.dates = response.data.dates
           this.winStud.group = response.data.group
@@ -467,22 +329,24 @@ export default {
 
 <style>
 
+.dropdown-menu {
+  max-height: 300px !important;
+  overflow-y: auto !important;
+}
+
+.container {
+  max-width: 700px !important;
+}
+
+.container-main {
+  padding-top: 65px !important; 
+  overflow-x: clip !important;
+}
+
 svg {
   width: 40px;
   height: 40px;
   cursor: pointer;
-}
-
-.navbar {
-  margin: 0px 0px 16px!important;
-  position: fixed!important;
-  top: 0px!important;
-  left: 0px!important;
-  width: 100%!important;
-  z-index: 1000!important;
-  backdrop-filter: blur(1rem)!important;
-  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 5%), inset 0 -1px 0 rgb(0 0 0 / 15%)!important;
-  background-color: rgba(255,255,255,0.75)!important;
 }
 
 .close {
@@ -515,41 +379,4 @@ svg {
   background: rgba(0,0,0,.05);
 }
 
-.lessonmenu {
-  position: relative;
-  right: 0;
-  top: 10px;
-  margin: 0 0 0 auto;
-  width: fit-content;
-  height: 0;
-}
-
-.adsdesktop {
-  display: block;
-}
-
-.dropdown-menu-right {
-  right: 0;
-}
-
-.showbuttons {
-  transition: 0.5s;
-  right: 8px !important;
-}
-.closebuttons {
-  transition: 0.5s;
-  right: -126px !important;
-}
-
-@media (max-width: 768px) {
-  .adsdesktop {
-    display: none;
-  }
-  .lesson {
-    margin-right: 0px;
-  }
-  .closebuttons {
-    right: -137px !important;
-  }
-}
 </style>
