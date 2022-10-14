@@ -17,19 +17,26 @@
       >
       <b-button
         variant="light"
-        title="Загрузить занятость аудиторий"
+        title="Расписание и замена кабинетов"
         @click="$emit('kab-click')"
         ><img style="width: 24px;" src="../../assets/home.svg"
       /></b-button>
       <b-button
         variant="light"
-        title="Загрузить расписание группы студентов"
+        title="Расписание группы студентов"
         @click="$emit('strasp-click')"
         ><img style="width: 24px;" src="../../assets/student.svg"
       /></b-button>
       <b-button
         variant="light"
-        title="Отметить нагрузку в Журнале преподавателя"
+        title="Копировать или перенести занятие"
+        :id="`copylessonid_${id.idd}_${id.idl}`"
+        @click="$emit('copy-click')"
+        ><img style="width: 24px;" src="../../assets/copy.svg"
+      /></b-button>
+      <b-button
+        variant="light"
+        title="Записать занятие в Журнал преподавателя"
         :id="`lessontoissid_${id.idd}_${id.idl}`"
         @click="$emit('work-click')"
         ><img style="width: 24px;" src="../../assets/journal.svg"
@@ -64,15 +71,15 @@ export default {
   }
   .closebuttons {
     transition: 0.5s;
-    right: -126px !important;
+    right: -167px !important;
   }
 
   @media (max-width: 768px) {
   .lesson {
-    margin-right: 0px;
+    margin-right: 0px !important;
   }
   .closebuttons {
-    right: -137px !important;
+    right: -178px !important;
   }
 }
 </style>

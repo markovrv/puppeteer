@@ -3,21 +3,87 @@ const express = require('express');
 const Pusher = require("pusher");
 const axios = require('axios');
 const { performance } = require('perf_hooks');
-
-// !!!!!!! Перед выгрузкой на сервер заменить строку на public
-const app_env = 'local';
-// const app_env = 'public';
-const debug = process.argv[2] == 'debug';
-const pusherLog = true;
-
-const r_pass_base64 = "lKUuv4KJzhjuy12R1upaNVoi9QbRIUQ7pL8QhEIiwIfPI9U+l/N+qkt8eJr1KUk6ai0awWqUCJMMealbdwlMfH2+MBCmWVbnTmPZ/mCkJvK6gtZSzM4ZBKvJ5hVS1LCJ0MfQ7f/3Y24+BrFfLnjfh9LdWKUvoZC8mpl7XXFAVTo=";
+const { Datastore } = require("nedb-async-await");
 const node_cryptojs = require('node-cryptojs-aes');
 const CryptoJS = node_cryptojs.CryptoJS;
 const JsonFormatter = node_cryptojs.JsonFormatter;
 
+// Соединение с базой данных
+const users = Datastore({filename:  'db/users', autoload: true});
+const changes = Datastore({filename:  'db/changes', autoload: true});
+
+// Параметры запуска: Перед выгрузкой на сервер заменить строку на public
+const app_env = 'local';
+// const app_env = 'public';
+const debug = process.argv[2] == 'debug';
+const pusherLog = true;
+const r_pass_base64 = "lKUuv4KJzhjuy12R1upaNVoi9QbRIUQ7pL8QhEIiwIfPI9U+l/N+qkt8eJr1KUk6ai0awWqUCJMMealbdwlMfH2+MBCmWVbnTmPZ/mCkJvK6gtZSzM4ZBKvJ5hVS1LCJ0MfQ7f/3Y24+BrFfLnjfh9LdWKUvoZC8mpl7XXFAVTo=";
+
+
 function decrypt(encrypted_json_str) {
   var decrypted = CryptoJS.AES.decrypt(encrypted_json_str, r_pass_base64, { format: JsonFormatter });
   return CryptoJS.enc.Utf8.stringify(decrypted);
+}
+
+String.prototype.MD5 = function() {
+  var d = this;
+  function M(d) {
+    for (var _, m = "0123456789ABCDEF", f = "", r = 0; r < d.length; r++) _ = d.charCodeAt(r), f += m.charAt(_ >>> 4 & 15) + m.charAt(15 & _);
+    return f
+  }
+  function X(d) {
+    for (var _ = Array(d.length >> 2), m = 0; m < _.length; m++) _[m] = 0;
+    for (m = 0; m < 8 * d.length; m += 8) _[m >> 5] |= (255 & d.charCodeAt(m / 8)) << m % 32;
+    return _
+  }
+  function V(d) {
+    for (var _ = "", m = 0; m < 32 * d.length; m += 8) _ += String.fromCharCode(d[m >> 5] >>> m % 32 & 255);
+    return _
+  }
+  function Y(d, _) {
+    d[_ >> 5] |= 128 << _ % 32, d[14 + (_ + 64 >>> 9 << 4)] = _;
+    for (var m = 1732584193, f = -271733879, r = -1732584194, i = 271733878, n = 0; n < d.length; n += 16) {
+      var h = m,
+        t = f,
+        g = r,
+        e = i;
+      f = md5_ii(f = md5_ii(f = md5_ii(f = md5_ii(f = md5_hh(f = md5_hh(f = md5_hh(f = md5_hh(f = md5_gg(f = md5_gg(f = md5_gg(f = md5_gg(f = md5_ff(f = md5_ff(f = md5_ff(f = md5_ff(f, r = md5_ff(r, i = md5_ff(i, m = md5_ff(m, f, r, i, d[n + 0], 7, -680876936), f, r, d[n + 1], 12, -389564586), m, f, d[n + 2], 17, 606105819), i, m, d[n + 3], 22, -1044525330), r = md5_ff(r, i = md5_ff(i, m = md5_ff(m, f, r, i, d[n + 4], 7, -176418897), f, r, d[n + 5], 12, 1200080426), m, f, d[n + 6], 17, -1473231341), i, m, d[n + 7], 22, -45705983), r = md5_ff(r, i = md5_ff(i, m = md5_ff(m, f, r, i, d[n + 8], 7, 1770035416), f, r, d[n + 9], 12, -1958414417), m, f, d[n + 10], 17, -42063), i, m, d[n + 11], 22, -1990404162), r = md5_ff(r, i = md5_ff(i, m = md5_ff(m, f, r, i, d[n + 12], 7, 1804603682), f, r, d[n + 13], 12, -40341101), m, f, d[n + 14], 17, -1502002290), i, m, d[n + 15], 22, 1236535329), r = md5_gg(r, i = md5_gg(i, m = md5_gg(m, f, r, i, d[n + 1], 5, -165796510), f, r, d[n + 6], 9, -1069501632), m, f, d[n + 11], 14, 643717713), i, m, d[n + 0], 20, -373897302), r = md5_gg(r, i = md5_gg(i, m = md5_gg(m, f, r, i, d[n + 5], 5, -701558691), f, r, d[n + 10], 9, 38016083), m, f, d[n + 15], 14, -660478335), i, m, d[n + 4], 20, -405537848), r = md5_gg(r, i = md5_gg(i, m = md5_gg(m, f, r, i, d[n + 9], 5, 568446438), f, r, d[n + 14], 9, -1019803690), m, f, d[n + 3], 14, -187363961), i, m, d[n + 8], 20, 1163531501), r = md5_gg(r, i = md5_gg(i, m = md5_gg(m, f, r, i, d[n + 13], 5, -1444681467), f, r, d[n + 2], 9, -51403784), m, f, d[n + 7], 14, 1735328473), i, m, d[n + 12], 20, -1926607734), r = md5_hh(r, i = md5_hh(i, m = md5_hh(m, f, r, i, d[n + 5], 4, -378558), f, r, d[n + 8], 11, -2022574463), m, f, d[n + 11], 16, 1839030562), i, m, d[n + 14], 23, -35309556), r = md5_hh(r, i = md5_hh(i, m = md5_hh(m, f, r, i, d[n + 1], 4, -1530992060), f, r, d[n + 4], 11, 1272893353), m, f, d[n + 7], 16, -155497632), i, m, d[n + 10], 23, -1094730640), r = md5_hh(r, i = md5_hh(i, m = md5_hh(m, f, r, i, d[n + 13], 4, 681279174), f, r, d[n + 0], 11, -358537222), m, f, d[n + 3], 16, -722521979), i, m, d[n + 6], 23, 76029189), r = md5_hh(r, i = md5_hh(i, m = md5_hh(m, f, r, i, d[n + 9], 4, -640364487), f, r, d[n + 12], 11, -421815835), m, f, d[n + 15], 16, 530742520), i, m, d[n + 2], 23, -995338651), r = md5_ii(r, i = md5_ii(i, m = md5_ii(m, f, r, i, d[n + 0], 6, -198630844), f, r, d[n + 7], 10, 1126891415), m, f, d[n + 14], 15, -1416354905), i, m, d[n + 5], 21, -57434055), r = md5_ii(r, i = md5_ii(i, m = md5_ii(m, f, r, i, d[n + 12], 6, 1700485571), f, r, d[n + 3], 10, -1894986606), m, f, d[n + 10], 15, -1051523), i, m, d[n + 1], 21, -2054922799), r = md5_ii(r, i = md5_ii(i, m = md5_ii(m, f, r, i, d[n + 8], 6, 1873313359), f, r, d[n + 15], 10, -30611744), m, f, d[n + 6], 15, -1560198380), i, m, d[n + 13], 21, 1309151649), r = md5_ii(r, i = md5_ii(i, m = md5_ii(m, f, r, i, d[n + 4], 6, -145523070), f, r, d[n + 11], 10, -1120210379), m, f, d[n + 2], 15, 718787259), i, m, d[n + 9], 21, -343485551), m = safe_add(m, h), f = safe_add(f, t), r = safe_add(r, g), i = safe_add(i, e)
+    }
+    return Array(m, f, r, i)
+  }
+  function md5_cmn(d, _, m, f, r, i) {
+    return safe_add(bit_rol(safe_add(safe_add(_, d), safe_add(f, i)), r), m)
+  }
+  function md5_ff(d, _, m, f, r, i, n) {
+    return md5_cmn(_ & m | ~_ & f, d, _, r, i, n)
+  }
+  function md5_gg(d, _, m, f, r, i, n) {
+    return md5_cmn(_ & f | m & ~f, d, _, r, i, n)
+  }
+  function md5_hh(d, _, m, f, r, i, n) {
+    return md5_cmn(_ ^ m ^ f, d, _, r, i, n)
+  }
+  function md5_ii(d, _, m, f, r, i, n) {
+    return md5_cmn(m ^ (_ | ~f), d, _, r, i, n)
+  }
+  function safe_add(d, _) {
+    var m = (65535 & d) + (65535 & _);
+    return (d >> 16) + (_ >> 16) + (m >> 16) << 16 | 65535 & m
+  }
+  function bit_rol(d, _) {
+    return d << _ | d >>> 32 - _
+  }
+	d = unescape(encodeURIComponent(d));
+	var result = M(V(Y(X(d), 8 * d.length)));
+	return result.toLowerCase();
+}
+
+String.prototype.dateformat = function() {
+  var dat = this.split(' ')[1]
+  var d = dat.slice(0, 2)
+  var m = dat.slice(3, 5)
+  var y = dat.slice(6)
+  return `20${y}-${m}-${d}`
 }
 
 const app = express();
@@ -34,6 +100,18 @@ const pusher = new Pusher({
 if(app_env == 'local') app.use(express.static('vue/dist'));
 else app.use(express.static('app'));
 
+var browsers = {} // по 1 браузеру для каждого пользователя. Каждый сервис - в своей вкладке
+
+setInterval(() => {
+  for (var userName in browsers) {
+    if (Date.now() - browsers[userName].session > 1000 * 60 * 5) { // браузер закроется через 5 минут бездействия
+      console.log(`Закрываем браузер пользователя ${userName} по таймауту запросов`)
+      browsers[userName].browser.close()
+      delete browsers[userName]
+    }
+  }
+}, 1000 * 30); // проверка каждые 30 секунд
+
 app.use(function(req, res, next) {
   res.setHeader('Content-Type','application/json; charset=utf-8');
   res.setHeader('Access-Control-Allow-Origin','*');
@@ -44,7 +122,7 @@ app.use(function(req, res, next) {
 app.post('/api/iss', jsonParser, (req, res) => {
   (async (input, auth) => {
     // функция нажатия кнопки на странице
-    function pressButton(name) {
+    function pressButton(page, name) {
       return new Promise((resolve, reject) => {
         page.evaluate((text) => {
           var elems = document.querySelectorAll("span");
@@ -56,7 +134,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       })
     }
     // функция проверки корректности карточки
-    function checkCard(work) {
+    function checkCard(page, work) {
       return new Promise((resolve, reject)=>{
         page.evaluate(data => {
           var items = document.querySelectorAll('div[class="x-panel-body x-panel-white x-panel-body-default x-abs-layout-ct x-panel-body-default x-docked-noborder-top x-docked-noborder-right x-docked-noborder-bottom x-docked-noborder-left"] li')
@@ -78,7 +156,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       });
     }
     // функция заполняет поле Время
-    function inputTime(time) {
+    function inputTime(page, time) {
       return new Promise((resolve, reject) => {
         page.click(`input[tabindex="139"]`).then(()=>{
           page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[1].id).then(id=>{
@@ -88,7 +166,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       })
     }
     // функция заполняет поле Кабинет
-    function inputKab(kab){
+    function inputKab(page, kab){
       return new Promise((resolve, reject)=>{
         // Ищем поле Кабинет
         page.click(`input[tabindex="143"]`).then(()=>{
@@ -147,13 +225,13 @@ app.post('/api/iss', jsonParser, (req, res) => {
       return cancel;
     }
     // функция заполняет поле c TabIndex
-    function inputTab(tab, text) {
+    function inputTab(page, tab, text) {
       return new Promise((resolve, reject) => {
         page.evaluate(val => document.querySelector(`input[tabindex="${val.tab}"]`).value = val.text, {tab, text}).then(()=>{resolve()})
       })
     }
     // парсер таблицы работ
-    function parseWorks(work){
+    function parseWorks(page, work){
       return new Promise((resolve, reject)=>{
         page.evaluate((data) => {
           // Получаем id работ по типам нагрузки (ищем первые элементы каждого типа)
@@ -194,62 +272,104 @@ app.post('/api/iss', jsonParser, (req, res) => {
       })
     }
 
-    if (debug) {
-      console.log('===================================');
-      console.log('');
-      console.log("Активация")
-      var startTime = performance.now()
-      var added = 0;
-    }
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Активация", 
-        color: "white",
-        time: new Date()
-      });
-    }
-
     var browser
-    //   Открываем браузер
-    if(app_env == 'public')  {
-      browser = await puppeteer.launch({args: ['--no-sandbox']});
-    } else {
-      browser = await puppeteer.launch({ headless: !debug});
-    }
-
-    if (debug) console.log("Загрузка страницы")
-    // if (pusherLog) {
-    //   pusher.trigger(auth.login, "my-event", {
-    //     message: "Загрузка приложения", 
-    //     color: "white",
-    //     time: new Date()
-    //   });
-    // }
-
-    //   Новая страница
-    const page = await browser.newPage();
-    await page.setViewport({
-      width: 1040,
-      height: 720,
-      deviceScaleFactor: 1,
-    });
-
-    //   Загружаем сайт
-    await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
-
+    var page
     // Сообщение для возврата клиенту
     var message = [];
-
     // Массив логов журнала
     var lastLog = [];
-
     // Строка ответа сервера
     var ansStr = '';
-
     // прослушиваем запросы, отлавливаем лог
     var respListen = false
     var writeOnListen = false
     var btnClickListen = false
+    // номер текущей работы в задании
+    var w = 0 
+    // счетчик ошибок для повторения запроса
+    var errTimer = 0 
+
+    if (debug) {
+      var startTime = performance.now()
+      var added = 0;
+    }
+
+    if (browsers[auth.login] && browsers[auth.login].browser) {
+      browser = browsers[auth.login].browser
+      browsers[auth.login].session = Date.now()
+    } else {
+
+      if (debug) {
+        console.log('===================================');
+        console.log('');
+        console.log("Активация")
+      }
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Активация", 
+          color: "white",
+          time: new Date()
+        });
+      }
+
+      //   Открываем браузер
+      if(app_env == 'public')  {
+        browser = await puppeteer.launch({args: ['--no-sandbox']});
+      } else {
+        browser = await puppeteer.launch({ headless: !debug});
+      }
+    }
+
+    if(browsers[auth.login] && browsers[auth.login].issPage){
+      page = browsers[auth.login].issPage
+    } else {
+
+      if (debug) console.log("Загрузка страницы")
+
+      //   Новая страница
+      page = await browser.newPage();
+      await page.setViewport({
+        width: 1040,
+        height: 720,
+        deviceScaleFactor: 1,
+      });
+
+      //   Загружаем сайт
+      await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
+
+      if (debug) console.log("Авторизация")
+
+      //   Авторизуемся
+      await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, auth.login);
+      await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, decrypt(auth.passwordAES));
+      await page.click('a[id="O64_id"]');
+
+      if (debug) console.log("Загрузка меню")
+
+      // Ждем загрузки меню
+      await page.waitForSelector('label[id="OA3_id"]');
+
+      if (debug) console.log("Загрузка журнала")
+
+      //   Выбираем раздел Журнал
+      await page.click('td[id="O19_id-inputCell"]');
+      await page.click('li[class="x-boundlist-item"]:last-child');
+
+      //   Ждем загрузки журнала
+      await page.waitForSelector('table[id="gridview-1015-table"]');
+
+      if (debug) console.log("Журнал загружен")
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Журнал загружен",
+          color:  "white",
+          time: new Date()
+        });
+      }
+
+      await new Promise(r => setTimeout(r, 2000));
+
+    }
 
     page.on('request',async(request)=>{
       if(respListen){
@@ -269,13 +389,6 @@ app.post('/api/iss', jsonParser, (req, res) => {
               });
             } else console.log("   незнакомый формат лога")
           }
-          // if (pusherLog) {
-          //   pusher.trigger(auth.login, "my-event", {
-          //     message: "Получен лог...",
-          //     color: "white",
-          //     time: new Date()
-          //   });
-          // }
           respListen=false;
         }
       }
@@ -283,26 +396,12 @@ app.post('/api/iss', jsonParser, (req, res) => {
         var postData=request.postData()
         if ( postData && postData.indexOf("IsEvent=1") > 0 && postData.indexOf("Evt=activate") > 0 ) {
           if (debug) console.log("Запрос разрешения на запись...")
-          // if (pusherLog) {
-          //   pusher.trigger(auth.login, "my-event", {
-          //     message: "Запрос разрешения на запись...", 
-          //     color: "cornflowerblue",
-          //     time: new Date()
-          //   });
-          // }
           while (! request.response()) {
             await new Promise(r => setTimeout(r, 50));
           }
           var text = await request.response().text()
           if (debug) console.log("Получен статус:")
           if (debug) console.log(text)
-          // if (pusherLog) {
-          //   pusher.trigger(auth.login, "my-event", {
-          //     message: "Разрешение получено.", 
-          //     color: "lawngreen",
-          //     time: new Date()
-          //   });
-          // }
           writeOnListen=false;
         }
       }
@@ -310,13 +409,6 @@ app.post('/api/iss', jsonParser, (req, res) => {
         var postData=request.postData()
         if ( postData && postData.indexOf("IsEvent=1") > 0 && postData.indexOf("Evt=click") > 0 ) {
           if (debug) console.log("Попытка сохранить данные...")
-          // if (pusherLog) {
-          //   pusher.trigger(auth.login, "my-event", {
-          //     message: "Отправка данных ...",
-          //     color:  "white",
-          //     time: new Date()
-          //   });
-          // }
           while (! request.response()) {
             await new Promise(r => setTimeout(r, 50));
           }
@@ -335,97 +427,31 @@ app.post('/api/iss', jsonParser, (req, res) => {
       }
     }) 
 
-    if (debug) console.log("Авторизация")
-    // if (pusherLog) {
-    //   pusher.trigger(auth.login, "my-event", {
-    //     message: "Авторизация", 
-    //     color: "white",
-    //     time: new Date()
-    //   });
-    // }
-
-    //   Авторизуемся
-    await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, auth.login);
-    await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, decrypt(auth.passwordAES));
-    await page.click('a[id="O64_id"]');
-
-    if (debug) console.log("Загрузка меню")
-    // if (pusherLog) {
-    //   pusher.trigger(auth.login, "my-event", {
-    //     message: "Загрузка меню", 
-    //     color:  "white",
-    //     time: new Date()
-    //   });
-    // }
-
-    // Ждем загрузки меню
-    await page.waitForSelector('label[id="OA3_id"]');
-
-    if (debug) console.log("Загрузка журнала")
-    // if (pusherLog) {
-    //   pusher.trigger(auth.login, "my-event", {
-    //     message: "Загрузка журнала",
-    //     color: "white",
-    //     time: new Date()
-    //   });
-    // }
-
-    //   Выбираем раздел Журнал
-    await page.click('td[id="O19_id-inputCell"]');
-    await page.click('li[class="x-boundlist-item"]:last-child');
-
-    //   Ждем загрузки журнала
-    await page.waitForSelector('table[id="gridview-1015-table"]');
-
-    if (debug) console.log("Журнал загружен")
-    if (pusherLog) {
-      pusher.trigger(auth.login, "my-event", {
-        message: "Журнал загружен",
-        color:  "white",
-        time: new Date()
-      });
-    }
-
-    await new Promise(r => setTimeout(r, 400));
-
-    // номер текущей работы в задании
-    var w = 0 
-
-    // счетчик ошибок для повторения запроса
-    var errTimer = 0 
-
     // Перебираем список работ в задании
     while( w < input.length ){
 
-      if (debug) console.log("РАБОТА  ", w+1, " ИЗ ", input.length)
+      if (debug) console.log("Занятие  ", w+1, " из ", input.length)
       if (pusherLog) {
         pusher.trigger(auth.login, "my-event", {
-          message: "РАБОТА  " + (w+1) + " ИЗ " + input.length, 
+          message: "Занятие  " + (w+1) + "  из " + input.length, 
           color: "white",
           time: new Date()
         });
       }
 
       //   Ищем id нужной работы
-      const itemIndex = await parseWorks(input[w])
+      const itemIndex = await parseWorks(page, input[w])
 
       if (debug) console.log("Найден ID: ", itemIndex)
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Найден ID: " + itemIndex, 
-      //     color: "white",
-      //     time: new Date()
-      //   });
-      // }
 
       //   Обработка исключений
       if ( itemIndex == -1 ) {
-        message.push({id: input[w].id, status: 'Нагрузка не найдена', color:"red"});
+        message.push({id: input[w].id, status: 'Дисциплина не найдена в нагрузке', color:"red"});
 
         if (debug) console.log('Нагрузка не найдена');
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
-            message: "Нагрузка не найдена", 
+            message: "Дисциплина не найдена в нагрузке", 
             color: "red",
             time: new Date()
           });
@@ -435,11 +461,11 @@ app.post('/api/iss', jsonParser, (req, res) => {
         continue;
       }
       if ( itemIndex == -2 ) {
-        message.push({id: input[w].id, status: 'Нагрузка заполнена', color:"red"});
+        message.push({id: input[w].id, status: 'Нагрузка по дисциплине заполнена на 100%', color:"red"});
         if (debug) console.log('Нагрузка заполнена');
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
-            message: "Нагрузка заполнена",
+            message: "Нагрузка по дисциплине заполнена на 100%",
             color:  "red",
             time: new Date()
           });
@@ -459,15 +485,8 @@ app.post('/api/iss', jsonParser, (req, res) => {
         console.log("Выбрали работу № ", itemIndex);
         console.log('Проверяем лог работы...');
       }
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Проверка лога нагрузки...", 
-      //     color: "cornflowerblue",
-      //     time: new Date()
-      //   });
-      // }
 
-      //await new Promise(r => setTimeout(r, 200));
+      await new Promise(r => setTimeout(r, 200));
 
       // Ждем загрузки лога предмета
       var timer = 0;
@@ -480,11 +499,11 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
       // Проверяем лог предмета
       if(checkLog(lastLog, input[w])){
-        message.push({id: input[w].id, status: 'Нагрузка уже в журнале', color: "blue", log: lastLog.rows});
+        message.push({id: input[w].id, status: 'Занятие уже записано', color: "blue", log: lastLog.rows});
         if (debug) console.log('   Работа есть в логе, действие не требуется');
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
-            message: "Нагрузка уже в журнале", 
+            message: "Занятие уже записано", 
             color: "yellow",
             time: new Date()
           });
@@ -496,7 +515,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
       if (debug) console.log('   Работа в логе не найдена');
       if (pusherLog) {
         pusher.trigger(auth.login, "my-event", {
-          message: "Нагрузка еще не записана", 
+          message: "Занятие еще не записано", 
           color:  "yellow",
           time: new Date()
         });
@@ -506,41 +525,27 @@ app.post('/api/iss', jsonParser, (req, res) => {
       writeOnListen = true; 
 
       //   Открываем форму добавления работы
-      await pressButton("Добавить");
+      await pressButton(page, "Добавить");
 
       if (debug) console.log('Нажимаем Добавить');
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Добавляем", 
-      //     color: "white",
-      //     time: new Date()
-      //   });
-      // }
 
       //   Ждем загрузки формы
       await page.waitForSelector('input[tabindex="142"]');
 
       if (debug) console.log('Форма открыта, проверяем корректность...');
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Проверка корректности данных формы",
-      //     color: "cornflowerblue",
-      //     time: new Date()
-      //   });
-      // }
 
       // если в форме отобразились неверные данные
-      if(!await checkCard(input[w])){
+      if(!await checkCard(page, input[w])){
         if (debug) console.log('   Данные некорректны, отменяем');
         if (debug) console.log('   Данные', input[w]);
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
-            message: "Данные некорректны, отменяем",
+            message: "Данные заполнены некорректно, отменяем",
             color:  "red",
             time: new Date()
           });
         }
-        await pressButton("Отменить")
+        await pressButton(page, "Отменить")
         if (errTimer > 5) {
           message.push({id:input[w].id,status:'Внутренняя ошибка сервиса',color:"red"});
           if (debug) console.log('   Внутренняя ошибка сервиса');
@@ -559,40 +564,24 @@ app.post('/api/iss', jsonParser, (req, res) => {
       } else errTimer = 0
 
       if (debug) console.log('   Данные корректны, заполняем форму');
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Данные корректны, заполняем текстовые поля", 
-      //     color: "lawngreen",
-      //     time: new Date()
-      //   });
-      // }
 
       //   Заполняем форму
-      await inputTab('142', input[w].date)
-      if(input[w].cat <= 2) await inputTab('141', input[w].count)
-      else await pressButton("Закрыть")
-      await inputTime(input[w].time)
-      await inputKab(input[w].kab)
+      await inputTab(page, '142', input[w].date)
+      if(input[w].cat <= 2) await inputTab(page, '141', input[w].count)
+      else await pressButton(page, "Закрыть")
+      await inputTime(page, input[w].time)
+      await inputKab(page, input[w].kab)
 
       // ждем включения режима записи
       while(writeOnListen) await new Promise(r => setTimeout(r, 50));
 
-      if (debug) {
-        console.log('Запись формы разрешена, сохраняем');
-      }
-      // if (pusherLog) {
-      //   pusher.trigger(auth.login, "my-event", {
-      //     message: "Сохранение разрешено...", 
-      //     color: "lawngreen",
-      //     time: new Date()
-      //   });
-      // }
+      if (debug) console.log('Запись формы разрешена, сохраняем');
 
       // Флаг Отслеживать ответ на событие - клик
       btnClickListen = true;
 
       // Клик по кнопке Сохранить
-      await pressButton("Сохранить")
+      await pressButton(page, "Сохранить")
 
       // ждем ответа сервера
       while(btnClickListen) await new Promise(r => setTimeout(r, 50)) 
@@ -612,11 +601,11 @@ app.post('/api/iss', jsonParser, (req, res) => {
         }
         // Закрываем всплывающие окна
         await page.keyboard.press('Escape')
-        await pressButton("Отменить")
+        await pressButton(page, "Отменить")
 
       // если ошибки в ответе нет
       } else {
-        message.push({id: input[w].id, status: 'Нагрузка добавлена', color: "green"})
+        message.push({id: input[w].id, status: 'Занятие добавлено', color: "green"})
         await new Promise(r => setTimeout(r, 700));
         if (debug) {
           console.log('Нагрузка добавлена');
@@ -624,7 +613,7 @@ app.post('/api/iss', jsonParser, (req, res) => {
         }
         if (pusherLog) {
           pusher.trigger(auth.login, "my-event", {
-            message: "Добавлено",
+            message: "Занятие добавлено",
             color: "lawngreen",
             time: new Date(),
           });
@@ -646,10 +635,19 @@ app.post('/api/iss', jsonParser, (req, res) => {
 
   // Закрываем браузер и возвращаем ответ
     res.send(message)
-    if (!debug) browser.close()
+
+    // if (!debug) browser.close()
+
+    // запоминаем для дальнейшего использования
+    if(browsers[auth.login] && browsers[auth.login].browser) {
+      browsers[auth.login].issPage = page
+      browsers[auth.login].session = Date.now()
+    } else {
+      browsers[auth.login] = {browser, issPage: page, session: Date.now()}
+    }
 
     if (debug) {
-      console.log('Браузер закрыт');
+      console.log('Браузер будет закрыт по таймеру');
       console.log("");
       console.log('===================================');
       var endTime = performance.now()
@@ -662,9 +660,9 @@ app.post('/api/iss', jsonParser, (req, res) => {
 })
 
 app.post('/api/stud', jsonParser, (req, res) => {
-  (async (data) => {
+  (async (data, auth) => {
 
-    function pressButton(name) {
+    function pressButton(page, name) {
       return new Promise((resolve, reject) => {
         page.evaluate((text) => {
           var elems = document.querySelectorAll("button");
@@ -692,89 +690,270 @@ app.post('/api/stud', jsonParser, (req, res) => {
       })
     }
 
-    function inputId(id, text) {
+    function inputId(page, id, text) {
         return new Promise((resolve, reject) => {
           page.evaluate(val => document.querySelector(`input[id="${val.id}"]`).value = val.text, {id, text}).then(()=>{resolve()})
         })
     }
-
     var browser
-    //   Открываем браузер
-    if(app_env == 'public')  {
-      browser = await puppeteer.launch({args: ['--no-sandbox']});
+    var page
+
+    var multiday = false
+    var rasplist = []
+    var i = 0;
+    var count = data.groups.length
+
+    if (browsers[auth.login] && browsers[auth.login].browser) {
+      browser = browsers[auth.login].browser
+      browsers[auth.login].session = Date.now()
     } else {
-      browser = await puppeteer.launch({ headless: !debug});
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Активация API..."
+        });
+      }
+      if(app_env == 'public')  {
+        browser = await puppeteer.launch({args: ['--no-sandbox']});
+      } else {
+        browser = await puppeteer.launch({ headless: !debug});
+      }
+    }
+    if(browsers[auth.login] && browsers[auth.login].lkPage){
+      page = browsers[auth.login].lkPage
+    } else {
+      page = await browser.newPage();
+      await page.setViewport({
+        width: 1040,
+        height: 720,
+        deviceScaleFactor: 1,
+      });
+    
+      await page.setRequestInterception(true);
+      page.on('request', request => {
+        if (request.resourceType() === 'font' || request.resourceType() === 'image') {
+          request.abort();
+        } else {
+          request.continue();
+        }
+      });
+
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Загрузка приложения..."
+        });
+      }
+
+      await page.goto('https://new.vyatsu.ru/account/');
+
+      await page.waitForSelector('div[class="chat-button bell"]');
+
+      await page.click('div[class="chat-button bell"]');
+      await new Promise(r => setTimeout(r, 550));
+      await pressButton(page, "Студент/Сотрудник")
+      await new Promise(r => setTimeout(r, 550));
+      await pressButton(page, "Общее расписание")
+      await new Promise(r => setTimeout(r, 550));
+    }
+    // Активация многодневного режима
+    if(data.date == "") {
+      data.date = "Расписание"
+      multiday = true
     }
 
-    const page = await browser.newPage();
-    await page.setViewport({
-      width: 1040,
-      height: 720,
-      deviceScaleFactor: 1,
-    });
-  
-    await page.setRequestInterception(true);
-    page.on('request', request => {
-      if (request.resourceType() === 'font' || request.resourceType() === 'image') {
-        request.abort();
-      } else {
-        request.continue();
+    // начало цикла
+    while (i < count) {
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: `загрузка ${i+1} из ${count} ...`
+        });
       }
-    });
-
-   await page.goto('https://new.vyatsu.ru/account/'); // , { waitUntil: 'networkidle2' }
-
-   await page.waitForSelector('div[class="chat-button bell"]');
-
-    await page.click('div[class="chat-button bell"]');
-    await new Promise(r => setTimeout(r, 550));
-    await pressButton("Студент/Сотрудник")
-    await new Promise(r => setTimeout(r, 550));
-    await pressButton("Общее расписание")
-    await new Promise(r => setTimeout(r, 550));
-    await inputId("input-question", data.group)
-    await new Promise(r => setTimeout(r, 550));
-    await page.click('div[type="submit"]');
-    await new Promise(r => setTimeout(r, 550));
-    await pressButton("На любой день")
-    await new Promise(r => setTimeout(r, 550));
-    var buttonsList = await getButtonsList()
-    var buttonId = buttonsList.findIndex(elem => elem.indexOf(data.date)>-1)
-    if( buttonId > -1 ) {
-      await pressButton(buttonsList[buttonId])
+      var group = data.groups[i]
+      var subgr = 0
+      if (group.indexOf(',подгруппа1')>-1) subgr = 1
+      if (group.indexOf(',подгруппа2')>-1) subgr = 2
+      await inputId(page, "input-question", group)
       await new Promise(r => setTimeout(r, 550));
-      var rasp = await page.evaluate(() => {
-          var items = document.querySelectorAll('div[class="chat-message-answer"]');
-          return items[items.length - 1].innerHTML
-      })
-    } else rasp = `➡ ${data.group}<br>Расписание на дату ${data.date} недоступно`
-    buttonsList.pop();
-    var dates = buttonsList.sort((a, b) => ((Number(a.slice(3,5)) > Number(b.slice(3,5)) || Number(a.slice(3,5)) == Number(b.slice(3,5)) && Number(a.slice(0,2)) > Number(b.slice(0,2)))?1:-1))
-    res.send({rasp, dates, group: data.group})
-    browser.close()
+      await page.click('div[type="submit"]');
+      await new Promise(r => setTimeout(r, 550));
+      if(!multiday){
+        await pressButton(page, "На любой день")
+        await new Promise(r => setTimeout(r, 550));
+      }
+      var buttonsList = await getButtonsList()
+      var buttonId = buttonsList.findIndex(elem => elem.indexOf(data.date)>-1)
+      if( buttonId > -1 ) {
+        await pressButton(page, buttonsList[buttonId])
+        await new Promise(r => setTimeout(r, 550));
+        var rasp = await page.evaluate(() => {
+            var items = document.querySelectorAll('div[class="chat-message-answer"]');
+            return items[items.length - 1].innerHTML
+        })
+      } else {
+        var rasp = ''
+        if (multiday) { rasp = "ERROR" }
+        else { rasp = `➡ ${group}<br>Расписание на дату ${data.date} недоступно` }
+        if (pusherLog) {
+          pusher.trigger(auth.login, "my-event", {
+            message: rasp
+          });
+        }
+      }
+
+      var content = []
+      var days = rasp.split('—| ')
+      if (days.length > 1) {
+        days.shift()
+        days.forEach(day=>{
+          var lessons = day.split('<br>——/ ')
+          var date = lessons.shift()
+          date = ('_ ' + date.split(' | ')[1]?.slice(0, -4)).dateformat()
+          var lsns = []
+          lessons.forEach(lesson=>{
+            var parts = lesson.split(' /——<br>')
+            var time = parts.shift()
+            var aparts = parts[0].split('<br>')
+            if(aparts[0].indexOf('подгруппа')>0){
+              if (subgr == 0) aparts.shift()
+              else {
+                var first = aparts.indexOf(subgr + ' подгруппа')
+                aparts.splice(0, first+1)
+              }
+            }
+            if (aparts.length >=4) lsns.push({time, kab: aparts[3]})
+          })
+          content.push({date, lessons: lsns})
+        })
+      }
+
+      if (content.length > 0) rasplist.push({group, content})
+      else {
+        buttonsList.pop();
+        var dates = buttonsList.sort((a, b) => ((Number(a.slice(3,5)) > Number(b.slice(3,5)) || Number(a.slice(3,5)) == Number(b.slice(3,5)) && Number(a.slice(0,2)) > Number(b.slice(0,2)))?1:-1))
+        rasplist.push({rasp, dates, group})
+      }
+
+      await new Promise(r => setTimeout(r, 550));
+      i++
+    }// конец цикла
+    
+    if (pusherLog) {
+      pusher.trigger(auth.login, "my-event", {
+        message: "Пожалуйста, подождите..."
+      });
+    }
+
+    res.send(rasplist)
+    // if(!debug) browser.close()
+
+    // запоминаем для дальнейшего использования
+    if(browsers[auth.login] && browsers[auth.login].browser) {
+      browsers[auth.login].lkPage = page
+      browsers[auth.login].session = Date.now()
+    } else {
+      browsers[auth.login] = {browser, lkPage: page, session: Date.now()}
+    }
    
-  })({group: req.body.group, date: req.body.date});
+  })({groups: req.body.groups, date: req.body.date}, req.body.auth);
 })
 
-app.post('/api/encrypt', jsonParser, (req, res) => {
-  var message = req.body.text;
-  var encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
-  var encrypted_json_str = encrypted.toString();
-  res.send(encrypted_json_str);
+app.post('/api/login', jsonParser, (req, res) => {
+  (async()=>{
+    var login = req.body.login;
+    var message = req.body.text;
+    var encrypted = CryptoJS.AES.encrypt(message, r_pass_base64, { format: JsonFormatter });
+    var encrypted_json_str = encrypted.toString();
+    var apikey = encrypted_json_str.MD5();
+    var date = new Date();
+    await users.insert({login, apikey, date})
+    res.send({encrypted_json_str});
+  })()
+})
+
+app.post('/api/logout', jsonParser, (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    await users.remove({login, apikey}, {})
+    res.send({status: 'OK'});
+  })()
 })
 
 app.post('/api/rasp', jsonParser, (req, res) => {
-  var login = req.body.login;
-  var passwordAES = req.body.passwordAES;
-  var password = decrypt(passwordAES)
+   (async()=>{
+    var login    = req.body.login;
+    var password = decrypt(req.body.passwordAES);
+    var response = await axios.post('https://e.markovrv.ru/api/v2/', { login, password });
+    var rasp = response.data
+    var i = 0;
+    while (i < rasp.length) {
+      rasp[i].day = rasp[i].day.dateformat()
+      var day = rasp[i].day
+      var j = 0
+      while (j < rasp[i].lessons.length) {
+        var time = rasp[i].lessons[j].time
+        var doc = await changes.findOne({ login, day, time })
+        if (doc) rasp[i].lessons[j] = doc.lesson 
+        j++
+      }
+      i++
+    }
+    res.send(rasp) 
+  })();
+})
 
-  axios.post('https://e.markovrv.ru/api/v2/', {
-    login: login,
-    password: password,
-  })
-    .then(response => {
-      res.send(response.data)
-    })
+app.post('/api/changekab/cancel', jsonParser, (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    var docs = await users.find({login, apikey})
+    if (docs.length > 0){
+      var day  = req.body.day;
+      var time = req.body.lesson.time
+      var type = 0 // удаляем только замены кабинетов
+      await changes.remove({login, day, time, type}, {})
+      res.send({status: 'OK'})
+    } else res.sendStatus(401)
+  })()
+})
+
+app.post('/api/copy/del', jsonParser, (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    var docs = await users.find({login, apikey})
+    if (docs.length > 0){
+      var day  = req.body.day;
+      var time = req.body.lesson.time
+      var type = 1 // удаляем только скопированные
+      await changes.remove({login, day, time, type}, {})
+      res.send({status: 'OK'})
+    } else res.sendStatus(401)
+  })()
+})
+
+app.post('/api/changekab', jsonParser, (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    var docs = await users.find({login, apikey})
+    if (docs.length > 0){
+      if(!req.body.lesson.copied) req.body.lesson.oldkab = req.body.lesson.kab
+      req.body.lesson.kab = req.body.newkab
+      var type   = 0; // замена кабинета без копирования
+      if(req.body.lesson.copied) type = 1; // копирование занятия
+      var day    = req.body.day;
+      var time   = req.body.lesson.time;
+      var lesson = req.body.lesson;
+      var date   = new Date();
+      var rec = await changes.findOne({login, day, time, lesson, date})
+      if (rec){
+        await changes.update({_id: rec._id}, {lesson}, {});
+      } else {
+        await changes.insert({login, type, day, time, lesson, date})
+      }
+      res.send({status: 'OK'})
+    } else res.sendStatus(401)
+  })()
 })
 
 app.listen(3333)

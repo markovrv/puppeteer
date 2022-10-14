@@ -1,20 +1,11 @@
 <template>
   <center v-if="loading">
-    <br /><br />
-    <b-spinner label=""></b-spinner>
-    <h3>Загрузка расписания...</h3>
-    <a href="https://new.vyatsu.ru/account/obr/rasp/">new.vyatsu.ru</a>
-    <span style="font-size: 80%; color: rgb(90, 90, 90);"> | </span>
-    <a href="https://rasp.markovrv.ru/">rasp.markovrv.ru</a><br />
-    <img
-      class="adsdesktop"
-      src="../../assets/qr-code.gif"
-      width="148"
-      height="148"
-      border="0"
-      title="Приложение для Андроид"
-    />
-    <a href="https://disk.yandex.ru/d/sN2Iaazo3XsBag">Приложение для Андроид</a>
+    <br><br>
+    <svg viewBox="0 0 16 16" width="1em" height="1em" focusable="false" role="img" aria-label="stopwatch" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi-stopwatch b-icon bi b-icon-animation-cylon" style="font-size: 300%;"><g><path d="M8.5 5.6a.5.5 0 1 0-1 0v2.9h-3a.5.5 0 0 0 0 1H8a.5.5 0 0 0 .5-.5V5.6z"></path><path d="M6.5 1A.5.5 0 0 1 7 .5h2a.5.5 0 0 1 0 1v.57c1.36.196 2.594.78 3.584 1.64a.715.715 0 0 1 .012-.013l.354-.354-.354-.353a.5.5 0 0 1 .707-.708l1.414 1.415a.5.5 0 1 1-.707.707l-.353-.354-.354.354a.512.512 0 0 1-.013.012A7 7 0 1 1 7 2.071V1.5a.5.5 0 0 1-.5-.5zM8 3a6 6 0 1 0 .001 12A6 6 0 0 0 8 3z"></path></g></svg>
+    <div>{{message}}</div>
+    <br>
+    <br>
+    <!-- <img src="../../assets/qr-code.gif" title="Приложение для Андроид"/> -->
   </center>
 </template>
 
@@ -22,18 +13,22 @@
 export default {
   name: 'raspLoadingShow',
   props: {
-    loading: Boolean
+    loading: Boolean,
+    message: String
   }
 }
 </script>
 
-<style>
-.adsdesktop {
+<style scoped>
+img {
   display: block;
+  width: 148px;
+  height: 148px;
+  border: 0;
 }
 
 @media (max-width: 768px) {
-  .adsdesktop {
+  img {
     display: none;
   }
 }

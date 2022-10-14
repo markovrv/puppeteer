@@ -1,14 +1,8 @@
 <template>
   <div>
     <a :name="id" class="a-name">.</a>
-    <b style="font-size: 120%;">{{ name }}</b>
-    <a
-      class="btn btn-link btn-sm day-btn"
-      :id="'daytoissid_' + id"
-      href="javascript://"
-      @click="$emit('btn-click', id)"
-      >День в журнал</a
-    >
+    <b style="font-size: 120%;">{{ dayName }}</b>
+    <a class="btn btn-link btn-sm day-btn" :id="'daytoissid_' + id" href="javascript://" @click="$emit('btn-click', id)">День в журнал</a>
   </div>
 </template>
 
@@ -18,6 +12,14 @@ export default {
   props: {
     id: Number,
     name: String
+  },
+  computed: {
+    dayName() {
+      var days = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота']
+      var d = new Date(this.name)
+      var dat = this.name.split('-')
+      return `${days[d.getDay()]} ${dat[2]}.${dat[1]}.${dat[0].slice(2)}`
+    }
   }
 }
 </script>

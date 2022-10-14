@@ -1,6 +1,6 @@
 <template>
   <!-- Название -->
-  <div style="padding-right: 32px">
+  <div style="padding-right: 32px" @click="$emit('click')">
     <b>{{ lesson.time }}</b> {{ lesson.predm }}
   </div>
 </template>

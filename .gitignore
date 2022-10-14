@@ -1,1 +1,5 @@
 node_modules
+db/users
+db/changes
+nedb.js
+rasp.js
