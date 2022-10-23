@@ -36,6 +36,13 @@
       /></b-button>
       <b-button
         variant="light"
+        title="Удалить занятие"
+        :id="`lessondelid_${id.idd}_${id.idl}`"
+        @click="delClick"
+        ><img style="width: 24px;" src="../../assets/del.svg"
+      /></b-button>
+      <b-button
+        variant="light"
         title="Записать занятие в Журнал преподавателя"
         :id="`lessontoissid_${id.idd}_${id.idl}`"
         @click="$emit('work-click')"
@@ -51,6 +58,11 @@ export default {
   props: {
     lesson: Object,
     id: Object
+  },
+  methods: {
+    delClick() {
+      if(confirm('Подтвердите удаление записи')) this.$emit('del-click')
+    }
   }
 }
 </script>
@@ -71,7 +83,7 @@ export default {
   }
   .closebuttons {
     transition: 0.5s;
-    right: -167px !important;
+    right: -208px !important;
   }
 
   @media (max-width: 768px) {
@@ -79,7 +91,7 @@ export default {
     margin-right: 0px !important;
   }
   .closebuttons {
-    right: -178px !important;
+    right: -219px !important;
   }
 }
 </style>

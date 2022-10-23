@@ -15,7 +15,8 @@
     "websocket": "^1.0.34"
   },
   "scripts": {
-    "serve": "node iss"
+    "serve": "nodemon iss.js",
+    "run": "node iss.js"
   },
   "repository": {
     "type": "git",
@@ -26,5 +27,8 @@
   "bugs": {
     "url": "https://github.com/markovrv/puppeteer/issues"
   },
-  "homepage": "https://github.com/markovrv/puppeteer#readme"
+  "homepage": "https://github.com/markovrv/puppeteer#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
 }

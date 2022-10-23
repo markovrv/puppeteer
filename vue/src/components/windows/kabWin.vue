@@ -63,7 +63,7 @@
                 <b-card-body>
                   <b-alert v-if="winKab.lesson?.kab != winKab.kabs[winKab.current.kab] && getDate == winKab.dates[winKab.current.cDay].split(' ')[1]" style="flex-shrink: inherit;" show>
                     <center>
-                      Чтобы {{(winKab.lesson?.kab.split('-')[1]=='___')?'установить':'заменить'}} кабинет {{oldKabText}} <b>{{winKab.kabs[winKab.current.kab]}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, <br>нажмите кнопку<br>
+                      Чтобы {{(winKab.lesson?.kab.split('-')[1]=='___')?'установить':'заменить'}} кабинет <span v-html="oldKabText"></span> <b>{{winKab.kabs[winKab.current.kab]}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, <br>нажмите кнопку<br>
                       <b-button variant="primary" @click="$emit('change-kab', winKab.kabs[winKab.current.kab])">{{(winKab.lesson?.kab.split('-')[1]=='___')?'Установить':'Заменить'}}</b-button>
                     </center>
                   </b-alert>
