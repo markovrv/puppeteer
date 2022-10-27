@@ -14,8 +14,7 @@ export const lessonCopyMixin = {
           this.copyCount++;
           if (this.clipboard.kab[0] == "<") to.kab = this.clipboard.kab
           else {
-            to.kab = prompt('Введите номер корпуса', this.clipboard.kab.split('-')[0])+'-___'
-            if(to.kab == '-___') to.kab = this.clipboard.kab.split('-')[0]+'-___'
+            to.kab = this.clipboard.kab.split('-')[0]+'-___'
           }
           to.predm = this.clipboard.predm
           to.type = this.clipboard.type

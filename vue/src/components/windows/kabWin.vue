@@ -9,17 +9,24 @@
           </div>
         </template>
         <div class="row" v-if="!winKab.loading">
-          <b-dropdown class="btn-group col-6" id="kablist" :text="winKab.kabs[winKab.current.kab]" variant="primary" menu-class="w-100">
-            <b-dropdown-item :id="`kab_${idk}`" @click="$emit('set-kab', idk)" v-for="(kab, idk) in winKab.kabs" :key="idk" :active="winKab.current.kab == idk">
-              {{kab}} {{(getDate != winKab.dates[winKab.current.cDay].split(' ')[1] || winKab?.rasp[idk]?.data[winKab.current.cDay]?.lessons[winKab.idl])?'':'свободен'}}
+          <b-dropdown class="btn-group col-3" id="corplist" :text="winKab.corps.find(c=>(c==kabNameShort))" variant="primary" menu-class="w-100">
+            <b-dropdown-item :id="`corp_${corp}`" @click="$emit('set-corp', corp)" v-for="corp in winKab.corps" :key="corp" :active="kabNameShort == corp">
+              {{corp}}
             </b-dropdown-item>
           </b-dropdown>
-          <b-dropdown class="btn-group col-6" id="datlist" :text="winKab.dates[winKab.current.cDay]" variant="primary" menu-class="w-100" right>
+          <b-dropdown class="btn-group col-4" id="kablist" :text="winKab.kabs[winKab.current.kab]" variant="primary" menu-class="w-100">
+            <b-dropdown-item :id="`kab_${idk}`" @click="$emit('set-kab', idk)" v-for="(kab, idk) in winKab.kabs" :key="idk" :active="winKab.current.kab == idk">
+              {{kab.split('-')[1]}} {{(getDate != winKab.dates[winKab.current.cDay].split(' ')[1])?'':((winKab?.rasp[idk]?.data[winKab.current.cDay]?.lessons[winKab.idl])?'🚫':'🆓')}}
+              {{getInfo(kab)}}
+            </b-dropdown-item>
+          </b-dropdown>
+          <b-dropdown class="btn-group col-4" id="datlist" :text="winKab.dates[winKab.current.cDay]" variant="primary" menu-class="w-100" right>
             <b-dropdown-item :id="`dat_${idd}`" @click="$emit('set-day', idd)" v-for="(date, idd) in winKab.dates" :key="idd" :active="winKab.current.cDay == idd">
               {{date}}
             </b-dropdown-item>
           </b-dropdown>
-          <div class="accordion" role="tablist" style="padding-top: 16px;">
+          <div class="accordion" role="tablist" style="padding-top: 16px;">          
+            <p>Мест: {{kabInfo?.seats}}, доска: {{kabInfo?.board}}, {{kabInfo?.type}}, {{(kabInfo?.tv)?'ТВ':''}} {{(kabInfo?.projector)?'проектор':''}}</p>
             <b-card no-body class="mb-1">
               <b-card-header header-tag="header" class="p-1" role="tab">
                 <b-button @click="accShow = 3 - accShow" block variant="light">Расписание кабинета</b-button>
@@ -104,6 +111,11 @@ export default {
       name = (name)?(`${name} корпуса`):''
       return `Кабинеты ${name}`
     },
+    kabNameShort() {
+      var current = this.winKab.current.kab
+      var name = (current > -1)?(this.winKab.kabs[current]?.split('-')[0]): ''
+      return name
+    },
     lessons() {
       var kab = (this.winKab.current.kab>-1)?this.winKab.current.kab:0
       var day = (this.winKab.current.cDay>-1)?this.winKab.current.cDay:0
@@ -115,6 +127,9 @@ export default {
     oldKabText() {
       return (this.winKab.lesson?.kab.split('-')[1]=='___')?'':('<b>' + this.winKab.lesson?.kab + '</b> на')
     },
+    kabInfo() {
+      return this.winKab.types.find(k=>k.kab == this.winKab.kabs[this.winKab.current.kab])
+    }
   },
   methods: {      
     onShown() {
@@ -123,6 +138,11 @@ export default {
     winKabHide(){
         this.$bvModal.hide('kabraspwin')
     },
+    getInfo(kab){
+      var data = this.winKab.types.find(k=>k.kab == kab)
+      if(!data) return ''
+      return ((data.type[0] == 'к')?'💻':'')+((data.projector)?'🎥 ':'')+((data.tv)?'📺':'')
+    }
   }
 }
 </script>

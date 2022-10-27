@@ -1,0 +1,5153 @@
+[
+  {
+    "name": "1",
+    "kabs": [
+      {
+        "kab": "1-100а",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-106",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-109",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-111",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-113",
+        "seats": 23,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-114",
+        "seats": 23,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-116",
+        "seats": 24,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-117",
+        "seats": 15,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-117а",
+        "seats": 19,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-117в",
+        "seats": 8,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-118",
+        "seats": 22,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-120",
+        "seats": 34,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-125",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-126",
+        "seats": 15,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-127",
+        "seats": 11,
+        "board": "интерактивная, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-128",
+        "seats": 110,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-222",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-224",
+        "seats": 15,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-227",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-227а",
+        "seats": 22,
+        "board": "",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-234",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-235",
+        "seats": 12,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-236",
+        "seats": 48,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-237",
+        "seats": 23,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-239",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-242",
+        "seats": 150,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-311",
+        "seats": 46,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-312",
+        "seats": 36,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-313",
+        "seats": 32,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-315",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-328",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-331",
+        "seats": 20,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-332",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-334",
+        "seats": 36,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-401",
+        "seats": 18,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-404",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-411",
+        "seats": 21,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-413",
+        "seats": 36,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-415",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-419",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-420",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-421",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-422",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-423",
+        "seats": 34,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-425а",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-426",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-428",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-429",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-430",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-432",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-433",
+        "seats": 25,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-435",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-436",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-437",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-439",
+        "seats": 120,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-501",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-502",
+        "seats": 15,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-505",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "1-507",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "1-509",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-510",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-511",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-512",
+        "seats": 7,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-513а",
+        "seats": 6,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-513б",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "1-514",
+        "seats": 30,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-515",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-516",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-517",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-518",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-518а",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-521",
+        "seats": 30,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-523",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-524",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-525",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-525а",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-526",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-527",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-528",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-529",
+        "seats": 48,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-530",
+        "seats": 36,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-531",
+        "seats": 36,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-533",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-534",
+        "seats": 150,
+        "board": "меловая",
+        "projector": true,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-535",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-601",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-602",
+        "seats": 21,
+        "board": "",
+        "projector": false,
+        "tv": true,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "1-603",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "1-026",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-027",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-031",
+        "seats": 16,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-032г",
+        "seats": 3,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-032д",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-032е",
+        "seats": 20,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-035",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "1-040",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "1-041",
+        "seats": 16,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      }
+    ]
+  },
+  {
+    "name": "2",
+    "kabs": [
+      {
+        "kab": "2-100",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "2-108",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-108б",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-109",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "2-201",
+        "seats": 39,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "2-202",
+        "seats": 25,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-203",
+        "seats": 19,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-204а",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "2-205",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-205а",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-206",
+        "seats": 54,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-207",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-208",
+        "seats": 16,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "2-209",
+        "seats": 280,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-300",
+        "seats": 32,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-301",
+        "seats": 20,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-302",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-303",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-304",
+        "seats": 26,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "2-306",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-307",
+        "seats": 21,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-308",
+        "seats": 22,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-309",
+        "seats": 22,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-310",
+        "seats": 11,
+        "board": "",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "2-311",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-312",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-403",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-404",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-405",
+        "seats": 34,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-406",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-407",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-408",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "2-409",
+        "seats": 90,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "3",
+    "kabs": [
+      {
+        "kab": "3-101",
+        "seats": 31,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-102",
+        "seats": 70,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-103а",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "3-103б",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-103в",
+        "seats": 10,
+        "board": "интерактивная",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "3-104",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "3-105",
+        "seats": 32,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-105а",
+        "seats": 26,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-106",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-107",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "3-201",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "3-202",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "3-203",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "3-204а",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "3-204б",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "3-205",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "3-206",
+        "seats": 12,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "3-207",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "3-213",
+        "seats": 12,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      }
+    ]
+  },
+  {
+    "name": "4",
+    "kabs": [
+      {
+        "kab": "4-001",
+        "seats": 22,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-002",
+        "seats": 15,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-003",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-005",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-007",
+        "seats": 9,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-008",
+        "seats": 7,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-102",
+        "seats": 100,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-102a",
+        "seats": 8,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "4-104",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-105",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-205",
+        "seats": 120,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-302",
+        "seats": 50,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-304",
+        "seats": 18,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-307",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-402a",
+        "seats": 20,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-406",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-407",
+        "seats": 12,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "4-408",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "4-503",
+        "seats": 80,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-506",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-507",
+        "seats": 20,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-509",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "4-602",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-603",
+        "seats": 62,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-604",
+        "seats": 54,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-605",
+        "seats": 90,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "4-701",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-703",
+        "seats": 22,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-704",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "4-705",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      }
+    ]
+  },
+  {
+    "name": "5",
+    "kabs": [
+      {
+        "kab": "5-110",
+        "seats": 20,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-111",
+        "seats": 16,
+        "board": "интерактивная, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-113",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-114",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-116",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-116/1",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-201",
+        "seats": 28,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-202",
+        "seats": 44,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-203",
+        "seats": 20,
+        "board": "интерактивная, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-204",
+        "seats": 27,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-206",
+        "seats": 22,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-207",
+        "seats": 10,
+        "board": "интерактивная, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-209",
+        "seats": 58,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-302",
+        "seats": 26,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-303",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-304",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-305",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-306",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-307",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-308",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-310",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-311",
+        "seats": 62,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-313",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-314",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-316",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-317",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-402",
+        "seats": 26,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-403",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-404",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-405",
+        "seats": 11,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "5-408",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-411",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-413",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-414",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-415",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-416",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-418",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "5-420",
+        "seats": 1,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "6",
+    "kabs": [
+      {
+        "kab": "6-101",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-104",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-105",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-108",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-201",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-202",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-203",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-204",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-206",
+        "seats": 70,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-210",
+        "seats": 66,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-301",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-305",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "6-306",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-307",
+        "seats": 35,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "6-309",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-310",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-311",
+        "seats": 64,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "6-401",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "6-403",
+        "seats": 30,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "6-405",
+        "seats": 27,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "6-407",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "6-409",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      }
+    ]
+  },
+  {
+    "name": "7",
+    "kabs": [
+      {
+        "kab": "7-003",
+        "seats": 6,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "7-006",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "7-007",
+        "seats": 12,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "7-008",
+        "seats": 17,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "7-009",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "7-013",
+        "seats": 26,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "7-014",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "7-019",
+        "seats": 12,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "7-020",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "7-021",
+        "seats": 46,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "8",
+    "kabs": [
+      {
+        "kab": "8-101",
+        "seats": 12,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-103",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-105",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-109",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-201",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-202",
+        "seats": 12,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-203",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-205",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-207",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-211",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-301",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-303 ",
+        "seats": 12,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-304",
+        "seats": 6,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-305",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-306",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-307",
+        "seats": 8,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-310",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-311",
+        "seats": 4,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-401",
+        "seats": 16,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "8-402",
+        "seats": 7,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-409",
+        "seats": 9,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-410",
+        "seats": 8,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-411",
+        "seats": 4,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "8-412",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "8-413",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "8-501",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-505",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-506",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-507",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-508",
+        "seats": 8,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-509",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-511",
+        "seats": 48,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-601",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-602",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "8-603",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-604",
+        "seats": 70,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-605",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "8-606",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-607",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-608",
+        "seats": 24,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "8-609",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "9",
+    "kabs": [
+      {
+        "kab": "9-001",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "9-002",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      }
+    ]
+  },
+  {
+    "name": "10",
+    "kabs": [
+      {
+        "kab": "10-200",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "10-203",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "10-205",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "10-206",
+        "seats": 15,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "10-207",
+        "seats": 10,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "10-211",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "10-214",
+        "seats": 120,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "10-215",
+        "seats": 15,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "10-216",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "10-217",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "10-218",
+        "seats": 224,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "11",
+    "kabs": [
+      {
+        "kab": "11-24",
+        "seats": 24,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "11-32",
+        "seats": 50,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "11-34",
+        "seats": 23,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "11-35",
+        "seats": 64,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "13",
+    "kabs": [
+      {
+        "kab": "13-001",
+        "seats": 50,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "тренажерный зал"
+      },
+      {
+        "kab": "13-002",
+        "seats": 50,
+        "board": "",
+        "projector": false,
+        "tv": true,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "13-105",
+        "seats": 100,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-110",
+        "seats": 100,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-111",
+        "seats": 100,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-112",
+        "seats": 3,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "13-102а",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "13-103а",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-402",
+        "seats": 24,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-404",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-405",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-406",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "13-407",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-408",
+        "seats": 38,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-409",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-501",
+        "seats": 34,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-502",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-503",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-504",
+        "seats": 9,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-505",
+        "seats": 9,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-506",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-507",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-508",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-509",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-510",
+        "seats": 40,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-511",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-513",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-603/1",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "13-607",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-608",
+        "seats": 40,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-609",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "13-610",
+        "seats": 32,
+        "board": "интерактивная, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "14",
+    "kabs": [
+      {
+        "kab": "14-104",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-110",
+        "seats": 38,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-111",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-113",
+        "seats": 65,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-114",
+        "seats": 70,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-121",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-122",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-123",
+        "seats": 38,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-128",
+        "seats": 10,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "14-130",
+        "seats": 30,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-131",
+        "seats": 25,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-133",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-136",
+        "seats": 13,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-137",
+        "seats": 10,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-140",
+        "seats": 22,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-143",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-145",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-201",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-202",
+        "seats": 84,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-208",
+        "seats": 58,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-209",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-210",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-211",
+        "seats": 48,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-214",
+        "seats": 76,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-215",
+        "seats": 100,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "библиотека"
+      },
+      {
+        "kab": "14-218",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-219",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-221",
+        "seats": 54,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-222",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-223",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-233",
+        "seats": 48,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-234",
+        "seats": 44,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-238",
+        "seats": 45,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-239",
+        "seats": 39,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-240",
+        "seats": 48,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-242",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-246",
+        "seats": 60,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-247",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-301",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-303",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-304",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-308",
+        "seats": 50,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-309",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-311",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-312",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-313",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-314",
+        "seats": 38,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-316",
+        "seats": 36,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-319",
+        "seats": 84,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-322",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-324",
+        "seats": 68,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-328",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-329",
+        "seats": 88,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-330",
+        "seats": 31,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "14-331",
+        "seats": 42,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-332",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-334",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "14-335",
+        "seats": 44,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "14-338",
+        "seats": 90,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "15",
+    "kabs": [
+      {
+        "kab": "15-101",
+        "seats": 6,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-102",
+        "seats": 30,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-111",
+        "seats": 300,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "15-112",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-115",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-116",
+        "seats": 44,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-117",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-119",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-122",
+        "seats": 21,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-125",
+        "seats": 26,
+        "board": "интерактивная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-126",
+        "seats": 4,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-127",
+        "seats": 23,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-131",
+        "seats": 20,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-132",
+        "seats": 24,
+        "board": "интерактивная, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-134",
+        "seats": 40,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-200",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-201",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-202",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-204",
+        "seats": 32,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-205",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-206",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-207",
+        "seats": 42,
+        "board": "маркерная",
+        "projector": true,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-208",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-209",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-210",
+        "seats": 86,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-211",
+        "seats": 100,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-212",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-216",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-216а",
+        "seats": 8,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-217",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-218",
+        "seats": 36,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-219",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-222",
+        "seats": 4,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-223",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-224",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-225",
+        "seats": 36,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-226",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-227",
+        "seats": 40,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-228",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-229",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-230",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-232",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-241",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-242",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-243",
+        "seats": 85,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-245",
+        "seats": 44,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-245а",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-246",
+        "seats": 28,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-247",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-248",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-249",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-250",
+        "seats": 94,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-251",
+        "seats": 126,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-252",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-261",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-262",
+        "seats": 76,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-263",
+        "seats": 34,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-264",
+        "seats": 40,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-265",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-266",
+        "seats": 20,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-267",
+        "seats": 76,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-268",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-270",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-273",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-302",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-304",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-305",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-309",
+        "seats": 52,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-310",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-311",
+        "seats": 190,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-315",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-315а",
+        "seats": 4,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-317",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-321",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "15-322",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-324",
+        "seats": 48,
+        "board": "меловая, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-326",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "15-327",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-329",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "15-331",
+        "seats": 14,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-332",
+        "seats": 36,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-334",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научный центр"
+      },
+      {
+        "kab": "15-337",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-339",
+        "seats": 38,
+        "board": "интерактивная, меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-340",
+        "seats": 3,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "15-341",
+        "seats": 12,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-343",
+        "seats": 190,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-403",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-405",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-406",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-407",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-414",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-416",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-418",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-419",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-421",
+        "seats": 22,
+        "board": "интерактивная",
+        "projector": true,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "15-423",
+        "seats": 20,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "15-425",
+        "seats": 8,
+        "board": "интерактивная, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "научный центр"
+      },
+      {
+        "kab": "15-426",
+        "seats": 28,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-430",
+        "seats": 60,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-434",
+        "seats": 32,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "15-437",
+        "seats": 24,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "16",
+    "kabs": [
+      {
+        "kab": "16-105",
+        "seats": 10,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-106",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-106/1",
+        "seats": 1,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-107",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-108",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-110",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-112",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-117",
+        "seats": 12,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-119а",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-119б",
+        "seats": 26,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-119в",
+        "seats": 28,
+        "board": "меловая",
+        "projector": true,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-121",
+        "seats": 38,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-316",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "16-201",
+        "seats": 13,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-202",
+        "seats": 13,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-203",
+        "seats": 14,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-204",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-205",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-206",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-207",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-209",
+        "seats": 13,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-210",
+        "seats": 13,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-212",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-216",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-217",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-220",
+        "seats": 32,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-224",
+        "seats": 26,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-227",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-300",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-302",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-303",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-310",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-311",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-313",
+        "seats": 57,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-315",
+        "seats": 11,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-318",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-319",
+        "seats": 12,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-320",
+        "seats": 28,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-321",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-322",
+        "seats": 44,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-323",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-324",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-325",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-400",
+        "seats": 15,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-401",
+        "seats": 15,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-403",
+        "seats": 32,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-404",
+        "seats": 34,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-405",
+        "seats": 32,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-406",
+        "seats": 36,
+        "board": "интерактивная, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-407",
+        "seats": 36,
+        "board": "интерактивная, маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-408",
+        "seats": 36,
+        "board": "маркерная",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-410",
+        "seats": 30,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-411",
+        "seats": 40,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "16-414",
+        "seats": 13,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-415",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-417",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-419",
+        "seats": 15,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "16-422",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "17",
+    "kabs": [
+      {
+        "kab": "17-154",
+        "seats": 15,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-152",
+        "seats": 28,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-157",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-265",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "17-266",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-267",
+        "seats": 30,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-268",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-269",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-351",
+        "seats": 22,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "17-352",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "17-353",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "17-356",
+        "seats": 38,
+        "board": "меловая, маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "17-357",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-359",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-362",
+        "seats": 15,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-453",
+        "seats": 15,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-457",
+        "seats": 32,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "17-458",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "17-460",
+        "seats": 12,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "18",
+    "kabs": [
+      {
+        "kab": "18-103",
+        "seats": 48,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "18-101",
+        "seats": 5,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "18-104",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "компьютерный класс"
+      },
+      {
+        "kab": "18-105",
+        "seats": 17,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "18-106",
+        "seats": 6,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "научная лаборатория"
+      },
+      {
+        "kab": "18-208",
+        "seats": 22,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "18-205",
+        "seats": 46,
+        "board": "интерактивная, меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "18-206",
+        "seats": 14,
+        "board": "маркерная",
+        "projector": false,
+        "tv": false,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "18-207",
+        "seats": 8,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "19",
+    "kabs": [
+      {
+        "kab": "19-117",
+        "seats": 100,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-148",
+        "seats": 400,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-159",
+        "seats": 100,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "бассейн"
+      },
+      {
+        "kab": "19-001",
+        "seats": 1000,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-105",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": false,
+        "tv": true,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "19-126",
+        "seats": 250,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "тренажерный зал"
+      },
+      {
+        "kab": "19-127",
+        "seats": 14,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-178",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-179",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-180",
+        "seats": 28,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-201",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "19-215",
+        "seats": 80,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-217",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-219",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-220",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-256",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-257",
+        "seats": 46,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-258",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-259",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-260",
+        "seats": 52,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-301",
+        "seats": 400,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-329",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-331",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  },
+  {
+    "name": "21",
+    "kabs": [
+      {
+        "kab": "19-117",
+        "seats": 100,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-148",
+        "seats": 400,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-159",
+        "seats": 100,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "бассейн"
+      },
+      {
+        "kab": "19-001",
+        "seats": 1000,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-105",
+        "seats": 18,
+        "board": "маркерная",
+        "projector": false,
+        "tv": true,
+        "type": "аудитория для самостоятельной работы"
+      },
+      {
+        "kab": "19-126",
+        "seats": 250,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "тренажерный зал"
+      },
+      {
+        "kab": "19-127",
+        "seats": 14,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-178",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-179",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-180",
+        "seats": 28,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-201",
+        "seats": 2,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "лаборатория"
+      },
+      {
+        "kab": "19-215",
+        "seats": 80,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-217",
+        "seats": 80,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-219",
+        "seats": 42,
+        "board": "меловая",
+        "projector": true,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-220",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-256",
+        "seats": 18,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-257",
+        "seats": 46,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-258",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": true,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-259",
+        "seats": 24,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-260",
+        "seats": 52,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-301",
+        "seats": 400,
+        "board": "",
+        "projector": false,
+        "tv": false,
+        "type": "спортивный зал"
+      },
+      {
+        "kab": "19-329",
+        "seats": 20,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      },
+      {
+        "kab": "19-331",
+        "seats": 16,
+        "board": "меловая",
+        "projector": false,
+        "tv": false,
+        "type": "учебная аудитория"
+      }
+    ]
+  }
+]

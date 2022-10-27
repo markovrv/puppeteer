@@ -6,6 +6,7 @@ export const kabMixin = {
       winKab: {
         kabs: [],
         dates: [],
+        types: [],
         loading: true,
         rasp: [],
         current: {
@@ -19,26 +20,35 @@ export const kabMixin = {
     }
   },
   methods: {
-    async getKab(day, kab, lesson, idl) {
+    async getKab(day, kab, lesson = null, idl = null) {
       if (kab.length > 10) return null
       var strdate = new Date(day).toLocaleDateString()
       var cDay = strdate.replaceAll('.', '')
       this.winKab.loading = true
-      this.winKab.lesson = lesson
-      this.winKab.idl = idl
+      if(lesson) this.winKab.lesson = lesson
+      if(idl)    this.winKab.idl = idl
+      this.winKab.current.kab = -1
       this.winKab.day = day
       this.$bvModal.show('kabraspwin')
 
       var setResp = response => {
+          this.winKab.corps  = response.data.corps
           this.winKab.kabs  = response.data.kabs
           this.winKab.dates = response.data.dates
           this.winKab.rasp  = response.data.rasp
-          this.winKab.current.kab  = response.data.kabs.findIndex(el=>(el == kab))
+          this.winKab.types  = response.data.types
+          this.winKab.current.kab = response.data.kabs.findIndex(el=>(el == kab))
           if (this.winKab.current.kab < 0 ) this.winKab.current.kab = 0
           this.winKab.current.cDay = response.data.dates.findIndex(el=>(el.split(" ")[1] == strdate.replace('.20', '.')))
           if (this.winKab.current.cDay < 0 ) this.winKab.current.cDay = 0
           this.winKab.loading = false
           setTimeout(()=>{
+            document.querySelector('div[id="corplist"] button').addEventListener('click', ()=>{
+              var corp = document.querySelector('div[id="corplist"] button').textContent
+              setTimeout(()=>{
+                document.querySelector('div[id="corplist"] ul').scrollTop = document.getElementById(`corp_${corp}`).offsetTop-150;
+              }, 100);
+            })
             document.querySelector('div[id="kablist"] button').addEventListener('click', ()=>{
               var kab = document.querySelector('div[id="kablist"] button').textContent
               var kid =this.winKab.kabs.findIndex(k=>(k==kab))
