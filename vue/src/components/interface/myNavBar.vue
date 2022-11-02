@@ -23,12 +23,14 @@
             </b-nav-item-dropdown>
             <b-nav-item-dropdown right v-else>
               <template #button-content>{{login}}</template>
-              <b-dropdown-item  href="#" v-if="showCopies" @click="$emit('show-copies-click', false)">Скрыть переносы занятий</b-dropdown-item>
-              <b-dropdown-item  href="#" v-else @click="$emit('show-copies-click', true)">Показать переносы занятий</b-dropdown-item>
+              <b-dropdown-item  href="javascript://" v-if="showCopies" @click="$emit('show-copies-click', false)">Скрыть переносы занятий</b-dropdown-item>
+              <b-dropdown-item  href="javascript://" v-else @click="$emit('show-copies-click', true)">Показать переносы занятий</b-dropdown-item>
               <!-- <b-dropdown-item disabled href="#">Снятые занятия</b-dropdown-item>
               <b-dropdown-item disabled href="#">Выполнение нагрузки</b-dropdown-item> -->
               <b-dropdown-divider></b-dropdown-divider>
-              <b-dropdown-item href="#" @click="$emit('logout')">Выйти</b-dropdown-item>
+              <b-dropdown-item href="/Timetable.apk">Android приложение</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item href="javascript://" @click="$emit('logout')">Выйти</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>
         </b-collapse>
