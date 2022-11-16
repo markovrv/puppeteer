@@ -1,5 +1,7 @@
 const express = require('express');
 const common = require("./lib/common")
+// Параметры запуска: Перед выгрузкой на сервер закомментировать строку
+common.app_env = 'local'
 const iss = require("./routes/iss.route")
 const strasp = require("./routes/strasp.route")
 const userrasp = require("./routes/rasp.route")
@@ -7,9 +9,6 @@ const kabrasp = require("./routes/kabrasp.route")
 const lk = require("./routes/lk.route")
 const db = require("./routes/db.route")
 
-
-// Параметры запуска: Перед выгрузкой на сервер закомментировать строку
-common.app_env = 'local'
 
 common.init()
 const app = express();

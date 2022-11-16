@@ -128,17 +128,69 @@ router.post('/', express.json(), (req, res) => {
         page.evaluate((data) => {
           // Получаем id работ по типам нагрузки (ищем первые элементы каждого типа)
           if(!window.catlist) {
-            window.catlist = [];
+            window.catlist = [
+              {
+                  "firstId": -1,
+                  "catName": "Чтение лекций"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Проведение практических занятий, семинаров"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Проведение лабораторных занятий (лабораторных практикумов)"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Подготовка к лекциям"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Подготовка к практическим занятиям"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Подготовка к лабораторным занятиям"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Методическое обеспечение и методическая «поддержка» дисциплины"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Контроль самостоятельной работы обучающихся в рамках дисциплины"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Организация текущего контроля успеваемости обучающихся в рамках дисциплины"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Проведение консультаций по дисциплине"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Прием экзаменов по дисциплине"
+              },
+              {
+                  "firstId": -1,
+                  "catName": "Прием зачетов по дисциплине"
+              }
+          ];
             let categories = Array.from(document.querySelectorAll(`td[class="x-group-hd-container"]`));
             categories.forEach(category => {
-              window.catlist.push({firstId: Number(category.parentNode.getAttribute("data-recordid"))});
+              var currentCat = window.catlist.find(cat=>(cat.firstId == -1 && cat.catName == category.querySelector('div').textContent.trim()));
+              if (currentCat) currentCat.firstId = Number(category.parentNode.getAttribute("data-recordid"));
+              else window.catlist.push({firstId: Number(category.parentNode.getAttribute("data-recordid")), catName: category.querySelector('div').textContent.trim()});
+
             });
           }
           // Получаем список работ, сгруппированый по типам нагрузки
           if(!window.countItems){
             window.countItems = Array.from(document.querySelectorAll('tr[id^="gridview-1015-record-"]')).length;
           }
-          var cat = 0;
+          var cat = -1;
           // Проверяем каждую работу на соответствие искомым параметрам
           var overloaded = false; // флаг - нагрузка по работе выполнена
           for (let i = 0; i < window.countItems; i++) {
