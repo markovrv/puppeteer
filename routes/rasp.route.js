@@ -9,6 +9,7 @@ router.post('/', express.json(), (req, res) => {
   (async (login, password) => {
     // получаем расписание из ЛК
     var data = await lsns.getRaspData(login, password)
+    // res.send(data)
     // объединяем расписание с данными из локальной БД
     await lsns.raspAndDbConcat(login, data)
     // выгружаем все занятия из БД
