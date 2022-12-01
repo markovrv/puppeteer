@@ -6,6 +6,9 @@ export const issMixin = {
       winLog: {
         log: []
       },
+      winSync: {
+        data: []
+      },
       messages: [],
       issWorking: false,
     }
@@ -69,6 +72,28 @@ export const issMixin = {
             });
           }).catch(()=>{
             document.getElementById(sender).classList.remove("disabled");
+          })
+      },
+      async getIssWorks() {
+        var content = {
+          auth: {
+            login: this.login,
+            passwordAES: this.passwordAES
+          }
+        }
+        this.issWorking = true
+        this.axios({
+          method: 'post',
+          url: PATH + '/api/iss/worklist',
+          timeout: 60000,
+          data: content
+        }).then(response => {
+            console.log(response.data)
+            this.winSync.data = response.data
+            this.$bvModal.show('syncwin')
+            this.issWorking = false
+          }).catch(err => {
+            console.log(err)
           })
       },
     }

@@ -1,10 +1,11 @@
 <template>
   <div id="app" class="container container-main">
-    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" v-model="remember" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings"></my-nav-bar>
+    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks"></my-nav-bar>
     <rasp-loading-show :loading="loading" :message="winStud.message"></rasp-loading-show>
     <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
     <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab="changeKab" @change-kab-cancel="changeKabCancel"></kab-win>
     <log-win :win-log="winLog"></log-win>
+    <sync-win :win-sync="winSync"></sync-win>
     <loader-win :messages="messages"></loader-win>
 
     <lesson-copy-block :clipboard="clipboard" :copy-count="copyCount" @exit="raspSeartchMode = false; clipboard = {}; loadData()" v-if="raspSeartchMode"></lesson-copy-block>
@@ -65,6 +66,7 @@ import raspLoadingShow from './components/interface/raspLoadingShow.vue'
 import stRaspWin from './components/windows/stRaspWin.vue'
 import kabWin from './components/windows/kabWin.vue'
 import logWin from './components/windows/logWin.vue'
+import syncWin from './components/windows/syncWin.vue'
 import loaderWin from './components/windows/loaderWin.vue'
 
 export default {
@@ -86,6 +88,7 @@ export default {
     raspLoadingShow,
     stRaspWin,
     kabWin,
+    syncWin,
     logWin,
     loaderWin,
   },
@@ -155,6 +158,11 @@ export default {
 
           this.days = response.data
 
+        })
+        .catch(({response}) => { 
+          this.loading = false
+          this.logout()
+          this.loginErrorMessage = response.data.error
         })
     },
   },

@@ -38,6 +38,19 @@ router.post('/del', express.json(), (req, res) => {
   })()
 })
 
+router.post('/del/all/local', express.json(), (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    var docs = await db.users.find({login, apikey})
+    if (docs.length > 0){
+      await db.changes.remove({login}, {multi: true})
+      await db.lessons.remove({login}, {multi: true})
+      res.send({status: 'OK'})
+    } else res.sendStatus(401)
+  })()
+})
+
 router.post('/changekab', express.json(), (req, res) => {
   (async()=>{
     var login  = req.body.login;
@@ -56,7 +69,29 @@ router.post('/changekab', express.json(), (req, res) => {
       var time   = req.body.lesson.time;
       var lesson = req.body.lesson;
       var date   = new Date();
-      var rec = await db.changes.findOne({login, day, time, date})
+      var rec = await db.changes.findOne({login, day, time})
+      if (rec){
+        await db.changes.update({_id: rec._id}, {lesson}, {});
+      } else {
+        await db.changes.insert({login, type, day, time, lesson, date})
+      }
+      res.send({status: 'OK'})
+    } else res.sendStatus(401)
+  })()
+})
+
+router.post('/add/lesson', express.json(), (req, res) => {
+  (async()=>{
+    var login  = req.body.login;
+    var apikey = req.body.passwordAES.MD5();
+    var docs = await db.users.find({login, apikey})
+    if (docs.length > 0){
+      var type   = 10; // защищенная запись (в журнале)
+      var day    = req.body.day;
+      var time   = req.body.lesson.time;
+      var lesson = req.body.lesson;
+      var date   = new Date();
+      var rec = await db.changes.findOne({login, day, time})
       if (rec){
         await db.changes.update({_id: rec._id}, {lesson}, {});
       } else {

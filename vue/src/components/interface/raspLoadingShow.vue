@@ -5,7 +5,6 @@
     <div>{{message}}</div>
     <br>
     <br>
-    <!-- <img src="../../assets/qr-code.gif" title="Приложение для Андроид"/> -->
   </center>
 </template>
 

@@ -243,10 +243,13 @@ function parseWorksToList(page, context){
         let newCat = window.catlist.findIndex(c => (c.firstId == i));
         cat = (newCat > -1)?newCat:cat;
         var percent = 0;
-        if(item[5].firstElementChild != undefined && item[5].firstElementChild.firstElementChild != undefined)
+        var info = '';
+        if(item[5].firstElementChild != undefined && item[5].firstElementChild.firstElementChild != undefined){
           percent = Number(item[5].firstElementChild.firstElementChild.getAttribute("style").split('%')[0].split(':')[1]);
+          info = item[5].firstElementChild.firstElementChild.firstElementChild.textContent;
+        }
         if(percent > 0)
-          workList.push({name, cat, groups, percent})
+          workList.push({id: i, name, cat, groups, percent, info})
       }
       return workList;
     }, context).then(resolve)
@@ -258,6 +261,128 @@ router.post('/worklist', express.json(), (req, res) => {
     var browser, page
 
     if (debug) var startTime = performance.now()
+
+    if (browserlist.hasBrowser(auth.login)) {
+      browser = browserlist.getBrowser(auth.login)
+    } else {
+
+      if (debug) {
+        console.log('===================================');
+        console.log('');
+        console.log("Активация")
+      }
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Активация", 
+          color: "white",
+          time: new Date()
+        });
+      }
+
+      //   Открываем браузер
+      if(app_env == 'public')  {
+        browser = await puppeteer.launch({args: ['--no-sandbox']});
+      } else {
+        browser = await puppeteer.launch({ headless: !debug});
+      }
+    }
+
+    if(browserlist.hasIss(auth.login)){
+      page = browserlist.getIss(auth.login)
+    } else {
+
+      if (debug) console.log("Загрузка страницы")
+
+      //   Новая страница
+      page = await browser.newPage();
+      await page.setViewport({
+        width: 1040,
+        height: 720,
+        deviceScaleFactor: 1,
+      });
+
+      //   Загружаем сайт
+      await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
+
+      if (debug) console.log("Авторизация")
+
+      //   Авторизуемся
+      await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, auth.login); 
+      await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, crypto.decrypt(auth.passwordAES));
+      await page.click('a[id="O64_id"]');
+
+      if (debug) console.log("Загрузка меню")
+
+      // Ждем загрузки меню
+      await page.waitForSelector('label[id="OA3_id"]');
+
+      if (debug) console.log("Загрузка журнала")
+
+      //   Выбираем раздел Журнал
+      await page.click('td[id="O19_id-inputCell"]');
+      await page.click('li[class="x-boundlist-item"]:last-child');
+
+      //   Ждем загрузки журнала
+      await page.waitForSelector('table[id="gridview-1015-table"]');
+
+      if (debug) console.log("Журнал загружен")
+      if (pusherLog) {
+        pusher.trigger(auth.login, "my-event", {
+          message: "Журнал загружен",
+          color:  "white",
+          time: new Date()
+        });
+      }
+
+      await common.wait(2000);
+
+    }
+
+    const workList = await parseWorksToList(page, context)
+
+    if (debug) console.log("Список работ сформирован")
+
+    if (pusherLog) {
+      pusher.trigger(auth.login, "my-event", {
+        message: "Список работ сформирован", 
+        color: "white",
+        time: new Date()
+      });
+    }
+
+    // возвращаем ответ
+    res.send(workList)
+
+    // запоминаем для дальнейшего использования
+    if(browserlist.hasBrowser(auth.login)) {
+      browserlist.setIss(auth.login, page)
+    } else {
+      browserlist.setBrowserIss(auth.login, browser, page)
+    }
+
+    if (debug) {
+      console.log('Браузер будет закрыт по таймеру');
+      console.log("");
+      console.log('===================================');
+      var endTime = performance.now()
+      console.log(`Скрипт работал ${((endTime - startTime)/1000).toFixed(1)}s`)
+      console.log(`Обработано ${workList.length} записей`)
+    }
+
+  })(req.body.auth, context)
+})
+
+router.post('/worklist/lessons', express.json(), (req, res) => {
+  (async (input, auth) => {
+    var browser, page
+    // Массив логов журнала
+    var lastLog = [];
+    // прослушиваем запросы, отлавливаем лог
+    var respListen = false
+
+    if (debug) {
+      var startTime = performance.now()
+    }
 
     if (browserlist.hasBrowser(auth.login)) {
       browser = browserlist.getBrowser(auth.login)
@@ -335,20 +460,73 @@ router.post('/worklist', express.json(), (req, res) => {
 
     }
 
-    const workList = await parseWorksToList(page, context)
-
-    if (debug) console.log("Список работ сформирован")
-
     if (pusherLog) {
       pusher.trigger(auth.login, "my-event", {
-        message: "Список работ сформирован", 
+        message: "Начало обработки занятия №" + input.id, 
         color: "white",
         time: new Date()
       });
     }
 
-    // возвращаем ответ
-    res.send(workList)
+    page.on('request',async(request)=>{
+      if(respListen){
+        var url=request.url()
+        if ( url.indexOf("IsEvent=1") > 0 && url.indexOf("options=1") > 0 ) {
+          if (debug) console.log("Запрос лога...")
+          while (! request.response()) await common.wait(50);
+          var text = await request.response().text()
+          eval('lastLog = ' + text);
+          if (debug) {
+            console.log("Получен лог:")
+            if(lastLog.rows) {
+              lastLog.rows.forEach(row => {
+                console.log("   - ", row['0'])
+              });
+            } else console.log("   незнакомый формат лога")
+          }
+          respListen=false;
+        }
+      }
+    }) 
+    
+    // id нужной работы
+    const itemIndex = input.id
+
+    // включаем захват логов с сервера
+    lastLog = {};
+    respListen = true;
+
+    // Клик по работе
+    await page.click(`tr[id="gridview-1015-record-${itemIndex}"]`, {delay:50});
+
+    if (debug) {
+      console.log("Выбрали работу № ", itemIndex);
+      console.log('Загружаем лог работы...');
+    }
+
+    await common.wait(200);
+
+    // Ждем загрузки лога
+    var timer = 0;
+    while(respListen && timer < 10) {
+      await common.wait(100);
+      timer++;
+    }
+
+    if(timer >= 10 || !lastLog.rows) {
+      res.send({ error: 'Ошибка загрузки списка занятий предмета №' + itemIndex });
+    }
+
+    res.send(lastLog.rows);
+
+    if (debug) console.log('Задание обработано');
+    if (pusherLog) {
+      pusher.trigger(auth.login, "my-event", {
+        message: "Конец обработки", 
+        color: "white",
+        time: new Date()
+      });
+    }
 
     // запоминаем для дальнейшего использования
     if(browserlist.hasBrowser(auth.login)) {
@@ -363,10 +541,9 @@ router.post('/worklist', express.json(), (req, res) => {
       console.log('===================================');
       var endTime = performance.now()
       console.log(`Скрипт работал ${((endTime - startTime)/1000).toFixed(1)}s`)
-      console.log(`Обработано ${workList.length} записей`)
     }
 
-  })(req.body.auth, context)
+  })(req.body.data, req.body.auth)
 })
 
 router.post('/', express.json(), (req, res) => {

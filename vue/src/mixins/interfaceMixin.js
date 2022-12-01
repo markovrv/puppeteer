@@ -5,6 +5,7 @@ export const interfaceMixin = {
     return {
       login: "",
       passwordAES: "",
+      loginErrorMessage: "",
       loading: false,
       remember: false,
       showCopies: false,
@@ -18,28 +19,33 @@ export const interfaceMixin = {
         this.lastmenu = lesson
       },
       async saveSettings() {
+        this.loginErrorMessage = ''
         this.axios.post(PATH + '/api/lk/login/', {
           text: document.getElementById('dropdown-form-password').value,
           login: document.getElementById('dropdown-form-login').value
         })
           .then(response => {
-            this.login = document.getElementById('dropdown-form-login').value
-            this.passwordAES = response.data.encrypted_json_str
-            document.querySelector('li[id="loginmenu"] ul').classList.remove('show')
-  
-            if (this.remember){
-              localStorage.login = this.login
-              localStorage.passwordAES = this.passwordAES
-              localStorage.dump = ''
-              localStorage.remember = "true"
+            if(response.data.error) {
+              this.loginErrorMessage = response.data.error
             } else {
-              localStorage.login = ''
-              localStorage.passwordAES = ''
-              localStorage.dump = ''
-              localStorage.remember = ''
-  
+              this.login = document.getElementById('dropdown-form-login').value
+              this.passwordAES = response.data.encrypted_json_str
+              document.querySelector('li[id="loginmenu"] ul').classList.remove('show')
+    
+              if (this.remember){
+                localStorage.login = this.login
+                localStorage.passwordAES = this.passwordAES
+                localStorage.dump = ''
+                localStorage.remember = "true"
+              } else {
+                localStorage.login = ''
+                localStorage.passwordAES = ''
+                localStorage.dump = ''
+                localStorage.remember = ''
+    
+              }
+              this.loadData()
             }
-            this.loadData()
           })
       },
       async logout() {
