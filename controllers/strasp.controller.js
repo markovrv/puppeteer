@@ -8,7 +8,7 @@ const pusherLog = true;
 const pusher = common.pusher
 
 
-exports.getData = (req, res) => {
+module.exports = (req, res) => {
     (async (data, auth) => {
         var browser, page
         var multiday = false
@@ -55,6 +55,7 @@ exports.getData = (req, res) => {
             });
           }
     
+          page.setUserAgent(req.get('User-Agent'))
           await page.goto('https://new.vyatsu.ru/account/');
     
           await page.waitForSelector('div[class="chat-button bell"]');

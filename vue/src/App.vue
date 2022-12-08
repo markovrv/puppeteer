@@ -167,9 +167,7 @@ export default {
     },
   },
   mounted() {
-    if(document.referrer) document.location.href = 'https://new.vyatsu.ru/account/obr/rasp/?login=yes'
     this.loadData()
-    localStorage.password = '' // затираем пароль от прошлой версии программы
     window.dump = {}
   }
 }

@@ -302,7 +302,7 @@ router.post('/worklist', express.json(), (req, res) => {
       });
 
       //   Загружаем сайт
-      page.setUserAgent(common.userAgent)
+      page.setUserAgent(req.get('User-Agent'))
       await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
 
       if (debug) console.log("Авторизация")
@@ -425,7 +425,7 @@ router.post('/worklist/lessons', express.json(), (req, res) => {
       });
 
       //   Загружаем сайт
-      page.setUserAgent(common.userAgent)
+      page.setUserAgent(req.get('User-Agent'))
       await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
 
       if (debug) console.log("Авторизация")
@@ -611,7 +611,7 @@ router.post('/', express.json(), (req, res) => {
       });
 
       //   Загружаем сайт
-      page.setUserAgent(common.userAgent)
+      page.setUserAgent(req.get('User-Agent'))
       await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
 
       if (debug) console.log("Авторизация")

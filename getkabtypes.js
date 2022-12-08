@@ -25,11 +25,12 @@ const fs = require('fs');
     });
 
     //   Загружаем сайт
+    page.setUserAgent("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 YaBrowser/22.11.2.807 Yowser/2.5 Safari/537.36")
     await page.goto('https://iss.vyatsu.ru/kaf/', { waitUntil: 'networkidle2' });
 
     //   Авторизуемся
-    await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, 'usr11935');
-    await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, 'Vyatsu20222');
+    await page.evaluate(val => document.querySelector('input[id="O60_id-inputEl"]').value = val, '********');
+    await page.evaluate(val => document.querySelector('input[id="O6C_id-inputEl"]').value = val, '********');
     await page.click('a[id="O64_id"]');
 
     // Ждем загрузки меню
