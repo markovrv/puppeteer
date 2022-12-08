@@ -1,4 +1,4 @@
-const express = require('express');
+const express = require('express')
 const router = express.Router()
 const usernameMiddleware = require('../middleware/username.middleware')
 const userpassMiddleware = require('../middleware/userpass.middleware')

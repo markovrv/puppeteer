@@ -1,72 +1,19 @@
-const puppeteer = require('puppeteer');
-const browserlist = require("../lib/browserlist")
 const common = require("../lib/common")
 const strasp = require("../lib/strasp")
-const app_env = common.app_env;
-const debug = common.debug
 const pusherLog = true;
 const pusher = common.pusher
 
-
 module.exports = (req, res) => {
     (async (data, auth) => {
-        var browser, page
+
         var multiday = false
         var rasplist = []
         var i = 0;
         var count = data.groups.length
     
-        if (browserlist.hasBrowser(auth.login)) {
-          browser = browserlist.getBrowser(auth.login)
-        } else {
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Активация API..."
-            });
-          }
-          if(app_env == 'public')  {
-            browser = await puppeteer.launch({args: ['--no-sandbox']});
-          } else {
-            browser = await puppeteer.launch({ headless: !debug});
-          }
-        }
-        if(browserlist.hasLk(auth.login)){
-          page = browserlist.getLk(auth.login)
-        } else {
-          page = await browser.newPage();
-          await page.setViewport({
-            width: 1040,
-            height: 720,
-            deviceScaleFactor: 1,
-          });
-        
-          await page.setRequestInterception(true);
-          page.on('request', request => {
-            if (request.resourceType() === 'font' || request.resourceType() === 'image') {
-              request.abort();
-            } else {
-              request.continue();
-            }
-          });
-    
-          if (pusherLog) {
-            pusher.trigger(auth.login, "my-event", {
-              message: "Загрузка приложения..."
-            });
-          }
-    
-          page.setUserAgent(req.get('User-Agent'))
-          await page.goto('https://new.vyatsu.ru/account/');
-    
-          await page.waitForSelector('div[class="chat-button bell"]');
-    
-          await page.click('div[class="chat-button bell"]');
-          await new Promise(r => setTimeout(r, 550));
-          await strasp.pressButton(page, "Студент/Сотрудник")
-          await new Promise(r => setTimeout(r, 550));
-          await strasp.pressButton(page, "Общее расписание")
-          await new Promise(r => setTimeout(r, 550));
-        }
+        var page = req.page
+
+        page.bringToFront();
         // Активация многодневного режима
         if(data.date == "") {
           data.date = "Расписание"
@@ -132,13 +79,6 @@ module.exports = (req, res) => {
         }
     
         res.send(rasplist)
-    
-        // запоминаем для дальнейшего использования
-        if(browserlist.hasBrowser(auth.login)) {
-          browserlist.setLk(auth.login, page)
-        } else {
-          browserlist.setBrowserLk(auth.login, browser, page)
-        }
        
       })({groups: req.body.groups, date: req.body.date}, req.body.auth);
 }
