@@ -5,7 +5,7 @@
     <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
     <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab="changeKab" @change-kab-cancel="changeKabCancel"></kab-win>
     <log-win :win-log="winLog"></log-win>
-    <sync-win :win-sync="winSync"></sync-win>
+    <sync-win :win-sync="winSync" @lesson-select="winSyncLessonClick"></sync-win>
     <loader-win :messages="messages"></loader-win>
 
     <lesson-copy-block :clipboard="clipboard" :copy-count="copyCount" @exit="raspSeartchMode = false; clipboard = {}; loadData()" v-if="raspSeartchMode"></lesson-copy-block>
@@ -167,6 +167,7 @@ export default {
     },
   },
   mounted() {
+    if(document.referrer) document.location.href = 'https://new.vyatsu.ru/account/obr/rasp/?login=yes'
     this.loadData()
     localStorage.password = '' // затираем пароль от прошлой версии программы
     window.dump = {}

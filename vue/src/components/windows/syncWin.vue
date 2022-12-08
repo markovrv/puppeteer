@@ -3,9 +3,9 @@
       <table class="b-table table table-bordered table-striped bv-docs-table">
         <tr>
           <th scope="col">Предмет</th>
-          <th scope="col">Проведено часов</th>
+          <th scope="col">Проведено (ч.)</th>
         </tr>
-        <tr v-for="(item, id) in winSync.data" :key="id" class="small lesson">
+        <tr @click="$emit('lesson-select', item)" v-for="(item, id) in winSync.data" :key="id" class="small lesson">
           <td><b>{{item.name}}</b><br><i>{{lesType(item.cat)}}</i><br><small>{{ item.groups }}</small></td>
           <td style="padding-right: 10px;">
             <b-progress :max="100" style="padding: 0px; background-color: rgb(153 153 153 / 40%)">

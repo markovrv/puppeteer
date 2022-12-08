@@ -1,4 +1,35 @@
 const PATH = process.env.VUE_APP_PATH;
+const times = ["8:20-9:50", "10:00-11:30", "11:45-13:15", "14:00-15:30", "15:45-17:15", "17:20-18:50", "18:55-20:25"]
+class Lesson {
+  constructor(time, predm = '', type = '', kab = '', groups = []){
+      this.time = time
+      this.predm = predm
+      this.type = type
+      this.kab = kab
+      this.groups = groups
+  }
+}
+
+function lesType(type) {
+  if (type == 0) return 'Лекция'
+  if (type == 1) return 'Практическое занятие'
+  if (type == 2) return 'Лабораторная работа'
+}
+function dayconvert(day) {
+  return day.split('.').reverse().join('-')
+}
+function timeconvert(time, step = 0) {
+  var now = time.slice(0, -3)
+  var id = times.findIndex(time => (time.indexOf(now) >= 0))
+  return times[id + step]
+}
+function groupsConvert(str) {
+  var groups = str.replaceAll(', 1', '. 1').replaceAll(', 2', '. 2').replaceAll(', 3', '. 3').replaceAll(', 4', '. 4').split(', ')
+  groups.forEach((group, id) => {
+    groups[id] = group.replace('. 1', ', 1').replace('. 2', ', 2').replace('. 3', ', 3').replace('. 4', ', 4')
+  })
+  return groups
+}
 
 export const issMixin = {
   data: () => {
@@ -88,9 +119,48 @@ export const issMixin = {
           timeout: 60000,
           data: content
         }).then(response => {
-            console.log(response.data)
             this.winSync.data = response.data
             this.$bvModal.show('syncwin')
+            this.issWorking = false
+          }).catch(err => {
+            console.log(err)
+          })
+      },
+      async winSyncLessonClick(data) {
+        var content = {
+          auth: {
+            login: this.login,
+            passwordAES: this.passwordAES
+          },
+          data: {
+            id: data.id
+          }
+        }
+        this.issWorking = true
+        this.axios({
+          method: 'post',
+          url: PATH + '/api/iss/worklist/lessons',
+          timeout: 60000,
+          data: content
+        }).then(response => {
+            var issLessons = []
+            response.data.forEach(item => {
+              var step = 0
+              for(var i = item[1]; i>0; i-=2) {
+                issLessons.push({
+                  lesson: new Lesson(
+                      timeconvert(item[0].split(' ')[1], step), 
+                      data.name, 
+                      lesType(data.cat), 
+                      item[2], 
+                      groupsConvert(data.groups)
+                    ), 
+                  day: dayconvert(item[0].split(' ')[0])
+                })
+                step++
+              }
+            })
+            console.log(issLessons)
             this.issWorking = false
           }).catch(err => {
             console.log(err)
