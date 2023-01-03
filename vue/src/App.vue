@@ -1,11 +1,12 @@
 <template>
   <div id="app" class="container container-main">
-    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks"></my-nav-bar>
+    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks" @add-self-lesson="()=>{this.$bvModal.show('selfleswin')}"></my-nav-bar>
     <rasp-loading-show :loading="loading" :message="winStud.message"></rasp-loading-show>
     <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
-    <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab="changeKab" @change-kab-cancel="changeKabCancel"></kab-win>
+    <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab!="changeKab" @change-kab-cancel!="changeKabCancel"></kab-win>
     <log-win :win-log="winLog"></log-win>
     <sync-win :win-sync="winSync" @lesson-select="winSyncLessonClick"></sync-win>
+    <self-les-win :days="days" @lesson-add="addSelfLesson" @lesson-add-multi="lessonAddMulti"></self-les-win>
     <loader-win :messages="messages"></loader-win>
 
     <lesson-copy-block :clipboard="clipboard" :copy-count="copyCount" @exit="raspSeartchMode = false; clipboard = {}; loadData()" v-if="raspSeartchMode"></lesson-copy-block>
@@ -23,7 +24,7 @@
           @kab-click="getKab(day.day, lesson.kab, lesson, idl); lesson.showmenu = false;"
           @strasp-click="getStRasp(lesson.groups[0], dateFormat(day.day)); lesson.showmenu = false;"
           @work-click="sendOneWork(idd, idl); lesson.showmenu = false;" 
-          @copy-click="getStRaspAll(lesson, idd); lesson.showmenu = false; copyCount = 0;" 
+          @copy-click!="getStRaspAll(lesson, idd); lesson.showmenu = false; copyCount = 0;" 
           @del-click="delLesson(lesson, day.day, idd, idl); lesson.showmenu = false;"
         ></lesson-menu>
 
@@ -33,12 +34,12 @@
         <lesson-content :lesson="lesson" @kab-click="getKab(day.day, lesson.kab, lesson, idl);" @set-win-log="log=>{winLog.log = log}"></lesson-content>
         
         <div v-if="lesson.predm=='' && raspSeartchMode" style="width: fit-content; position: relative; margin: auto;height: 0;top: -11px;">
-          <b-button title="Формально, для журнала" variant="success"  size="sm"  @click="copyToLesson(lesson, day.day, idl, true)">
+          <!-- <b-button title="Формально, для журнала" variant="success"  size="sm"  @click!="copyToLesson(lesson, day.day, idl, true)">
             Копировать сюда
           </b-button>&nbsp;
-          <b-button title="Официально. Потребуется сообщить студентам и в УЧ" variant="success"  size="sm"  @click="copyToLesson(lesson, day.day, idl, false)">
+          <b-button title="Официально. Потребуется сообщить студентам и в УЧ" variant="success"  size="sm"  @click!="copyToLesson(lesson, day.day, idl, false)">
             Доставить сюда
-          </b-button>
+          </b-button> -->
         </div>
 
       </div>
@@ -68,6 +69,7 @@ import kabWin from './components/windows/kabWin.vue'
 import logWin from './components/windows/logWin.vue'
 import syncWin from './components/windows/syncWin.vue'
 import loaderWin from './components/windows/loaderWin.vue'
+import selfLesWin from './components/windows/selfLesWin.vue'
 
 export default {
   name: 'App',
@@ -91,6 +93,7 @@ export default {
     syncWin,
     logWin,
     loaderWin,
+    selfLesWin,
   },
   data: () => {
     return {
@@ -186,7 +189,7 @@ export default {
 }
 
 .dropdown-menu {
-  max-height: 300px !important;
+  max-height: 350px !important;
   overflow-y: auto !important;
 }
 

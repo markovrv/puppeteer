@@ -28,6 +28,34 @@ export const lessonCopyMixin = {
           }
           else this.getKab(day, to.kab, to, idl);
         },
+        async lessonAddMulti(lessons){
+          this.axios.post(PATH + '/api/db/self/lesson/multi', {
+            login: this.login,
+            passwordAES: this.passwordAES,
+            lessons
+          }).then(()=>{
+            this.loadData()
+            alert("Выбранные занятия успешно добавлены")
+          }).catch ((e)=>{console.log(e?.message)})
+        },
+        async addSelfLesson(rec){
+          var data = {
+            groups: [rec.lesson.groups], 
+            kab: rec.lesson.kab, 
+            predm: rec.lesson.predm, 
+            type: rec.lesson.type, 
+            time: rec.lesson.time
+          }
+          this.axios.post(PATH + '/api/db/self/lesson', {
+            login: this.login,
+            passwordAES: this.passwordAES,
+            lesson: data,
+            day: rec.day,
+          }).then(()=>{
+            this.loadData()
+            alert("Занятие успешно добавлено")
+          }).catch ((e)=>{console.log(e?.message)})
+        },
         async changeKab(kab){
           var l = this.winKab.lesson
           var data = {

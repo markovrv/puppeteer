@@ -24,9 +24,10 @@
             </b-nav-item-dropdown>
             <b-nav-item-dropdown right v-else>
               <template #button-content>{{login}}</template>
-              <b-dropdown-item  href="javascript://" v-if="showCopies" @click="$emit('show-copies-click', false)">Скрыть переносы занятий</b-dropdown-item>
-              <b-dropdown-item  href="javascript://" v-else @click="$emit('show-copies-click', true)">Показать переносы занятий</b-dropdown-item>
+              <!-- <b-dropdown-item  href="javascript://" v-if="showCopies" @click="$emit('show-copies-click', false)">Скрыть переносы занятий</b-dropdown-item>
+              <b-dropdown-item  href="javascript://" v-else @click="$emit('show-copies-click', true)">Показать переносы занятий</b-dropdown-item> -->
               <b-dropdown-item  href="javascript://" @click="$emit('get-iss-works')">Выполнение нагрузки</b-dropdown-item>
+              <b-dropdown-item  href="javascript://" @click="$emit('add-self-lesson')">Добавить занятия</b-dropdown-item>
               <b-dropdown-divider></b-dropdown-divider>
               <b-dropdown-item href="https://iss.vyatsu.ru/kaf">Кабинет кафедры</b-dropdown-item>
               <b-dropdown-item href="https://new.vyatsu.ru/account/obr/rasp/?login=yes">Расписание преподавателя</b-dropdown-item>
