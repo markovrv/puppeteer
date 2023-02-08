@@ -69,6 +69,10 @@ module.exports = (req, res) => {
           }
     
           await common.wait(550);
+          await strasp.pressButton(page, "Назад")
+          await common.wait(550);
+          await strasp.pressButton(page, "Назад")
+          await common.wait(550);
           i++
         }// конец цикла
         
