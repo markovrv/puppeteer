@@ -3,7 +3,7 @@
     <div class="mt-3">
       <h3>Загрузка расписания колледжа ВятГУ</h3>
       <label>Файл <code>.xlsx</code> с расписанием:</label>
-      <input @change="fileChanged" type="file" class="form-control" />
+      <input @change="fileChanged" type="file" accept=".xlsx" class="form-control" />
       <b-alert :show="lessons.length == 0" variant="warning" style="margin-top:16px">Перед загрузкой файла требуется отменить объединение всех ячеек. Парсер не умеет работать с объединенными ячейками.</b-alert>
       <label>Преподаватель:</label>
       <input v-model="teather" type="search" class="form-control" />

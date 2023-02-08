@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container container-main">
-    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks" @add-self-lesson="()=>{this.$bvModal.show('selfleswin')}"></my-nav-bar>
+    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" :selected-semester="selectedSemester" @select-semester="selectSemesterClick" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks" @add-self-lesson="()=>{this.$bvModal.show('selfleswin')}"></my-nav-bar>
     <rasp-loading-show :loading="loading" :message="winStud.message"></rasp-loading-show>
     <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
     <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab!="changeKab" @change-kab-cancel!="changeKabCancel"></kab-win>
@@ -11,7 +11,7 @@
 
     <lesson-copy-block :clipboard="clipboard" :copy-count="copyCount" @exit="raspSeartchMode = false; clipboard = {}; loadData()" v-if="raspSeartchMode"></lesson-copy-block>
 
-    <div v-for="(day, idd) in days" :key="idd" v-show="!loading">
+    <div v-for="(day, idd) in days.filter(day=>(this.weekFilter.start == 'NaN-aN-aN' || day.day >= this.weekFilter.start && day.day <= this.weekFilter.end))" :key="idd" v-show="!loading">
 
       <day-name :id="idd" :name="day.day" @btn-click="sendDayWork(idd)"></day-name>
       <div v-for="(lesson, idl) in day.lessons" :key="idl" class="lesson" :class="((lesson.stkab)?'besy':((lesson.predm=='')?'free':''))" v-show="(lesson.predm!='' && (!lesson.copied || (lesson.copied && showCopies))) || raspSeartchMode">
@@ -45,6 +45,8 @@
       </div>
       <hr>
     </div>
+
+    <my-week-selector @change-week="changeWeek" />
   </div>
 </template>
 
@@ -63,6 +65,7 @@ import {kabMixin} from './mixins/kabMixin'
 import {stRaspMixin} from './mixins/stRaspMixin'
 import dayName from './components/content/dayName.vue'
 import myNavBar from './components/interface/myNavBar.vue'
+import myWeekSelector from './components/interface/myWeekSelector.vue'
 import raspLoadingShow from './components/interface/raspLoadingShow.vue'
 import stRaspWin from './components/windows/stRaspWin.vue'
 import kabWin from './components/windows/kabWin.vue'
@@ -87,6 +90,7 @@ export default {
     lessonCopyBlock,
     dayName,
     myNavBar,
+    myWeekSelector,
     raspLoadingShow,
     stRaspWin,
     kabWin,
@@ -98,6 +102,7 @@ export default {
   data: () => {
     return {
       days: [],
+      weekFilter: {start: 'NaN-aN-aN', end: 'NaN-aN-aN'}
     }
   },
   methods: {
@@ -168,6 +173,9 @@ export default {
           this.loginErrorMessage = response.data.error
         })
     },
+    changeWeek(week) {
+      this.weekFilter = week
+    }
   },
   mounted() {
     this.loadData()
@@ -199,6 +207,7 @@ export default {
 
 .container-main {
   padding-top: 65px !important; 
+  padding-bottom: 30px!important;
   overflow-x: clip !important;
 }
 

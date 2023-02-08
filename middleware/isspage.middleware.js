@@ -49,6 +49,15 @@ module.exports = async (req, res, next) => {
     //   Ждем загрузки журнала
     await page.waitForSelector('table[id="gridview-1015-table"]');
 
+    if (auth.semester == 2) {
+      if (debug) console.log("МЕНЯЕМ СЕМЕСТР НА 2")
+      await page.waitForSelector('a[id="tab-1079"]');
+      await page.click('a[id="tab-1079"]');
+      await page.click('a[id="tab-1079"]');
+      await page.click('a[id="tab-1079"]');
+      await page.click('a[id="tab-1079"]');
+    }
+
     if (debug) console.log("Журнал загружен")
     if (pusherLog) {
       pusher.trigger(auth.login, "my-event", {

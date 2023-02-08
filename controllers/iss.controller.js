@@ -3,6 +3,7 @@ const common = require("../lib/common")
 const debug = common.debug;
 const pusherLog = true;
 const pusher = common.pusher
+const browserlist = require('../lib/browserlist')
 
 // справочник видов работ (возможно, перечислены не все)
 var context = { 
@@ -237,13 +238,13 @@ function parseWorksToList(page, context){
         let groups = item[4].textContent.replace('В потоке ', '');
         let newCat = window.catlist.findIndex(c => (c.firstId == i));
         cat = (newCat > -1)?newCat:cat;
-        var percent = 0;
+        var percent = -1;
         var info = '';
         if(item[5].firstElementChild != undefined && item[5].firstElementChild.firstElementChild != undefined){
           percent = Number(item[5].firstElementChild.firstElementChild.getAttribute("style").split('%')[0].split(':')[1]);
           info = item[5].firstElementChild.firstElementChild.firstElementChild.textContent;
         }
-        if(percent > 0)
+        if(percent >= 0 && info.split("/").length == 2)
           workList.push({id: i, name, cat, groups, percent, info})
       }
       return workList;
@@ -276,6 +277,16 @@ module.exports.worklist = (req, res) => {
     }
 
   })(req.body.auth, context)
+}
+
+module.exports.closeBrowser = (req, res) => {
+  (async (userName) => {
+
+    browserlist.closeBrowser(userName)
+
+    res.send("Ok")
+
+  })(req.body.username)
 }
 
 module.exports.lessons = (req, res) => {

@@ -16,7 +16,7 @@ module.exports = (req, res) => {
     await lsns.raspAndDbConcat(login, data)
     // выгружаем все занятия из БД
     var docs = await db.lessons.find({login})
-    // сортируем по дням и по времени
+    // сортируем по дням и по времени 
     docs.sort(lsns.asc)
     // преобразуем в вид День - Занятия и отправляем клиенту
     res.send(lsns.map(docs))

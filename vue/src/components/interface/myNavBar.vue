@@ -1,10 +1,11 @@
 <template>
     <b-navbar :toggleable="false" type="white" variant="light">
       <div class="container">
-        <b-navbar-brand href="/">Расписание</b-navbar-brand>
+        <b-navbar-brand href="/">Расписание</b-navbar-brand> 
+        <a class="nav-link" href="javascript://" @click="$emit('select-semester')" v-if="!iss">{{ selectedSemester }} семестр</a>
         <b-collapse id="nav-collapse" is-nav style="justify-content: right;">
           <b-navbar-nav class="ml-auto">
-            <b-nav-item left @click="$emit('iss-click')" v-if="iss"><small>Обмен данными с ISS</small></b-nav-item>
+            <b-nav-item left @click="$emit('iss-click')" v-if="iss"><small>Обмен с ISS</small></b-nav-item>
             <b-nav-item-dropdown right v-if="!login" id="loginmenu">
               <template #button-content>Войти</template>
               <b-dropdown-form style="min-width: 280px">
@@ -24,6 +25,8 @@
             </b-nav-item-dropdown>
             <b-nav-item-dropdown right v-else>
               <template #button-content>{{login}}</template>
+              <b-dropdown-item  href="javascript://" @click="$emit('select-semester')">Семестр в ISS: {{ selectedSemester }} (сменить)</b-dropdown-item>
+              <b-dropdown-divider></b-dropdown-divider>
               <!-- <b-dropdown-item  href="javascript://" v-if="showCopies" @click="$emit('show-copies-click', false)">Скрыть переносы занятий</b-dropdown-item>
               <b-dropdown-item  href="javascript://" v-else @click="$emit('show-copies-click', true)">Показать переносы занятий</b-dropdown-item> -->
               <b-dropdown-item  href="javascript://" @click="$emit('get-iss-works')">Выполнение нагрузки</b-dropdown-item>
@@ -52,6 +55,7 @@ export default {
     iss: Boolean,
     showCopies: Boolean,
     loginErrorMessage: String,
+    selectedSemester: Number
   }
 }
 </script>

@@ -9,7 +9,7 @@
           <td><b>{{item.name}}</b><br><i>{{lesType(item.cat)}}</i><br><small>{{ item.groups }}</small></td>
           <td style="padding-right: 10px;">
             <b-progress :max="100" style="padding: 0px; background-color: rgb(153 153 153 / 40%)">
-              <b-progress-bar :value="item.percent" :label="`${item.info}`"></b-progress-bar>
+              <b-progress-bar :value="item.percent" :label="`${item.info}`" style="overflow: visible;"></b-progress-bar>
             </b-progress>
           </td>
         </tr>

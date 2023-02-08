@@ -6,6 +6,11 @@ const browserMiddleware = require('../middleware/browser.middleware')
 const isspageMiddleware = require('../middleware/isspage.middleware')
 
 router.post(
+  '/closebrowser', 
+  express.json(),
+  issController.closeBrowser
+)
+router.post(
   '/worklist', 
   express.json(), 
   usernameMiddleware, 

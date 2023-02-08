@@ -83,7 +83,8 @@ export const issMixin = {
           data,
           auth: {
             login: this.login,
-            passwordAES: this.passwordAES
+            passwordAES: this.passwordAES,
+            semester: this.selectedSemester
           }
         }
         this.issWorking = true
@@ -109,7 +110,8 @@ export const issMixin = {
         var content = {
           auth: {
             login: this.login,
-            passwordAES: this.passwordAES
+            passwordAES: this.passwordAES,
+            semester: this.selectedSemester
           }
         }
         this.issWorking = true
@@ -130,7 +132,8 @@ export const issMixin = {
         var content = {
           auth: {
             login: this.login,
-            passwordAES: this.passwordAES
+            passwordAES: this.passwordAES,
+            semester: this.selectedSemester
           },
           data: {
             id: data.id

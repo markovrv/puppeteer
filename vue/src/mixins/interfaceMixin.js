@@ -9,6 +9,7 @@ export const interfaceMixin = {
       loading: false,
       remember: false,
       showCopies: false,
+      selectedSemester: 1
     }
   },
     methods: {
@@ -90,10 +91,47 @@ export const interfaceMixin = {
         this.showCopies = val
         if (val) localStorage.showCopies = 'true'
         else localStorage.showCopies = 'false'
+      },
+      selectSemesterClick() {
+        var val
+        this.$bvModal.msgBoxConfirm('Пожалуйста, выберите семестр для журнала нагрузки.', {
+          title: 'Выберите семестр',
+          size: 'sm',
+          buttonSize: 'sm',
+          okVariant: 'primary',
+          okTitle: 'Второй',
+          cancelTitle: 'Первый',
+          footerClass: 'p-2',
+          hideHeaderClose: false,
+          centered: true
+        })
+          .then(value => {
+            if (value) val = 2
+            else val = 1
+
+            this.selectedSemester = val
+            localStorage.selectedSemester = val
+
+            this.axios.post(PATH + '/api/iss/closebrowser/', {
+              username: this.login,
+            })
+            .then(()=>{
+              this.$bvModal.msgBoxOk('Выбран '+ val + ' семестр', {
+                title: 'Подтверждение',
+                size: 'sm',
+                buttonSize: 'sm',
+                okVariant: 'success',
+                headerClass: 'p-2 border-bottom-0',
+                footerClass: 'p-2 border-top-0',
+                centered: true
+              })
+            }).catch(console.log)
+          })
       }
     },
     mounted() {
       if(localStorage.showCopies == 'true') this.showCopies = true
       else this.showCopies = false
+      this.selectedSemester = (localStorage.selectedSemester)?Number(localStorage.selectedSemester):1
     }
 }

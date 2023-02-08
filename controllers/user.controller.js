@@ -1,5 +1,6 @@
 const crypto = require("../lib/crypto")
 const db = require("../lib/db")
+const browserlist = require('../lib/browserlist')
 
 exports.login = (req, res) => {
     (async () => {
@@ -18,7 +19,8 @@ exports.logout = (req, res) => {
     (async()=>{
         var login  = req.body.login;
         var apikey = req.body.passwordAES.MD5();
-        await db.users.remove({login, apikey}, {})
+        await db.users.remove({login, apikey}, {});
+        browserlist.closeBrowser(login);
         res.send({status: 'OK'});
     })()
 }

@@ -35,7 +35,15 @@ export const lessonCopyMixin = {
             lessons
           }).then(()=>{
             this.loadData()
-            alert("Выбранные занятия успешно добавлены")
+            this.$bvModal.msgBoxOk('Выбранные занятия успешно добавлены', {
+              title: 'Подтверждение',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'success',
+              headerClass: 'p-2 border-bottom-0',
+              footerClass: 'p-2 border-top-0',
+              centered: true
+            })
           }).catch ((e)=>{console.log(e?.message)})
         },
         async addSelfLesson(rec){
@@ -53,7 +61,15 @@ export const lessonCopyMixin = {
             day: rec.day,
           }).then(()=>{
             this.loadData()
-            alert("Занятие успешно добавлено")
+            this.$bvModal.msgBoxOk('Занятие успешно добавлено', {
+              title: 'Подтверждение',
+              size: 'sm',
+              buttonSize: 'sm',
+              okVariant: 'success',
+              headerClass: 'p-2 border-bottom-0',
+              footerClass: 'p-2 border-top-0',
+              centered: true
+            })
           }).catch ((e)=>{console.log(e?.message)})
         },
         async changeKab(kab){
