@@ -2,8 +2,8 @@
   <div id="app" class="container container-main">
     <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" :selected-semester="selectedSemester" @select-semester="selectSemesterClick" v-model="remember" :login-error-message="loginErrorMessage" @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings" @get-iss-works="getIssWorks" @add-self-lesson="()=>{this.$bvModal.show('selfleswin')}"></my-nav-bar>
     <rasp-loading-show :loading="loading" :message="winStud.message"></rasp-loading-show>
-    <st-rasp-win :win-stud="winStud" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
-    <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab!="changeKab" @change-kab-cancel!="changeKabCancel"></kab-win>
+    <st-rasp-win :win-stud="winStud" :login="login" @get-st-rasp="({group, date})=>{getStRasp(group, date)}"></st-rasp-win>
+    <kab-win :win-kab="winKab" @set-day="day=>{winKab.current.cDay = day}"  @set-kab="kab=>{winKab.current.kab = kab}" @set-corp="corp=>{getKab(winKab.day, corp)}" @change-kab="changeKab" @change-kab-cancel="changeKabCancel"></kab-win>
     <log-win :win-log="winLog"></log-win>
     <sync-win :win-sync="winSync" @lesson-select="winSyncLessonClick"></sync-win>
     <self-les-win :days="days" @lesson-add="addSelfLesson" @lesson-add-multi="lessonAddMulti"></self-les-win>
@@ -11,7 +11,7 @@
 
     <lesson-copy-block :clipboard="clipboard" :copy-count="copyCount" @exit="raspSeartchMode = false; clipboard = {}; loadData()" v-if="raspSeartchMode"></lesson-copy-block>
 
-    <div v-for="(day, idd) in days.filter(day=>(this.weekFilter.start == 'NaN-aN-aN' || day.day >= this.weekFilter.start && day.day <= this.weekFilter.end))" :key="idd" v-show="!loading">
+    <div v-for="(day, idd) in filteredDays" :key="idd" v-show="!loading">
 
       <day-name :id="idd" :name="day.day" @btn-click="sendDayWork(idd)"></day-name>
       <div v-for="(lesson, idl) in day.lessons" :key="idl" class="lesson" :class="((lesson.stkab)?'besy':((lesson.predm=='')?'free':''))" v-show="(lesson.predm!='' && (!lesson.copied || (lesson.copied && showCopies))) || raspSeartchMode">
@@ -24,7 +24,7 @@
           @kab-click="getKab(day.day, lesson.kab, lesson, idl); lesson.showmenu = false;"
           @strasp-click="getStRasp(lesson.groups[0], dateFormat(day.day)); lesson.showmenu = false;"
           @work-click="sendOneWork(idd, idl); lesson.showmenu = false;" 
-          @copy-click!="getStRaspAll(lesson, idd); lesson.showmenu = false; copyCount = 0;" 
+          @copy-click="getStRaspAll(lesson, idd); lesson.showmenu = false; copyCount = 0;" 
           @del-click="delLesson(lesson, day.day, idd, idl); lesson.showmenu = false;"
         ></lesson-menu>
 
@@ -98,6 +98,11 @@ export default {
     logWin,
     loaderWin,
     selfLesWin,
+  },
+  computed: {
+    filteredDays() {
+      return this.days.filter(day=>(this.weekFilter.start == 'NaN-aN-aN' || day.day >= this.weekFilter.start && day.day <= this.weekFilter.end))
+    }
   },
   data: () => {
     return {
@@ -175,6 +180,7 @@ export default {
     },
     changeWeek(week) {
       this.weekFilter = week
+      window.location.href = "#0"
     }
   },
   mounted() {

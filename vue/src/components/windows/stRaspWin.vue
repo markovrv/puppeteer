@@ -14,7 +14,7 @@
               variant="outline-danger"
               size="sm"
               aria-describedby="cancel-label"
-              @click="winStudHide"
+              @click="winStudCancel"
             >
               Отменить
             </b-button>
@@ -25,14 +25,24 @@
 </template>
 
 <script>
+const PATH = process.env.VUE_APP_PATH;
 export default {
   name: 'stRaspWin',
   props: {
-    winStud: Object
+    winStud: Object,
+    login: String
   },
   methods: {
     winStudHide(){
         this.$bvModal.hide('straspwin')
+    },
+    winStudCancel(){
+      this.axios.post(PATH + '/api/iss/closebrowser/', {
+          username: this.login,
+        })
+        .then(()=>{
+          this.$bvModal.hide('straspwin')
+        }).catch(console.log)
     },
     onShown() {
         this.$refs.cancel.focus()

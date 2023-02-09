@@ -132,6 +132,8 @@ export const interfaceMixin = {
     mounted() {
       if(localStorage.showCopies == 'true') this.showCopies = true
       else this.showCopies = false
-      this.selectedSemester = (localStorage.selectedSemester)?Number(localStorage.selectedSemester):1
+      if(localStorage.selectedSemester) this.selectedSemester = Number(localStorage.selectedSemester)
+      else this.selectSemesterClick()
+      // this.selectedSemester = (localStorage.selectedSemester)?Number(localStorage.selectedSemester):1
     }
 }

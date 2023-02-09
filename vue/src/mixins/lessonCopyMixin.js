@@ -116,14 +116,14 @@ export const lessonCopyMixin = {
             lesson,
             day,
           }).then(()=>{
-            if(!lesson.copied) this.days[idd].lessons[idl].deleted = true;
-            this.days[idd].lessons[idl].predm = '';
-            this.days[idd].lessons[idl].type = '';
-            this.days[idd].lessons[idl].groups = [];
-            this.days[idd].lessons[idl].kab = '';
-            this.days[idd].lessons[idl].copied = false;
-            this.days[idd].lessons[idl].unsaved = false;
-            this.days[idd].lessons[idl].message = '';
+            if(!lesson.copied) this.filteredDays[idd].lessons[idl].deleted = true;
+            this.filteredDays[idd].lessons[idl].predm = '';
+            this.filteredDays[idd].lessons[idl].type = '';
+            this.filteredDays[idd].lessons[idl].groups = [];
+            this.filteredDays[idd].lessons[idl].kab = '';
+            this.filteredDays[idd].lessons[idl].copied = false;
+            this.filteredDays[idd].lessons[idl].unsaved = false;
+            this.filteredDays[idd].lessons[idl].message = '';
             if(this.raspSeartchMode)this.copyCount--;
             localStorage.dump = JSON.stringify(this.days)
           }).catch ((e)=>{console.log(e?.message)})

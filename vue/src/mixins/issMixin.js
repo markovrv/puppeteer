@@ -51,8 +51,8 @@ export const issMixin = {
       sendDayWork(idd) {
         var data = []
         var sender = 'daytoissid_'+idd
-        var lessonsCount = this.days[idd].lessons.length
-        var day = this.days[idd]
+        var lessonsCount = this.filteredDays[idd].lessons.length
+        var day = this.filteredDays[idd]
         for(let idl = 0; idl < lessonsCount; idl++) {
           var lesson = day.lessons[idl]
           if((lesson.predm!='' && (!lesson.copied || (lesson.copied && this.showCopies))) || this.raspSeartchMode) data.push(this.createData(idd, idl))
@@ -61,8 +61,8 @@ export const issMixin = {
       },
       createData(idd, idl) {
         var lesTypes = ["Лекция", "Практическое занятие", "Лабораторная работа","","","","","","","Консультация","Экзамен","Зачет"]
-        var date = new Date(this.days[idd].day).toLocaleDateString()
-        var lesson = this.days[idd].lessons[idl]
+        var date = new Date(this.filteredDays[idd].day).toLocaleDateString()
+        var lesson = this.filteredDays[idd].lessons[idl]
         const times = ["8:20-9:50", "10:00-11:30", "11:45-13:15", "14:00-15:30", "15:45-17:15", "17:20-18:50", "18:55-20:25"]
         lesson.status = "Передача данных...";
         lesson.color = "";
@@ -96,9 +96,9 @@ export const issMixin = {
           data: content
         }).then(response => {
             response.data.forEach(item => {
-              this.days[item.id[0]].lessons[item.id[1]].status = item.status
-              this.days[item.id[0]].lessons[item.id[1]].color = item.color
-              this.days[item.id[0]].lessons[item.id[1]].log = (item.log)?item.log:null
+              this.filteredDays[item.id[0]].lessons[item.id[1]].status = item.status
+              this.filteredDays[item.id[0]].lessons[item.id[1]].color = item.color
+              this.filteredDays[item.id[0]].lessons[item.id[1]].log = (item.log)?item.log:null
               this.issWorking = false
               document.getElementById(sender).classList.remove("disabled");
             });
