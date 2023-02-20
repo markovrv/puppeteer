@@ -92,8 +92,13 @@ export const interfaceMixin = {
         if (val) localStorage.showCopies = 'true'
         else localStorage.showCopies = 'false'
       },
-      selectSemesterClick() {
-        var val
+      selectSemesterClick(val) {
+        // заглушка на случай выбора семестра из формы авторизации
+        if (val > 0) {
+          this.selectedSemester = val
+          localStorage.selectedSemester = val
+          return 0
+        }
         this.$bvModal.msgBoxConfirm('Пожалуйста, выберите семестр для журнала нагрузки.', {
           title: 'Выберите семестр',
           size: 'sm',
@@ -133,7 +138,11 @@ export const interfaceMixin = {
       if(localStorage.showCopies == 'true') this.showCopies = true
       else this.showCopies = false
       if(localStorage.selectedSemester) this.selectedSemester = Number(localStorage.selectedSemester)
-      else this.selectSemesterClick()
-      // this.selectedSemester = (localStorage.selectedSemester)?Number(localStorage.selectedSemester):1
+      else {
+        var today = new Date();
+        if(today.getMonth() > 0 && today.getMonth() < 8) this.selectedSemester = 2
+        else this.selectedSemester = 1
+        localStorage.selectedSemester = this.selectedSemester
+      }
     }
 }

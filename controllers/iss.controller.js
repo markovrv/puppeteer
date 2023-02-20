@@ -4,6 +4,7 @@ const debug = common.debug;
 const pusherLog = true;
 const pusher = common.pusher
 const browserlist = require('../lib/browserlist')
+const db = require("../lib/db")
 
 // справочник видов работ (возможно, перечислены не все)
 var context = { 
@@ -263,9 +264,10 @@ module.exports.worklist = (req, res) => {
         color: "white",
         time: new Date()
       });
-    }
+    } 
 
     res.send(workList)
+    await db.isslog.insert({login: auth.login, semester: auth.semester, workList})
 
     if (debug) {
       console.log('Браузер будет закрыт по таймеру');

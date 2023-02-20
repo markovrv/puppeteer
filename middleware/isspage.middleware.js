@@ -52,6 +52,7 @@ module.exports = async (req, res, next) => {
     if (auth.semester == 2) {
       if (debug) console.log("МЕНЯЕМ СЕМЕСТР НА 2")
       await page.waitForSelector('a[id="tab-1079"]');
+      await common.wait(1000);
       await page.click('a[id="tab-1079"]');
       await page.click('a[id="tab-1079"]');
       await page.click('a[id="tab-1079"]');
