@@ -1,36 +1,42 @@
 const crypto = require("../lib/crypto")
-const db = require("../lib/db")
 const lsns = require("../lib/rasp")
 
 
 module.exports = (req, res) => {
-  (async (login, password, version) => {
-    if (version == "update") res.send("OK")
-    if (version != 'local') {
-      // получаем расписание из ЛК
-      var data = await lsns.getRaspData(login, password)
-      if (data.error) {
-        res.status(500)
-        return res.send({ 'error': data.error });
-      }
-      if (version == "vyatsu") return res.send(data)
-      // объединяем расписание с данными из локальной БД
-      await lsns.raspAndDbConcat(login, data)
-    }
-    if (version != 'update') {
-      // выгружаем все занятия из БД
-      var docs = await db.lessons.find({ login })
-      // сортируем по дням и по времени 
-      docs.sort(lsns.asc)
-      // преобразуем в вид День - Занятия и отправляем клиенту
-      res.send(lsns.map(docs))
-      if (version == 'local') {
-        var data = await lsns.getRaspData(login, password)
-        if (!data.error) {
-          // объединяем расписание с данными из локальной БД
-          await lsns.raspAndDbConcat(login, data)
-        }
-      }
-    }
-  })(req.body.login, crypto.decrypt(req.body.passwordAES), req.body.version)
+  var login = req.body.login
+  var password = crypto.decrypt(req.body.passwordAES)
+  var version = req.body.version
+  var filter = req.body.filter
+
+  if (version == "update") {
+    res.send("OK")
+    lsns.getRaspFromVyatsu({ login, password }, data => {
+      lsns.raspAndDbConcat(login, data)
+    }, console.log)
+  } else if (version == "local") {
+    lsns.getLessonsFromDB(login, filter, days => {
+      res.send(days)
+      lsns.getRaspFromVyatsu({ login, password }, data => {
+        lsns.raspAndDbConcat(login, data)
+      }, console.log)
+    })
+  } else if (version == "vyatsu") {
+    lsns.getRaspFromVyatsu({ login, password }, days => {
+      res.send(lsns.filter(days, filter))
+    }, error => {
+      res.status(500)
+      res.send({ error });
+    })
+  } else {
+    lsns.getRaspFromVyatsu({ login, password }, data => {
+      lsns.raspAndDbConcat(login, data).then(() => {
+        lsns.getLessonsFromDB(login, filter, days => {
+          res.send(days)
+        })
+      })
+    }, error => {
+      res.status(500)
+      res.send({ error })
+    })
+  }
 }
