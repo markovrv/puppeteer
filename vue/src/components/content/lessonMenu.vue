@@ -27,7 +27,7 @@
         @click="$emit('strasp-click')"
         ><img style="width: 24px;" src="../../assets/student.svg"
       /></b-button>
-      <b-button disabled 
+      <b-button 
         variant="light"
         title="Копировать или перенести занятие - функция в разработке"
         :id="`copylessonid_${id.idd}_${id.idl}`"

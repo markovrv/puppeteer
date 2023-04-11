@@ -19,6 +19,11 @@ export const interfaceMixin = {
         lesson.showmenu = !state
         this.lastmenu = lesson
       },
+      getApiToken() {
+        var p = JSON.parse(this.passwordAES)
+        var token = `${this.login}#${p.ct}#${p.iv}#${p.s}`
+        prompt("Ваш API token. Используйте его только для авторизации в сервисе через сторонние приложения. Для смены токена выйдите из приложения и зайдите повторно.", btoa(token))
+      },
       async saveSettings() {
         this.loginErrorMessage = ''
         this.axios.post(PATH + '/api/lk/login/', {

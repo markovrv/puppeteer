@@ -40,10 +40,9 @@
               <b-dropdown-divider></b-dropdown-divider>
               <b-dropdown-item href="https://iss.vyatsu.ru/kaf">Кабинет кафедры</b-dropdown-item>
               <b-dropdown-item href="https://new.vyatsu.ru/account/obr/rasp/?login=yes">Расписание преподавателя</b-dropdown-item>
-              <b-dropdown-divider></b-dropdown-divider>
               <b-dropdown-item href="mailto:usr11935@vyatsu.ru">Связь с разработчиком</b-dropdown-item>
               <b-dropdown-item href="/Timetable.apk">Android приложение</b-dropdown-item>
-              <b-dropdown-divider></b-dropdown-divider>
+              <b-dropdown-item href="javascript://" @click="$emit('get-api-token')">Получить API token</b-dropdown-item>
               <b-dropdown-item href="javascript://" @click="$emit('logout')">Выйти</b-dropdown-item>
             </b-nav-item-dropdown>
           </b-navbar-nav>

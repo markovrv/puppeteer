@@ -8,19 +8,15 @@ const userrasp = require("./routes/rasp.route")
 const kabrasp = require("./routes/kabrasp.route")
 const lk = require("./routes/lk.route")
 const db = require("./routes/db.route")
+const cors = require("./middleware/cors.middleware")
 
 
 common.init()
 const app = express();
-if(common.app_env == 'local'){
-  app.use(express.static('vue/dist'));
-  app.use(function(req, res, next) {
-    res.setHeader('Content-Type','application/json; charset=utf-8');
-    res.setHeader('Access-Control-Allow-Origin','*');
-    res.setHeader('Access-Control-Allow-Headers','X-Requested-With, content-type');
-    next();
-  });
-} else app.use(express.static('app'));
+if (common.app_env == 'local') app.use(express.static('vue/dist'));
+else app.use(express.static('app'));
+
+app.use(cors);
 
 app.use('/api/iss', iss)
 app.use('/api/stud', strasp)
@@ -30,4 +26,4 @@ app.use('/api/lk', lk)
 app.use('/api/db', db)
 
 
-app.listen(3333, ()=>{console.log('Сервер запущен на http://localhost:3333/')})
+app.listen(3333, () => { console.log('Сервер запущен на http://localhost:3333/') })
