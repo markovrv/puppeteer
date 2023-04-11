@@ -10,7 +10,7 @@ module.exports = (req, res) => {
       // получаем расписание из ЛК
       var data = await lsns.getRaspData(login, password)
       if (data.error) {
-        res.status(500);
+        res.status(500)
         return res.send({ 'error': data.error });
       }
       if (version == "vyatsu") return res.send(data)
@@ -24,6 +24,13 @@ module.exports = (req, res) => {
       docs.sort(lsns.asc)
       // преобразуем в вид День - Занятия и отправляем клиенту
       res.send(lsns.map(docs))
+      if (version == 'local') {
+        var data = await lsns.getRaspData(login, password)
+        if (!data.error) {
+          // объединяем расписание с данными из локальной БД
+          await lsns.raspAndDbConcat(login, data)
+        }
+      }
     }
   })(req.body.login, crypto.decrypt(req.body.passwordAES), req.body.version)
 }
