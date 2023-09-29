@@ -4452,7 +4452,7 @@
         "kab": "16-405",
         "seats": 32,
         "board": "меловая",
-        "projector": true,
+        "projector": false,
         "tv": false,
         "type": "учебная аудитория"
       },
@@ -4460,7 +4460,7 @@
         "kab": "16-406",
         "seats": 36,
         "board": "интерактивная, маркерная",
-        "projector": false,
+        "projector": true,
         "tv": false,
         "type": "учебная аудитория"
       },

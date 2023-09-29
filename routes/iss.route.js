@@ -27,6 +27,11 @@ router.post(
   issController.lessons
 )
 router.post(
+  '/del-iss-label-for-lesson', 
+  express.json(), 
+  issController.delIss
+)
+router.post(
   '/', 
   express.json(), 
   usernameMiddleware,  

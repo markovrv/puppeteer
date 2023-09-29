@@ -383,6 +383,16 @@ module.exports.lessons = (req, res) => {
   })(req.body.data, req.body.auth)
 }
 
+// обработчик метки Добавлено в ИСС
+module.exports.delIss = (req, res) => {
+  (async () => {
+      var id = req.body._id;
+      // через АПИ только удаляем метку
+      await db.lessons.updIss({in_iss: 0, id});
+      res.send({status: "OK"});
+  })()
+}
+
 module.exports.index = (req, res) => {
   (async (input, auth, context) => {
     // Сообщение для возврата клиенту
@@ -529,6 +539,8 @@ module.exports.index = (req, res) => {
 
       // Проверяем лог предмета
       if(checkLog(lastLog, input[w])){
+        // Отметка в БД о добавлении занятия
+        await db.lessons.updIss({in_iss: 1, id: input[w]._id});
         message.push({id: input[w].id, status: 'Занятие уже записано', color: "blue", log: lastLog.rows});
         if (debug) console.log('   Работа есть в логе, действие не требуется');
         if (pusherLog) {
@@ -635,6 +647,8 @@ module.exports.index = (req, res) => {
 
       // если ошибки в ответе нет
       } else {
+        // Отметка в БД о добавлении занятия
+        await db.lessons.updIss({in_iss: 1, id: input[w]._id});
         message.push({id: input[w].id, status: 'Занятие добавлено', color: "green"})
         await common.wait(700);
         if (debug) {

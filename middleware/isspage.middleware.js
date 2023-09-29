@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
   var auth = req.body.auth
   var page
 
-  if(browserlist.hasIss(auth.login)){
+  if (browserlist.hasIss(auth.login)) {
     page = browserlist.getIss(auth.login)
   } else {
 
@@ -63,7 +63,7 @@ module.exports = async (req, res, next) => {
     if (pusherLog) {
       pusher.trigger(auth.login, "my-event", {
         message: "Журнал загружен",
-        color:  "white",
+        color: "white",
         time: new Date()
       });
     }
@@ -75,12 +75,12 @@ module.exports = async (req, res, next) => {
   req.page = page
 
   // запоминаем для дальнейшего использования
-  if(browserlist.hasBrowser(auth.login)) {
+  if (browserlist.hasBrowser(auth.login)) {
     browserlist.setIss(auth.login, page)
   } else {
     browserlist.setBrowserIss(auth.login, req.browser, page)
   }
 
   next()
-  
+
 }

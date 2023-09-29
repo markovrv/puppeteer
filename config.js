@@ -5,6 +5,12 @@ module.exports.db = {
     password: "j87225021_iss"
 }
 
+module.exports.proxy = {
+    url: 'https://proxy.house/api/open/v1/proxy/list?tariff_id=3&limit=20',
+    authToken: "503460_1685571348_6fdb7cdb513a1b3aae942eecff17d0d341d49bb0",
+    enabled: false
+}
+
 module.exports.app_env = 'local'
 // module.exports.app_env = 'public'
 

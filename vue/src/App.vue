@@ -37,7 +37,7 @@
 
         <lesson-name :lesson="lesson" @click="() => { }"></lesson-name>
         <lesson-content :lesson="lesson" @kab-click="getKab(day.day, lesson.kab, lesson, idl);"
-          @set-win-log="log => { winLog.log = log }"></lesson-content>
+          @set-win-log="log => { winLog.log = log }" @iss-check-click="issCheckClick(lesson)"></lesson-content>
 
         <div v-if="lesson.predm == '' && raspSeartchMode"
           style="width: fit-content; position: relative; margin: auto;height: 0;top: -11px;">
@@ -188,6 +188,12 @@ export default {
     changeWeek(week) {
       this.weekFilter = week
       window.location.href = "#0"
+    },
+    issCheckClick(lesson) {
+      this.axios.post(PATH + '/api/iss/del-iss-label-for-lesson', { _id: lesson._id })
+        .then(()=>{
+          lesson.in_iss = 0
+        })
     }
   },
   mounted() {

@@ -6,6 +6,7 @@ const pusherLog = true;
 const pusher = common.pusher
 const app_env = common.app_env;
 const proxy = require("../lib/proxy")
+const config = require("../config")
 
 module.exports = async (req, res, next) => {
 
@@ -27,7 +28,7 @@ module.exports = async (req, res, next) => {
     }
 
     var p = await proxy.current()
-    var proxyString = `--proxy-server=${p.host}:${p.port}`;
+    var proxyString = (config.proxy.enabled)?`--proxy-server=${p.host}:${p.port}`:'';
 
     //   Открываем браузер
     if(app_env == 'public')  {
