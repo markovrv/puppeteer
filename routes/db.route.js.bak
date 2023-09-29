@@ -19,16 +19,16 @@ const router = express.Router()
 // })
 
 router.post('/del', express.json(), (req, res) => {
-  (async()=>{
+  (async () => {
     const login = req.body.login;
     const apikey = req.body.passwordAES.MD5();
 
-    var users = await db.users.find({login, apikey})
-    if (users.length > 0){
+    var users = await db.users.find({ login, apikey })
+    if (users.length > 0) {
       var day = req.body.day;
       var time = req.body.lesson.time
       await db.lessons.removeOne({ login, day, time }, {})
-      res.send({status: 'OK'})
+      res.send({ status: 'OK' })
     } else res.sendStatus(401)
   })()
 })
@@ -98,53 +98,53 @@ router.post('/del', express.json(), (req, res) => {
 // })
 
 router.post('/self/lesson/multi', express.json(), (req, res) => {
-  (async()=>{
+  (async () => {
     const login = req.body.login;
     const apikey = req.body.passwordAES.MD5();
     const type = 100; // наивысший приоритет - собственная запись, нестираемая
     const date = new Date();
     var lessons = req.body.lessons
 
-    var users = await db.users.find({login, apikey})
-    if (users.length > 0){
+    var users = await db.users.find({ login, apikey })
+    if (users.length > 0) {
       var i = 0
       const count = lessons.length
-      while(i < count) {
+      while (i < count) {
         var day = lessons[i].day;
         var time = lessons[i].time;
         var lesson = lessons[i];
         var rec = await db.lessons.findOne({ login, day, time })
-        if (rec){
+        if (rec) {
           await db.lessons.update({ _id: rec._id }, { login, type, day, time, lesson, date }, {});
         } else {
           await db.lessons.insert({ login, type, day, time, lesson, date })
         }
         i++
       }
-      res.send({status: 'OK'})
+      res.send({ status: 'OK' })
     } else res.sendStatus(401)
   })()
 })
 
 router.post('/self/lesson', express.json(), (req, res) => {
-  (async()=>{
+  (async () => {
     const login = req.body.login;
     const apikey = req.body.passwordAES.MD5();
     const type = 100; // наивысший приоритет - собственная запись, нестираемая
     const date = new Date();
 
-    var users = await db.users.find({login, apikey})
-    if (users.length > 0){
+    var users = await db.users.find({ login, apikey })
+    if (users.length > 0) {
       var day = req.body.day;
       var time = req.body.lesson.time;
       var lesson = req.body.lesson;
-      var rec = await db.lessons.findOne({login, day, time})
-      if (rec){
-        await db.lessons.update({_id: rec._id}, {login, type, day, time, lesson, date}, {});
+      var rec = await db.lessons.findOne({ login, day, time })
+      if (rec) {
+        await db.lessons.update({ _id: rec._id }, { login, type, day, time, lesson, date }, {});
       } else {
-        await db.lessons.insert({login, type, day, time, lesson, date})
+        await db.lessons.insert({ login, type, day, time, lesson, date })
       }
-      res.send({status: 'OK'})
+      res.send({ status: 'OK' })
     } else res.sendStatus(401)
   })()
 })

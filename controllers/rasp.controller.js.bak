@@ -1,14 +1,6 @@
 const crypto = require("../lib/crypto")
 const lsns = require("../lib/rasp")
 
-var getLocal = (res, login, password, filter) => {
-  lsns.getLessonsFromDB(login, filter, days => {
-    res.send(days)
-    lsns.getRaspFromVyatsu({ login, password }, data => {
-      lsns.raspAndDbConcat(login, data)
-    }, console.log)
-  })
-}
 
 module.exports = (req, res) => {
   var login = req.body.login
@@ -22,7 +14,12 @@ module.exports = (req, res) => {
       lsns.raspAndDbConcat(login, data)
     }, console.log)
   } else if (version == "local") {
-      getLocal(res, login, password, filter)
+    lsns.getLessonsFromDB(login, filter, days => {
+      res.send(days)
+      lsns.getRaspFromVyatsu({ login, password }, data => {
+        lsns.raspAndDbConcat(login, data)
+      }, console.log)
+    })
   } else if (version == "vyatsu") {
     lsns.getRaspFromVyatsu({ login, password }, days => {
       res.send(lsns.filter(days, filter))
@@ -38,9 +35,8 @@ module.exports = (req, res) => {
         })
       })
     }, error => {
-      // res.status(500)
-      // res.send({ error })
-      getLocal(res, login, password, filter)
+      res.status(500)
+      res.send({ error })
     })
   }
 }

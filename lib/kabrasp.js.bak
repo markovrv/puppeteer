@@ -1,7 +1,4 @@
 const axios = require('axios');
-const HttpsProxyAgent = require("https-proxy-agent").HttpsProxyAgent;
-const randomUseragent = require('random-useragent');
-const proxy = require("./proxy")
 const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 const common = require("./common")
@@ -15,21 +12,14 @@ var dateFormat = (date) => {
 }
 
 // получение имени файла с расписанием
-exports.getFilename = async ( kab, date, semester = 1 ) => {
-  var corp = kab.split('-')[0];
-  var day = dateFormat(date);
-  var pCurrent = await proxy.current();
-  var httpsAgent = new HttpsProxyAgent(pCurrent);
-  var userAgent = randomUseragent.getRandom();
+exports.getFilename = ( kab, date, semester = 1 ) => {
+  var corp = kab.split('-')[0]
+  var day = dateFormat(date)
   return new Promise((resolve, reject) => {
       axios({
           method: 'get',
           url: 'https://www.vyatsu.ru/studentu-1/spravochnaya-informatsiya/zanyatost-auditoriy.html',
           timeout: 30000,
-          httpsAgent,
-          headers: {
-                "User-Agent": userAgent
-            }
       }).then(resp => {
           if (!resp.data) reject(-1)
           // вырезаем таблицу из страницы
@@ -56,20 +46,13 @@ exports.getFilename = async ( kab, date, semester = 1 ) => {
 }
 
 // парсер таблицы расписания аудитории
-exports.getRasp = async (url, kab='') => {
-  var pCurrent = await proxy.current();
-  var httpsAgent = new HttpsProxyAgent(pCurrent);
-  var userAgent = randomUseragent.getRandom();
+exports.getRasp = (url, kab='') => {
   return new Promise((resolve, reject) => {
       if (!url || url < 0) reject(0)
       axios({
           method: 'get',
           url,
           timeout: 30000,
-          httpsAgent,
-          headers: {
-                "User-Agent": userAgent
-            },
       }).then(resp => {
           if (!resp.data) reject(-1)
           // вырезаем таблицу из страницы

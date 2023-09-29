@@ -91,38 +91,38 @@ var foolEq = (l1, l2) => (l1.predm == l2.predm && l1.type == l2.type && l1.kab =
 
 // функция получает расписание с сервера 
 var getRaspData = async (login, password) => {
-    var tryCount = 10;
+ var tryCount = 10;
     var tryIndex = 0;
     while (tryIndex < tryCount) {
-        try {
-            tryIndex++;
+    try {
+   tryIndex ++;
             var p = await proxy.get();
             var httpsAgent = new HttpsProxyAgent(p);
-            var response = await axios({
-                method: 'post',
-                url: 'https://new.vyatsu.ru/account/obr/rasp/?login=yes',
+        var response = await axios({
+            method: 'post',
+            url: 'https://new.vyatsu.ru/account/obr/rasp/?login=yes',
                 timeout: 10000,
                 httpsAgent,
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded",
+            headers: {
+                "Content-type": "application/x-www-form-urlencoded"
                     "User-Agent": randomUseragent.getRandom()
-                },
-                data: `AUTH_FORM=Y&TYPE=AUTH&backurl=/account/obr/rasp/&USER_LOGIN=${login}&USER_PASSWORD=${password}&USER_REMEMBER=N&Login=Войти`
-            })
-            if (debug) console.log("OK: " + p.host)
+            },
+            data: `AUTH_FORM=Y&TYPE=AUTH&backurl=/account/obr/rasp/&USER_LOGIN=${login}&USER_PASSWORD=${password}&USER_REMEMBER=N&Login=Войти`
+        })
+           if(debug) console.log("OK: " + p.host)
             if (pusherLog) {
                 pusher.trigger(login, "my-event", {
-                    message: "Ваш IP: " + p.host,
+                    message: "Ваш IP: " + p.host, 
                     color: "#8bc34a",
                     time: new Date()
                 });
             }
             return parse(response.data)
-        } catch {
-            if (debug) console.log("err: " + p.host)
+    } catch {
+            if(debug) console.log("err: " + p.host)
             if (pusherLog) {
                 pusher.trigger(login, "my-event", {
-                    message: "Ошибка IP: " + p.host,
+                    message: "Ошибка IP: " + p.host, 
                     color: "red",
                     time: new Date()
                 });
@@ -201,4 +201,6 @@ exports.getLessonsFromDB = (login, filter, cb) => {
         // применяем фильтр, если доступно
         cb(this.filter(days, filter))
     })
+
+
 }

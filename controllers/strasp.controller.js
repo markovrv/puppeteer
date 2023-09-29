@@ -31,19 +31,62 @@ module.exports = (req, res) => {
           var subgr = 0
           if (group.indexOf(',подгруппа1')>-1) subgr = 1
           if (group.indexOf(',подгруппа2')>-1) subgr = 2
+
+          if (pusherLog) {
+            pusher.trigger(auth.login, "my-event", {
+              message: "Вводим запрос..."
+            });
+          }
+
           await strasp.inputId(page, "input-question", group)
-          await common.wait(550);
+          await common.wait(600);
           await page.click('div[type="submit"]');
-          await common.wait(550);
+          await common.wait(600);
+
+          if (pusherLog) {
+            pusher.trigger(auth.login, "my-event", {
+              message: "Получен ответ."
+            });
+          }
+          
+          // уточнение результатов поиска (нововведение от сентября `23)
+          var buttonsList = await strasp.getButtonsList(page)
+          var buttonId = buttonsList.findIndex(elem => elem.indexOf(group)>-1)
+          if( buttonId > -1 ) {
+
+            if (pusherLog) {
+              pusher.trigger(auth.login, "my-event", {
+                message: "Уточняем запрос."
+              });
+            }
+
+            await strasp.pressButton(page, buttonsList[buttonId]);
+            await common.wait(700);
+          }
+          //////////////////////////////////////////////////////////////
+
           if(!multiday){
             await strasp.pressButton(page, "На любой день")
-            await new Promise(r => setTimeout(r, 550));
+            await common.wait(700);
+
+            if (pusherLog) {
+              pusher.trigger(auth.login, "my-event", {
+                message: "Открываем календарь..."
+              });
+            }
           }
           var buttonsList = await strasp.getButtonsList(page)
           var buttonId = buttonsList.findIndex(elem => elem.indexOf(data.date)>-1)
           if( buttonId > -1 ) {
+
+            if (pusherLog) {
+              pusher.trigger(auth.login, "my-event", {
+                message: "Выбираем день..."
+              });
+            }
+
             await strasp.pressButton(page, buttonsList[buttonId])
-            await new Promise(r => setTimeout(r, 550));
+            await common.wait(700);
             var rasp = await page.evaluate(() => {
                 var items = document.querySelectorAll('div[class="chat-message-answer"]');
                 return items[items.length - 1].innerHTML
@@ -67,12 +110,18 @@ module.exports = (req, res) => {
             var dates = buttonsList.sort(strasp.sortbtns)
             rasplist.push({rasp, dates, group})
           }
+
+          if (pusherLog) {
+            pusher.trigger(auth.login, "my-event", {
+              message: "Чистим историю поиска..."
+            });
+          }
     
-          await common.wait(550);
+          await common.wait(700);
           await strasp.pressButton(page, "Назад")
-          await common.wait(550);
+          await common.wait(700);
           await strasp.pressButton(page, "Назад")
-          await common.wait(550);
+          await common.wait(700);
           i++
         }// конец цикла
         
