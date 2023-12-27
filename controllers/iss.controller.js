@@ -195,6 +195,7 @@ function parseWorks(page, work, context){
         let item = Array.from(document.querySelectorAll(`tr[id="gridview-1015-record-${i}"] div`));
         let name = item[3].textContent;
         let groups = item[4].textContent.replace('В потоке ', '');
+        if (name == "Практикум решения задач на ЭВМ" && groups == "МКб-1301-51-00, 2 подгруппа") groups = "МКб-1301-51-00";
         let newCat = window.catlist.findIndex(cat => (cat.firstId == i));
         cat = (newCat > -1)?newCat:cat;
         var percent = 0;
@@ -389,6 +390,17 @@ module.exports.delIss = (req, res) => {
       var id = req.body._id;
       // через АПИ только удаляем метку
       await db.lessons.updIss({in_iss: 0, id});
+      res.send({status: "OK"});
+  })()
+}
+
+// обработчик комментария к занятию
+module.exports.setContent = (req, res) => {
+  (async () => {
+      var id = req.body._id;
+      var content = req.body.content;
+      // через АПИ меняем комментарий
+      await db.lessons.updContent({content, id});
       res.send({status: "OK"});
   })()
 }

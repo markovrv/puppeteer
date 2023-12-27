@@ -66,9 +66,13 @@ export const kabMixin = {
           },100)
         }
 
-      if(sessionStorage['dump_'+kab.split('-')[0]+'_'+cDay]) setResp({data: JSON.parse(sessionStorage['dump_'+kab.split('-')[0]+'_'+cDay])})
+      var archiveId = 'dump_'+kab.split('-')[0]+'_'+cDay;
+      if(sessionStorage[archiveId]) 
+      {
+        setResp({data: JSON.parse(sessionStorage[archiveId])})
+      }
       else this.axios.post(PATH + '/api/kab',{date: cDay, kab: kab.split('-')[0]}).then( resp => {
-        sessionStorage['dump_'+kab.split('-')[0]+'_'+cDay] = JSON.stringify(resp.data)
+        sessionStorage[archiveId] = JSON.stringify(resp.data)
         setResp(resp)
       })
     },

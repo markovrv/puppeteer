@@ -61,7 +61,7 @@ export default {
   },
   methods: {
     delClick() {
-      if(confirm('Подтвердите удаление записи')) this.$emit('del-click')
+      this.$emit('del-click')
     }
   }
 }

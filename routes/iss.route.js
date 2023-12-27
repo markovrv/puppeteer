@@ -32,6 +32,11 @@ router.post(
   issController.delIss
 )
 router.post(
+  '/set-content-for-lesson', 
+  express.json(), 
+  issController.setContent
+)
+router.post(
   '/', 
   express.json(), 
   usernameMiddleware,  

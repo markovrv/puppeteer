@@ -55,7 +55,7 @@
                 <b-card-body>
                   <b-alert style="flex-shrink: inherit;" show>
                     <center>
-                      Чтобы отменить замену кабинета <b>{{winKab.lesson?.oldkab}}</b> на <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, <br> нажмите кнопку<br>
+                      Чтобы отменить замену кабинета <b>{{winKab.lesson?.oldkab}}</b> на <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time && winKab.lesson?.time.split('-')[0]}}</b>, <br> нажмите кнопку<br>
                       <b-button variant="primary" @click="$emit('change-kab-cancel')">Отменить замену</b-button>
                     </center>
                   </b-alert>
@@ -64,24 +64,24 @@
             </b-card>
             <b-card no-body class="mb-1" v-else>
               <b-card-header header-tag="header" class="p-1" role="tab">
-                <b-button block @click="accShow = 3 - accShow" variant="light">{{(winKab.lesson?.kab.split('-')[1]=='___')?'Установка':'Замена'}} кабинета</b-button>
+                <b-button block @click="accShow = 3 - accShow" variant="light">{{(winKab.lesson?.kab && winKab.lesson?.kab.split('-')[1]=='___')?'Установка':'Замена'}} кабинета</b-button>
               </b-card-header>
               <b-collapse id="accordion-2" :visible="accShow == 2" accordion="my-accordion" role="tabpanel">
                 <b-card-body>
                   <b-alert v-if="winKab.lesson?.kab != winKab.kabs[winKab.current.kab] && getDate == winKab.dates[winKab.current.cDay].split(' ')[1]" style="flex-shrink: inherit;" show>
                     <center>
-                      Чтобы {{(winKab.lesson?.kab.split('-')[1]=='___')?'установить':'заменить'}} кабинет <span v-html="oldKabText"></span> <b>{{winKab.kabs[winKab.current.kab]}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, <br>нажмите кнопку<br>
-                      <b-button variant="primary" @click="$emit('change-kab', winKab.kabs[winKab.current.kab])">{{(winKab.lesson?.kab.split('-')[1]=='___')?'Установить':'Заменить'}}</b-button>
+                      Чтобы {{(winKab.lesson?.kab && winKab.lesson?.kab.split('-')[1]=='___')?'установить':'заменить'}} кабинет <span v-html="oldKabText"></span> <b>{{winKab.kabs[winKab.current.kab]}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time && winKab.lesson?.time.split('-')[0]}}</b>, <br>нажмите кнопку<br>
+                      <b-button variant="primary" @click="$emit('change-kab', winKab.kabs[winKab.current.kab])">{{(winKab.lesson?.kab && winKab.lesson?.kab.split('-')[1]=='___')?'Установить':'Заменить'}}</b-button>
                     </center>
                   </b-alert>
                   <b-alert v-if="winKab.lesson?.kab == winKab.kabs[winKab.current.kab] && getDate == winKab.dates[winKab.current.cDay].split(' ')[1]" style="flex-shrink: inherit;" variant="warning" show>
                     <center>
-                      Чтобы заменить кабинет <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, выберите свободный из списка кабинетов.
+                      Чтобы заменить кабинет <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time && winKab.lesson?.time.split('-')[0]}}</b>, выберите свободный из списка кабинетов.
                     </center>
                   </b-alert>
                   <b-alert v-if="getDate != winKab.dates[winKab.current.cDay].split(' ')[1]" style="flex-shrink: inherit;" variant="warning" show>
                     <center>
-                      Чтобы заменить кабинет <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time.split('-')[0]}}</b>, выберите корректную дату из списка дат.
+                      Чтобы заменить кабинет <b>{{winKab.lesson?.kab}}</b><br> для занятия <b>{{winKab.lesson?.predm}}</b> от <b>{{getDate}}</b>, <b>{{winKab.lesson?.time && winKab.lesson?.time.split('-')[0]}}</b>, выберите корректную дату из списка дат.
                     </center>
                   </b-alert>
                 </b-card-body>
@@ -125,7 +125,7 @@ export default {
       return new Date(this.winKab.day).toLocaleDateString().replace('.20', '.')
     },
     oldKabText() {
-      return (this.winKab.lesson?.kab.split('-')[1]=='___')?'':('<b>' + this.winKab.lesson?.kab + '</b> на')
+      return (this.winKab.lesson?.kab && this.winKab.lesson?.kab.split('-')[1]=='___')?'':('<b>' + this.winKab.lesson?.kab + '</b> на')
     },
     kabInfo() {
       return this.winKab.types.find(k=>k.kab == this.winKab.kabs[this.winKab.current.kab])

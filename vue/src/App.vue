@@ -53,6 +53,10 @@
       <hr>
     </div>
 
+    <div style="position: fixed; bottom: 70px">
+      <b-button v-if="!login" variant="outline-primary" @click="getKab(today(), prompt('Введите номер корпуса', '16'), null, Number(prompt('Введите номер занятия', '1')) - 1)">Расписание кабинетов</b-button>
+    </div>
+
     <my-week-selector @change-week="changeWeek" v-if="!raspSeartchMode" />
   </div>
 </template>
@@ -118,6 +122,12 @@ export default {
     }
   },
   methods: {
+    prompt (a, b) {
+      return prompt(a, b)
+    },
+    Number (a) {
+      return Number(a)
+    },
     async loadData() {
 
       if (localStorage.remember == "true") {
@@ -128,7 +138,7 @@ export default {
 
       this.days = []
       if (!this.login) {
-        document.querySelector('li[id="loginmenu"] ul').classList.add('show')
+        document.querySelector('li[id="loginmenu"] a').click()
         return 0
       }
 

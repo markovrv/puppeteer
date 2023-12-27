@@ -5,6 +5,8 @@
       <label>Файл <code>.xlsx</code> с расписанием:</label>
       <input @change="fileChanged" type="file" accept=".xlsx" class="form-control" />
       <b-alert :show="lessons.length == 0" variant="warning" style="margin-top:16px">Перед загрузкой файла требуется отменить объединение всех ячеек. Парсер не умеет работать с объединенными ячейками.</b-alert>
+      <label>Текущий год:</label>
+      <input v-model="currentYear" type="number" class="form-control" />
       <label>Преподаватель:</label>
       <input v-model="teather" type="search" class="form-control" />
       <div id="table_to_parse" v-html="html" v-show="false" /> 
@@ -47,6 +49,7 @@ export default {
     return {
       html: "",
       teather: "Марков",
+      currentYear: "",
       lessons: [],
       fields: [
         {
@@ -111,7 +114,7 @@ export default {
       // время пар
       const times = ["8:20-9:50", "10:00-11:30", "11:45-13:15", "14:00-15:30", "15:45-17:15", "17:20-18:50", "18:55-20:25"]
       // исключить из обработки следующие столбцы (заголовки строк + шаблонные данные)
-      const headers = [20, 21, 34, 35, 48, 49, 62, 63, 76, 77, 90, 91, 92, 93, 94, 95, 96, 97, 110, 111, 124, 125, 138, 139, 152, 153, 166, 167, 180, 181, 194, 195]
+      const headers = [20, 21, 34, 35, 48, 49, 62, 63, 76, 77, 90, 91, 92, 93, 94, 95, 96, 97, 110, 111, 124, 125, 138, 139, 152, 153, 166, 167, 180, 181, 194, 195, 208, 209]
       // читаем файл с расписанием
       const wb = read(f);
       this.html = utils.sheet_to_html(wb.Sheets[wb.SheetNames[0]])
@@ -137,7 +140,6 @@ export default {
 
         // получаем занятия
         this.lessons = []
-        var year = new Date().getFullYear()
         var tdcnt = trs.length
         var current = {
           day: '',
@@ -148,8 +150,9 @@ export default {
 
           // определяем дату и время
           if (tds[6].textContent != '') {
-            let day = tds[6].textContent.split("   ")[1].trim().split(".")
-            let d = `${year}-${day[1]}-${day[0]}`
+            let dataArr = tds[6].textContent.split(" ")
+            let day = dataArr[dataArr.length - 1].trim().split(".")
+            let d = `${this.currentYear}-${day[1]}-${day[0]}`
             current.day = d
             current.lesson = 0
           } else {
@@ -200,6 +203,9 @@ export default {
     exportLessons() {
       this.$emit('export-lessons', this.selected)
     }
+  },
+  mounted() {
+    this.currentYear = new Date().getFullYear()
   }
 }
 </script>
