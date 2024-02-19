@@ -38,7 +38,7 @@
         <lesson-name :lesson="lesson" @click="() => { }"></lesson-name>
         <lesson-content :lesson="lesson" @kab-click="getKab(day.day, lesson.kab, lesson, idl);"
           @set-win-log="log => { winLog.log = log }" @iss-check-click="issCheckClick(lesson)"></lesson-content>
-
+          <a v-for="gv in lesson.variants" :key="gv.i" href="javascript://" @click="lesson.i = gv.i; sendOneWork(idd, idl);" :style="(lesson.i == gv.i)?'font-weight: 600;':''" style="margin-right:5px;" class="btn btn-sm btn-warning">{{gv.groups}}</a>
         <div v-if="lesson.predm == '' && raspSeartchMode"
           style="width: fit-content; position: relative; margin: auto;height: 0;top: -11px;">
           <!-- <b-button title="Формально, для журнала" variant="success"  size="sm"  @click!="copyToLesson(lesson, day.day, idl, true)">
@@ -175,6 +175,8 @@ export default {
           var now = this.today()
           response.data.forEach((day, id) => {
             day.lessons.forEach(l => {
+              l.i = undefined
+              l.variants = undefined
               l.status = ''
               l.showmenu = false
               if (!('copied' in l)) l.copied = false

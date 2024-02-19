@@ -62,7 +62,7 @@ var context = {
 
 // функция нажатия кнопки на странице
 function pressButton(page, name) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     page.evaluate((text) => {
       var elems = document.querySelectorAll("span");
       var res = Array.from(elems).find(v => v.textContent == text);
@@ -74,7 +74,7 @@ function pressButton(page, name) {
 }
 // функция проверки корректности карточки
 function checkCard(page, work) {
-  return new Promise((resolve, reject)=>{
+  return new Promise(resolve => {
     page.evaluate(data => {
       var items = document.querySelectorAll('div[class="x-panel-body x-panel-white x-panel-body-default x-abs-layout-ct x-panel-body-default x-docked-noborder-top x-docked-noborder-right x-docked-noborder-bottom x-docked-noborder-left"] li')
       var cat = -1
@@ -89,14 +89,14 @@ function checkCard(page, work) {
       var name = items[2].textContent.replace("Дисциплина: ", "")
       var groups = items[3].textContent.replace("Группа: ", "").replace('В потоке ', '')
 
-      return data.name == name && data.groups == groups && data.cat == cat
+      return data.name == name && (data.groups == groups || typeof data.i !== 'undefined') && data.cat == cat
 
-    }, work).then(checked => {resolve(checked)})
+    }, work).then(resolve)
   });
 }
 // функция заполняет поле Время
 function inputTime(page, time) {
-  return new Promise((resolve, reject) => {
+  return new Promise(resolve => {
     page.click(`input[tabindex="139"]`).then(()=>{
       page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[1].id).then(id=>{
         page.click(`div[id="${id}"] li:nth-child(${time})`).then(()=>resolve());
@@ -106,7 +106,7 @@ function inputTime(page, time) {
 }
 // функция заполняет поле Кабинет
 function inputKab(page, kab){
-  return new Promise((resolve, reject)=>{
+  return new Promise(resolve => {
     // Ищем поле Кабинет
     page.click(`input[tabindex="143"]`).then(()=>{
       page.evaluate(() => document.querySelectorAll('div[class="x-boundlist x-boundlist-floating x-layer x-boundlist-default x-border-box"]')[2].id)
@@ -189,13 +189,13 @@ function parseWorks(page, work, context){
         window.countItems = Array.from(document.querySelectorAll('tr[id^="gridview-1015-record-"]')).length;
       }
       var cat = -1;
+      var altGroups = [];
       // Проверяем каждую работу на соответствие искомым параметрам
       var overloaded = false; // флаг - нагрузка по работе выполнена
       for (let i = 0; i < window.countItems; i++) {
         let item = Array.from(document.querySelectorAll(`tr[id="gridview-1015-record-${i}"] div`));
         let name = item[3].textContent;
         let groups = item[4].textContent.replace('В потоке ', '');
-        if (name == "Практикум решения задач на ЭВМ" && groups == "МКб-1301-51-00, 2 подгруппа") groups = "МКб-1301-51-00";
         let newCat = window.catlist.findIndex(cat => (cat.firstId == i));
         cat = (newCat > -1)?newCat:cat;
         var percent = 0;
@@ -203,15 +203,18 @@ function parseWorks(page, work, context){
           percent = Number(item[5].firstElementChild.firstElementChild.getAttribute("style").split('%')[0].split(':')[1]);
         // Если соответствие найдено, возвращаем индекс нужной строки
         if(data.name == name.trim() && data.groups == groups && data.cat == cat) {
-          if(percent < 100) return i;
+          if(percent < 100) return {n:i};
           // Если нашлось совпадение, но нагрузка по строке уже заполнена
           overloaded = true;
+        } else if (data.name == name.trim() && data.groups != groups && data.cat == cat) {
+          altGroups.push({groups, i});
         }
       }
-      // В случае, если соответствий нет, выводим -1, нагрузка заполнена -2
-      if(overloaded) return -2;
-      return -1;
-    }, {name: work.name.trim(), groups: work.groups, cat: work.cat}, context).then(id=>resolve(id))
+      // В случае, если соответствий нет, выводим -1, нагрузка заполнена -2, не совпала группа -3
+      if(overloaded) return {n:-2};
+      if(altGroups.length > 0) return {n:-3, altGroups};
+      return {n:-1};
+    }, {name: work.name.trim(), groups: work.groups, cat: work.cat}, context).then(resolve)
   })
 }
 // парсер таблицы работ для вывода списка работ
@@ -492,12 +495,16 @@ module.exports.index = (req, res) => {
       }
 
       //   Ищем id нужной работы
-      const itemIndex = await parseWorks(page, input[w], context)
+      if ( typeof input[w].i !== 'undefined' ) {
+        var itemIndex = {n:input[w].i};
+      } else {
+        var itemIndex = await parseWorks(page, input[w], context);
+      }
 
-      if (debug) console.log("Найден ID: ", itemIndex)
+      if (debug) console.log("Найден ID: ", itemIndex.n)
 
       //   Обработка исключений
-      if ( itemIndex == -1 ) {
+      if ( itemIndex.n == -1 ) {
         message.push({id: input[w].id, status: 'Дисциплина не найдена в нагрузке', color:"red"});
 
         if (debug) console.log('Нагрузка не найдена');
@@ -512,7 +519,7 @@ module.exports.index = (req, res) => {
         w++;
         continue;
       }
-      if ( itemIndex == -2 ) {
+      if ( itemIndex.n == -2 ) {
         message.push({id: input[w].id, status: 'Нагрузка по дисциплине заполнена на 100%', color:"red"});
         if (debug) console.log('Нагрузка заполнена');
         if (pusherLog) {
@@ -525,16 +532,30 @@ module.exports.index = (req, res) => {
         w++;
         continue;
       }
+      if ( itemIndex.n == -3 ) {
+        message.push({id: input[w].id, status: 'Требуется уточнить группу', color:"#9d9d11", variants: itemIndex.altGroups});
+        if (debug) console.log('Требуется уточнить группу');
+        if (debug) console.log(itemIndex.altGroups);
+        if (pusherLog) {
+          pusher.trigger(auth.login, "my-event", {
+            message: "Требуется уточнить группу",
+            color:  "#9d9d11",
+            time: new Date()
+          });
+        }
+        w++;
+        continue;
+      }
 
       // включаем захват логов с сервера
       lastLog = [];
       respListen = true;
 
       // Клик по найденной работе
-      await page.click(`tr[id="gridview-1015-record-${itemIndex}"]`,{delay:50});
+      await page.click(`tr[id="gridview-1015-record-${itemIndex.n}"]`,{delay:50});
 
       if (debug) {
-        console.log("Выбрали работу № ", itemIndex);
+        console.log("Выбрали работу № ", itemIndex.n);
         console.log('Проверяем лог работы...');
       }
 
@@ -691,6 +712,7 @@ module.exports.index = (req, res) => {
 
     // возвращаем ответ
     res.send(message)
+
 
     if (debug) {
       console.log('Браузер будет закрыт по таймеру');

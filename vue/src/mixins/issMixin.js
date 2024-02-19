@@ -75,6 +75,7 @@ export const issMixin = {
           cat: lesTypes.indexOf(lesson.type),
           kab: lesson.kab.replace('<a href="', '').replace('" target="_blank">Занятие удаленно в Teams</a>', ''),
           count: 2,
+          i: lesson.i, // номер работы в таблице исс, если известно
           id: [idd, idl],
           _id: lesson._id // номер занятия в БД (для установки галочки "Добавлено в ИСС")
         }
@@ -101,6 +102,8 @@ export const issMixin = {
               this.filteredDays[item.id[0]].lessons[item.id[1]].color = item.color
               this.filteredDays[item.id[0]].lessons[item.id[1]].log = (item.log)?item.log:null
               this.filteredDays[item.id[0]].lessons[item.id[1]].in_iss = (item.color != "red")?1:0
+              this.filteredDays[item.id[0]].lessons[item.id[1]].variants = (item.variants)?item.variants:undefined
+              this.filteredDays[item.id[0]].lessons[item.id[1]].i = undefined
               this.issWorking = false
               document.getElementById(sender).classList.remove("disabled");
             });
