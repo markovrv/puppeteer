@@ -2,7 +2,7 @@
   <div>
     <a :name="id" class="a-name">.</a>
     <b style="font-size: 120%;">{{ dayName }}</b>
-    <a class="btn btn-link btn-sm day-btn" :id="'daytoissid_' + id" href="javascript://" @click="$emit('btn-click', id)">День в журнал</a>
+    <a class="btn btn-link btn-sm day-btn" v-if="hideforcopy" :id="'daytoissid_' + id" href="javascript://" @click="$emit('btn-click', id)">День в журнал</a>
   </div>
 </template>
 
@@ -11,7 +11,8 @@ export default {
   name: 'dayName',
   props: {
     id: Number,
-    name: String
+    name: String,
+    hideforcopy:Boolean
   },
   computed: {
     dayName() {

@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="container container-main">
-    <my-nav-bar :login="login" :iss="issWorking" :show-copies="showCopies" :selected-semester="selectedSemester"
+    <my-nav-bar v-if="hideforcopy" :login="login" :iss="issWorking" :show-copies="showCopies" :selected-semester="selectedSemester"
       @select-semester="selectSemesterClick" v-model="remember" :login-error-message="loginErrorMessage"
       @show-copies-click="showCopiesClick" @iss-click="winLoaderShow" @logout="logout" @save-settings="saveSettings"
       @get-iss-works="getIssWorks" @add-self-lesson="() => { this.$bvModal.show('selfleswin') }"
@@ -21,12 +21,12 @@
 
     <div v-for="(day, idd) in filteredDays" :key="idd" v-show="!loading">
 
-      <day-name :id="idd" :name="day.day" @btn-click="sendDayWork(idd)"></day-name>
+      <day-name :id="idd" :hideforcopy="hideforcopy" :name="day.day" @btn-click="sendDayWork(idd)"></day-name>
       <div v-for="(lesson, idl) in day.lessons" :key="idl" class="lesson"
         :class="((lesson.stkab) ? 'besy' : ((lesson.predm == '') ? 'free' : ''))"
         v-show="(lesson.predm != '' && (!lesson.copied || (lesson.copied && showCopies))) || raspSeartchMode">
 
-        <lesson-menu v-if="!raspSeartchMode" :id="{ idd, idl }" :lesson="lesson" @close="closeMenus(lesson)"
+        <lesson-menu v-if="hideforcopy && !raspSeartchMode" :id="{ idd, idl }" :lesson="lesson" @close="closeMenus(lesson)"
           @kab-click="getKab(day.day, lesson.kab, lesson, idl); lesson.showmenu = false;"
           @strasp-click="getStRasp(lesson.groups[0], dateFormat(day.day)); lesson.showmenu = false;"
           @work-click="sendOneWork(idd, idl); lesson.showmenu = false;"
@@ -48,16 +48,15 @@
             Доставить сюда
           </b-button> -->
         </div>
-
       </div>
-      <hr>
+      <hr v-if="hideforcopy">
     </div>
 
-    <div style="position: fixed; bottom: 70px">
+    <div style="position: fixed; bottom: 70px" v-if="hideforcopy">
       <b-button v-if="!login" variant="outline-primary" @click="getKab(today(), prompt('Введите номер корпуса', '16'), null, Number(prompt('Введите номер занятия', '1')) - 1)">Расписание кабинетов</b-button>
     </div>
 
-    <my-week-selector @change-week="changeWeek" v-if="!raspSeartchMode" />
+    <my-week-selector @change-week="changeWeek" v-show="!raspSeartchMode && hideforcopy" @copy="copy()" />
   </div>
 </template>
 
@@ -118,10 +117,22 @@ export default {
   data: () => {
     return {
       days: [],
-      weekFilter: { start: 'NaN-aN-aN', end: 'NaN-aN-aN' }
+      weekFilter: { start: 'NaN-aN-aN', end: 'NaN-aN-aN' },
+      hideforcopy: true
     }
   },
   methods: {
+    copy(){
+      this.hideforcopy = false;
+      setTimeout(()=>{
+        document.execCommand('selectAll')
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+        setTimeout(()=>{
+          this.hideforcopy = true;
+        },200);
+      },200);
+    },
     prompt (a, b) {
       return prompt(a, b)
     },
